@@ -4,7 +4,7 @@
   ...
 }:
 let
-  user = "genki";
+  user = "einarhrafnsson";
 in
 rec {
   imports = [
@@ -16,7 +16,7 @@ rec {
 
   nixpkgs.hostPlatform = "aarch64-darwin";
 
-  networking.hostName = "d";
+  networking.hostName = "saumavel";
 
   users.users.${user} = {
     isHidden = false;
@@ -54,7 +54,7 @@ rec {
 
   home-manager.users.${user}.imports = [
     inputs.catppuccin.homeManagerModules.catppuccin
-    flake.modules.home.daniel
+    flake.modules.home.einarhrafnsson
   ];
 
   # Auto upgrade nix package and the daemon service.

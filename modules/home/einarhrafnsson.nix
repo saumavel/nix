@@ -26,6 +26,7 @@
   xdg.enable = true; # Needed for fish interactiveShellInit hack
   programs = {
     alacritty.enable = true;
+    kitty.enable = true;
     atuin = {
       enable = true;
       enableFishIntegration = true;
@@ -180,8 +181,8 @@
     git = {
       enable = true;
       ignores = [ "*.swp" ];
-      userName = "dingari";
-      userEmail = "daniel@genkiinstruments.com";
+      userName = "saumavel";
+      userEmail = "kari@genkiinstruments.com";
       lfs.enable = true;
       extraConfig = {
         init.defaultBranch = "main";

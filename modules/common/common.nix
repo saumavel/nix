@@ -15,7 +15,7 @@
       experimental-features = lib.mkDefault "nix-command flakes";
       trusted-users = [
         "@admin"
-        "genki"
+        "einarhrafnsson"
       ];
 
       substituters = [
