@@ -215,10 +215,12 @@
     neovim
     kitty
     vscode
+    python3
     
     cmake
     ninja
     dfu-util
+    ccache
     #zed-editor
   ];
 }
