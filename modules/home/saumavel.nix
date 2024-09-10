@@ -13,6 +13,8 @@
   };
 
   xdg.enable = true; # Needed for fish interactiveShellInit hack
+  xdg.configFile."karabiner/karabiner.json".source = ./karabiner.json; # Hyper-key config
+
 
   # NOTE: START HERE: Install packages that are only available in your user environment.
   # https://home-manager-options.extranix.com/
