@@ -1,10 +1,11 @@
 {
   inputs,
   flake,
+  pkgs,
   ...
 }:
 let
-  user = "einarhrafnsson";
+  user = "saumavel";
 in
 rec {
   imports = [
@@ -22,7 +23,7 @@ rec {
     isHidden = false;
     home = "/Users/${user}";
     name = "${user}";
-    shell = "/etc/profiles/per-user/einarhrafnsson/bin/fish";
+    shell = pkgs.fish;
   };
 
   nix-homebrew = {
@@ -40,6 +41,7 @@ rec {
     enable = true;
     taps = builtins.attrNames nix-homebrew.taps;
     # NOTE: Here you can install packages from brew
+    # https://formulae.brew.sh
     casks = [
       "raycast"
       "arc"
@@ -47,7 +49,7 @@ rec {
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {
       # `nix run nixpkgs#mas -- search <app name>`
-      "Keynote" = 409183694;
+      # "Keynote" = 409183694;
     };
   };
 
@@ -55,7 +57,7 @@ rec {
 
   home-manager.users.${user}.imports = [
     inputs.catppuccin.homeManagerModules.catppuccin
-    flake.modules.home.einarhrafnsson
+    flake.modules.home.saumavel
   ];
 
   # Auto upgrade nix package and the daemon service.
