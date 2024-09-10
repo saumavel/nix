@@ -203,6 +203,7 @@
     magic-wormhole-rs
     gh
     neovim
+    kitty
     #zed-editor
   ];
 }
