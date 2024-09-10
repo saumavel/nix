@@ -45,6 +45,7 @@ rec {
     casks = [
       "raycast"
       "arc"
+      "karabiner-elements" 
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {
