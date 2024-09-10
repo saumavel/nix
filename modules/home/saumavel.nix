@@ -14,9 +14,15 @@
 
   xdg.enable = true; # Needed for fish interactiveShellInit hack
 
-  # NOTE: START HERE:Install packages that are only available in your user environment.
+  # NOTE: START HERE: Install packages that are only available in your user environment.
+  # https://home-manager-options.extranix.com/
   programs = {
     alacritty.enable = true;
+
+    yazi = {
+      enable = true;
+      enableFishIntegration = true;
+    };
 
     kitty.enable = true;
     kitty.shellIntegration.enableFishIntegration = true;
@@ -195,6 +201,7 @@
   };
 
    # NOTE: Use this to add packages available everywhere on your system
+   # https://search.nixos.org/packages
   home.packages = with pkgs; [
     neofetch
     btop
