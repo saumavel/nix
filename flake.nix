@@ -2,7 +2,7 @@
   description = "🌍";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     blueprint.url = "github:numtide/blueprint";
     blueprint.inputs.nixpkgs.follows = "nixpkgs";
     home-manager.url = "github:nix-community/home-manager";
@@ -22,6 +22,4 @@
   };
 
   outputs = inputs: inputs.blueprint { inherit inputs; };
-´
-<++>
-}           
+}         

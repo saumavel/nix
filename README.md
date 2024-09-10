@@ -1,6 +1,12 @@
-# Folder structure
+# saumavel 🪡
 
-## High-level
+## Important stuff
+
+* Search for `NOTE` to find places to install packages.
+* Update packages using `nix flake update`
+* Switch to new system `darwin-rebuild switch --flake ~/k`
+
+## Folder structure
 
 * `devshells/` for devshells.
 * `hosts/` for machine configurations.
@@ -14,5 +20,3 @@
 * `package.nix` for the default package
 
 For further information read [blueprint's documentation](https://github.com/numtide/blueprint/blob/main/docs/folder-structure.md).
-
-Search for `NOTE` to find places to install packages.

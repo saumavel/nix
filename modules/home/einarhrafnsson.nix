@@ -6,17 +6,6 @@
   home.enableNixpkgsReleaseCheck = false;
   home.stateVersion = "23.05";
 
-  # NOTE: Use this to add packages available everywhere on your system
-  home.packages = with pkgs; [
-    neofetch
-    btop
-    wget
-    zip
-    magic-wormhole-rs
-    gh
-    zed-editor
-  ];
-
   # THEME
   catppuccin = {
     enable = true;
@@ -24,9 +13,15 @@
   };
 
   xdg.enable = true; # Needed for fish interactiveShellInit hack
+
+  # NOTE: START HERE:Install packages that are only available in your user environment.
   programs = {
     alacritty.enable = true;
+
     kitty.enable = true;
+    kitty.shellIntegration.enableFishIntegration = true;
+
+    tmux.enable = true;
     atuin = {
       enable = true;
       enableFishIntegration = true;
@@ -40,7 +35,7 @@
     };
 
     lazygit.enable = true;
-    lazygit.gui.skipDiscardChangeWarning = true;
+    lazygit.settings.gui.skipDiscardChangeWarning = true;
 
     zoxide.enable = true;
     zoxide.enableFishIntegration = true;
@@ -51,10 +46,6 @@
     };
     fish = {
       enable = true;
-      plugins = with pkgs.fishPlugins; [
-        hydro
-        done
-      ];
       interactiveShellInit = # bash
         ''
           # bind to ctrl-p in normal and insert mode, add any other bindings you want here too
@@ -192,11 +183,6 @@
       };
     };
 
-    zellij = {
-      enable = true;
-      enableFishIntegration = true;
-    };
-
     starship = {
       enable = true;
       enableFishIntegration = true;
@@ -207,4 +193,16 @@
       };
     };
   };
+
+   # NOTE: Use this to add packages available everywhere on your system
+  home.packages = with pkgs; [
+    neofetch
+    btop
+    wget
+    zip
+    magic-wormhole-rs
+    gh
+    neovim
+    #zed-editor
+  ];
 }

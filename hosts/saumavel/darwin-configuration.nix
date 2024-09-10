@@ -22,7 +22,7 @@ rec {
     isHidden = false;
     home = "/Users/${user}";
     name = "${user}";
-    shell = "/run/current-system/sw/bin/fish";
+    shell = "/etc/profiles/per-user/einarhrafnsson/bin/fish";
   };
 
   nix-homebrew = {
@@ -35,15 +35,16 @@ rec {
       "homebrew/homebrew-bundle" = homebrew-bundle;
     };
   };
-
-  # NOTE: Here you can install packages from brew
+  
   homebrew = {
     enable = true;
     taps = builtins.attrNames nix-homebrew.taps;
+    # NOTE: Here you can install packages from brew
     casks = [
       "raycast"
       "arc"
     ];
+    # NOTE: Here you can install packages from the Mac App Store
     masApps = {
       # `nix run nixpkgs#mas -- search <app name>`
       "Keynote" = 409183694;
