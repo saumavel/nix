@@ -16,6 +16,7 @@
       trusted-users = [
         "@admin"
         "einarhrafnsson"
+        "saumavel"
       ];
 
       substituters = [

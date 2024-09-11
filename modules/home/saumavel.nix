@@ -27,8 +27,6 @@
           enableFishIntegration = true;
         };
 
-        # kitty.enable = true;
-        # kitty.shellIntegration.enableFishIntegration = true;
         kitty = {
             enable = true;
             shellIntegration.enableFishIntegration = true;
@@ -291,5 +289,7 @@
     dfu-util
     ccache
     #zed-editor
+    tree-sitter
+    zathura
   ];
 }
