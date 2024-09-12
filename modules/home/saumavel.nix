@@ -288,10 +288,11 @@
     neovim
     kitty
     # Kári byrjuaður að krukka eins og einhver motherfokker!
+    ferdi
     vscode
     python3
     zathura
-    
+    obsidian 
     cmake
     ninja
     dfu-util
