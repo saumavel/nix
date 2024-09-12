@@ -28,9 +28,14 @@
         };
 
         kitty = {
-            enable = true;
-            shellIntegration.enableFishIntegration = true;
+          enable = true;
+          shellIntegration.enableFishIntegration = true;
+          extraConfig = ''
+            macos_quit_when_window_closed no
+          '';
         };
+
+        zathura.enable = true;
 
         tmux = {
           enable = true;
@@ -102,6 +107,8 @@
 
         zoxide.enable = true;
         zoxide.enableFishIntegration = true;
+
+        # zathura.enable = true;
 
         direnv = {
           enable = true;
@@ -283,6 +290,7 @@
     # Kári byrjuaður að krukka eins og einhver motherfokker!
     vscode
     python3
+    zathura
     
     cmake
     ninja
@@ -290,6 +298,5 @@
     ccache
     #zed-editor
     tree-sitter
-    zathura
-  ];
+    ];
 }

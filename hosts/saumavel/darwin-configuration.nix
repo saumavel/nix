@@ -45,6 +45,8 @@ rec {
     casks = [
       "raycast"
       "arc"
+      
+      "bitwig-studio"
       "karabiner-elements" 
     ];
     # NOTE: Here you can install packages from the Mac App Store
