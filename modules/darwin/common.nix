@@ -21,7 +21,7 @@
       dock = {
         autohide = true;
         show-recents = false;
-        tilesize = 72;
+        tilesize = 1;
         orientation = "left";
       };
 

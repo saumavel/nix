@@ -35,7 +35,9 @@
           '';
         };
 
-        zathura.enable = true;
+        ripgrep.enable = true;
+        
+        fd.enable = true;
 
         tmux = {
           enable = true;
@@ -61,34 +63,12 @@
             bind u split-window -v
             
             set -g status-position top
-
-            # List of plugins
-            # set -g @plugin 'tmux-plugins/tpm'
-            # set -g @plugin 'catppuccin/tmux'
-
-            # # Catppuccin settings
-            # set -g @catppuccin_window_left_separator ""
-            # set -g @catppuccin_window_right_separator ""
-            # set -g @catppuccin_window_middle_separator " █"
-            # set -g @catppuccin_window_number_position "right"
-            #
-            # set -g @catppuccin_window_default_fill "number"
-            # set -g @catppuccin_window_default_text "#W"
-            #
-            # set -g @catppuccin_window_current_fill "number"
-            # set -g @catppuccin_window_current_text "#W"
-            #
-            # set -g @catppuccin_status_modules_right "directory session"
-            # set -g @catppuccin_status_left_separator " "
-            # set -g @catppuccin_status_right_separator ""
-            # set -g @catppuccin_status_fill "icon"
-            # set -g @catppuccin_status_connect_separator "no"
-            #
-            # set -g @catppuccin_directory_text "#{pane_current_path}"
-            # Þarf að skoða þetta. Meikar ekki alveg sens. 
-            # Initialize TMUX plugin manager (keep this line at the very bottom of .tmux.conf)
-            run '~/.tmux/plugins/tpm/tpm'
             '';
+            plugins = with pkgs; [
+                tmuxPlugins.cpu
+                tmuxPlugins.tmux-fzf
+                tmuxPlugins.vim-tmux-navigator
+            ];
         };
         atuin = {
           enable = true;
@@ -108,12 +88,11 @@
         zoxide.enable = true;
         zoxide.enableFishIntegration = true;
 
-        # zathura.enable = true;
-
         direnv = {
           enable = true;
           nix-direnv.enable = true; # Adds FishIntegration automatically
         };
+
         fish = {
           enable = true;
           interactiveShellInit = # bash
@@ -146,7 +125,9 @@
               alias gco='git checkout'
               alias gb='git branch'  
               alias ll='ls -la'
+
               # set -gx IDF_TOOLS_PATH "$HOME/esp/esp-idf"
+              alias get_idf='. $HOME/esp/esp-idf/export.fish'
             '';
 
           shellInit = # bash
@@ -165,7 +146,14 @@
               set -ga PATH $HOME/.nix-profile/bin
               set -ga PATH /run/current-system/sw/bin
               set -ga PATH /nix/var/nix/profiles/default/bin
-
+              # PATH for findent
+              set -ga PATH /opt/homebrew/bin $PATH
+              # PATH for composer
+              set -ga PATH $PATH /Users/saumavel/.local/share/nvim/lazy/mason.nvim/lua/mason-core/managers/composer
+              # PATH for python
+              set -ga PATH $PATH /usr/bin
+              # PATH for composer
+              set -U fish_user_paths /Users/saumavel/bin $fish_user_paths
               # Adapt construct_path from the macOS /usr/libexec/path_helper executable for
               # fish usage;
               #
@@ -287,17 +275,19 @@
     gh
     neovim
     kitty
-    # Kári byrjuaður að krukka eins og einhver motherfokker!
-    ferdi
+    ripgrep
+    fd
+    go
+    php
+    cargo
+    # julia_19
+    # Kári byrjaður að krukka eins og einhver motherfokker!
     vscode
-    python3
-    zathura
     obsidian 
     cmake
     ninja
     dfu-util
     ccache
-    #zed-editor
     tree-sitter
     ];
 }

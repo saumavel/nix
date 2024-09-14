@@ -40,14 +40,22 @@ rec {
   homebrew = {
     enable = true;
     taps = builtins.attrNames nix-homebrew.taps;
+    brews = [
+      "nvm"  # Add nvm here
+      "luarocks"
+      "findent"
+      "node"
+    ];
     # NOTE: Here you can install packages from brew
     # https://formulae.brew.sh
     casks = [
       "raycast"
       "arc"
-      
       "bitwig-studio"
+      "ferdium"
       "karabiner-elements" 
+      "transnomino"
+      "julia"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {
