@@ -56,6 +56,8 @@ rec {
       "karabiner-elements" 
       "transnomino"
       "julia"
+      "chatgpt"
+      "cheatsheet"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {

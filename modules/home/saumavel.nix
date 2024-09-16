@@ -18,7 +18,7 @@
   home.file.".hushlogin".text = ""; # Get rid of "last login" stuff
 
       # NOTE: START HERE: Install packages that are only available in your user environment.
-      # https://home-manager-options.extranix.com/
+    # https://home-manager-options.extranix.com/
       programs = {
         alacritty.enable = true;
 
@@ -30,10 +30,15 @@
         kitty = {
           enable = true;
           shellIntegration.enableFishIntegration = true;
-          extraConfig = ''
+          font = {
+            size = 20.0;
+            name = "JetBrainsMono Nerd Font"; 
+          };
+        extraConfig = ''
             macos_quit_when_window_closed no
+            macos_quit_when_last_window_closed no
           '';
-        };
+                };
 
         ripgrep.enable = true;
         
