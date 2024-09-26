@@ -41,7 +41,7 @@ rec {
     enable = true;
     taps = builtins.attrNames nix-homebrew.taps;
     brews = [
-      "nvm"  # Add nvm here
+      "nvm"  
       "luarocks"
       "findent"
       "node"
@@ -58,11 +58,17 @@ rec {
       "julia"
       "chatgpt"
       "cheatsheet"
+      "shottr"
+      "plex"
+      "screen-studio"
+      # spurning um hvort þetta sé sniðugt fyrir lokaritgerð
+      # "zotero"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {
-      # `nix run nixpkgs#mas -- search <app name>`
-      # "Keynote" = 409183694;
+      # `nix run nixpkgs #mas -- search <app name>`
+      "Keynote" = 409183694;
+      "Pages" = 409201541;
     };
   };
 

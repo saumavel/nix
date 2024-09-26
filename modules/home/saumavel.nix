@@ -131,7 +131,6 @@
               alias gb='git branch'  
               alias ll='ls -la'
 
-              # set -gx IDF_TOOLS_PATH "$HOME/esp/esp-idf"
               alias get_idf='. $HOME/esp/esp-idf/export.fish'
             '';
 
@@ -151,14 +150,23 @@
               set -ga PATH $HOME/.nix-profile/bin
               set -ga PATH /run/current-system/sw/bin
               set -ga PATH /nix/var/nix/profiles/default/bin
+
               # PATH for findent
               set -ga PATH /opt/homebrew/bin $PATH
+
+              # PATH for Xcode command line tools
+              set -gx PATH /Library/Developer/CommandLineTools/usr/bin $PATH
+
               # PATH for composer
               set -ga PATH $PATH /Users/saumavel/.local/share/nvim/lazy/mason.nvim/lua/mason-core/managers/composer
+              # PATH for IDF
+              set -gx IDF_TOOLS_PATH "$HOME/esp/esp-idf"
+              
               # PATH for python
-              set -ga PATH $PATH /usr/bin
+              set -gx PATH /Library/Developer/CommandLineTools/usr/bin $PATH
               # PATH for composer
               set -U fish_user_paths /Users/saumavel/bin $fish_user_paths
+
               # Adapt construct_path from the macOS /usr/libexec/path_helper executable for
               # fish usage;
               #
@@ -248,7 +256,7 @@
           enable = true;
           ignores = [ "*.swp" ];
           userName = "saumavel";
-          userEmail = "kari@genkiinstruments.com";
+          userEmail = "saumavel@gmail.com";
           lfs.enable = true;
           extraConfig = {
             init.defaultBranch = "main";
@@ -285,8 +293,7 @@
     go
     php
     cargo
-    # julia_19
-    # Kári byrjaður að krukka eins og einhver motherfokker!
+    alt-tab-macos
     vscode
     obsidian 
     cmake
