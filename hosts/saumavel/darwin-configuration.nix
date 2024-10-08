@@ -58,9 +58,7 @@ rec {
       "julia"
       "chatgpt"
       "cheatsheet"
-      "shottr"
       "plex"
-      "screen-studio"
       # spurning um hvort þetta sé sniðugt fyrir lokaritgerð
       # "zotero"
     ];

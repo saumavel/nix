@@ -292,7 +292,6 @@
     ripgrep
     fd
     go
-    php
     cargo
     alt-tab-macos
     vscode
