@@ -59,6 +59,7 @@ rec {
       "chatgpt"
       "cheatsheet"
       "plex"
+      "coolterm"
       # spurning um hvort þetta sé sniðugt fyrir lokaritgerð
       # "zotero"
     ];
