@@ -13,7 +13,15 @@
     flavor = "mocha";
   };
 
-  xdg.enable = true; # Needed for fish interactiveShellInit hack
+  xdg = {
+    enable = true;
+    mimeApps.defaultApplications = {
+      "text/html" = "arc.desktop";
+      "text/plain" = "nvim.desktop";
+      "application/pdf" = "zathura.desktop";
+    };
+  };
+  # Needed for fish interactiveShellInit hack
   home.file.".config/karabiner/karabiner.json".source = config.lib.file.mkOutOfStoreSymlink ./karabiner.json; # Hyper-key config
   home.file.".hushlogin".text = ""; # Get rid of "last login" stuff
 
@@ -47,28 +55,19 @@
 
         tmux = {
           enable = true;
+          prefix = "C-s";
+          mouse = true;
+          baseIndex = 1; # Start at 1
+          # keyMode = "vi";
           extraConfig = ''
-            unbind r
-            bind r source-file ~/.tmux.conf
-            
-            set -g prefix C-s
-            
-            set -g mouse on
-            
-            set -g base-index 1
-            set -g pane-base-index 1
-            
-            # act like vim
-            bind-key h select-pane -L
-            bind-key j select-pane -D
-            bind-key k select-pane -U
-            bind-key l select-pane -R
-            
+            set-option -g default-shell /nix/store/lh19r6hngpjap0qaflmx0iz0bqhggps6-fish-3.7.1/bin/fish
+
             # remappa " og % í þægilegri takka
             bind i split-window -h
             bind u split-window -v
             
             set -g status-position top
+            set-option -g default-command "echo $SHELL"
             '';
             plugins = with pkgs; [
                 tmuxPlugins.cpu
@@ -122,17 +121,10 @@
               set fish_cursor_visual      block
 
 
-              # Custom aliases for Git commands
-              alias gst='git status'
-              alias ga='git add'
-              alias gcmsg='git commit -m'
-              alias gp='git push'
-              alias gl='git pull'
-              alias gco='git checkout'
-              alias gb='git branch'  
+              # Custom aliases
               alias ll='ls -la'
-
               alias get_idf='. $HOME/esp/esp-idf/export.fish'
+              alias xdg-open="~/.local/bin/custom-xdg-open"
             '';
 
           shellInit = # bash
@@ -151,7 +143,8 @@
               set -ga PATH $HOME/.nix-profile/bin
               set -ga PATH /run/current-system/sw/bin
               set -ga PATH /nix/var/nix/profiles/default/bin
-
+              # PATH for xdg-open
+              set -gx PATH ~/.local/bin $PATH
               # PATH for findent
               set -ga PATH /opt/homebrew/bin $PATH
 
@@ -259,6 +252,16 @@
           userName = "saumavel";
           userEmail = "saumavel@gmail.com";
           lfs.enable = true;
+          aliases = {
+                co = "checkout";
+                cm = "commit";
+                st = "status";
+                br = "branch";
+                df = "diff";
+                lg = "log";
+                pl = "pull";
+                ps = "push";
+            };
           extraConfig = {
             init.defaultBranch = "main";
             core.autocrlf = "input";
@@ -301,5 +304,8 @@
     dfu-util
     ccache
     tree-sitter
+    zathura
+    xdg-utils
+    desktop-file-utils
     ];
 }

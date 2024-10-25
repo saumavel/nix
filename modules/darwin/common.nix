@@ -1,7 +1,9 @@
 {pkgs, ...}: {
+  security.pam.enableSudoTouchIdAuth = true;
   system = {
     stateVersion = 4;
 
+        
     defaults = {
       NSGlobalDomain = {
         AppleShowAllExtensions = true;
@@ -37,7 +39,6 @@
 
     keyboard = {
       enableKeyMapping = true;
-      remapCapsLockToControl = true;
     };
 
     activationScripts.postActivation.text = ''
