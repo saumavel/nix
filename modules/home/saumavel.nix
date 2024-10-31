@@ -282,6 +282,7 @@
       };
 
    # NOTE: Use this to add packages available everywhere on your system
+   # $search nixpkgs {forrit}
    # https://search.nixos.org/packages
   home.packages = with pkgs; [
     neofetch

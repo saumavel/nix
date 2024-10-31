@@ -1,13 +1,17 @@
+# Note search mynixos.com 
+# $darwin-help
 {pkgs, ...}: {
   security.pam.enableSudoTouchIdAuth = true;
   system = {
     stateVersion = 4;
 
-        
     defaults = {
       NSGlobalDomain = {
         AppleShowAllExtensions = true;
         ApplePressAndHoldEnabled = false;
+
+        # Bætti við prufa
+        AppleInterfaceStyle = "Dark";
 
         # 120, 90, 60, 30, 12, 6, 2
         KeyRepeat = 2;
@@ -28,6 +32,8 @@
       };
 
       finder = {
+        FXPreferredViewStyle = "clmv";
+        # Prufaði að breyta úr false í true
         _FXShowPosixPathInTitle = false;
       };
 

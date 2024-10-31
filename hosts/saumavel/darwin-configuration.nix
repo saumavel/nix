@@ -70,7 +70,7 @@ rec {
       "Pages" = 409201541;
     };
   };
-
+    
   programs.fish.enable = true;
 
   home-manager.users.${user}.imports = [
