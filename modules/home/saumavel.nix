@@ -42,11 +42,7 @@
             size = 20.0;
             name = "JetBrainsMono Nerd Font"; 
           };
-        extraConfig = ''
-            macos_quit_when_window_closed no
-            macos_quit_when_last_window_closed no
-          '';
-                };
+        };
 
 
         ripgrep.enable = true;
@@ -67,7 +63,7 @@
             bind u split-window -v
             
             set -g status-position top
-            set-option -g default-command "echo $SHELL"
+            set-option -g default-command "exec fish"           
             '';
             plugins = with pkgs; [
                 tmuxPlugins.cpu
@@ -308,5 +304,6 @@
     zathura
     xdg-utils
     desktop-file-utils
+    tldr
     ];
 }
