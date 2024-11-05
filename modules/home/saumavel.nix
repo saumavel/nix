@@ -30,10 +30,17 @@
       programs = {
         alacritty.enable = true;
 
+        eza = {
+          enable = true;
+          enableFishIntegration = true;
+          git = true;
+          icons = "auto";
+        };
         yazi = {
           enable = true;
           enableFishIntegration = true;
         };
+
 
         kitty = {
           enable = true;
@@ -248,6 +255,7 @@
           userName = "saumavel";
           userEmail = "saumavel@gmail.com";
           lfs.enable = true;
+          delta.enable = true;
           aliases = {
                 co = "checkout";
                 cm = "commit";
@@ -265,6 +273,8 @@
             rebase.autoStash = true;
           };
         };
+        
+        bat.enable = true;
 
         starship = {
           enable = true;
@@ -305,5 +315,8 @@
     xdg-utils
     desktop-file-utils
     tldr
+    eza
+    bat
+    delta
     ];
 }
