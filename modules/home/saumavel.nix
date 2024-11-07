@@ -21,6 +21,7 @@
       "application/pdf" = "zathura.desktop";
     };
   };
+
   # Needed for fish interactiveShellInit hack
   home.file.".config/karabiner/karabiner.json".source = config.lib.file.mkOutOfStoreSymlink ./karabiner.json; # Hyper-key config
   home.file.".hushlogin".text = ""; # Get rid of "last login" stuff
@@ -28,7 +29,15 @@
       # NOTE: START HERE: Install packages that are only available in your user environment.
     # https://home-manager-options.extranix.com/
       programs = {
-        alacritty.enable = true;
+        alacritty = {
+            enable = true;
+            # settings = {
+            #     font = {
+            #         size = 20.0;
+            #         name = "JetBrainsMono Nerd Font";
+            #     };
+            # };
+        }; 
 
         eza = {
           enable = true;
@@ -41,20 +50,28 @@
           enableFishIntegration = true;
         };
 
-
-        kitty = {
-          enable = true;
-          shellIntegration.enableFishIntegration = true;
-          font = {
-            size = 20.0;
-            name = "JetBrainsMono Nerd Font"; 
-          };
-        };
-
+        # kitty = {
+        #   enable = true;
+        #   shellIntegration.enableFishIntegration = true;
+        #   settings = {
+        #     confirm_os_window_close = -0;
+        #     copy_on_select = true;
+        #     clipboard_control = "write-clipboard read-clipboard write-primary read-primary";
+        #   };
+        #   font = {
+        #     size = 20.0;
+        #     name = "JetBrainsMono Nerd Font"; 
+        #   };
+        # };
 
         ripgrep.enable = true;
         
         fd.enable = true;
+
+        fzf = {
+          enable = true;
+          enableFishIntegration = true;
+        };
 
         tmux = {
           enable = true;
@@ -276,6 +293,11 @@
         
         bat.enable = true;
 
+        thefuck = {
+            enable = true; 
+            enableFishIntegration = true;
+        };
+
         starship = {
           enable = true;
           enableFishIntegration = true;
@@ -298,12 +320,11 @@
     magic-wormhole-rs
     gh
     neovim
-    kitty
     ripgrep
     fd
+    fzf
     go
     cargo
-    alt-tab-macos
     vscode
     obsidian 
     cmake
@@ -318,5 +339,8 @@
     eza
     bat
     delta
+    thefuck
+    # kitty
+    alacritty
     ];
 }

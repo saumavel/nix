@@ -59,9 +59,7 @@ rec {
       "chatgpt"
       "cheatsheet"
       "plex"
-      "coolterm"
-      # spurning um hvort þetta sé sniðugt fyrir lokaritgerð
-      # "zotero"
+      "alt-tab"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {
