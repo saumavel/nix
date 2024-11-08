@@ -4,7 +4,7 @@
 
 * Search for `NOTE` to find places to install packages.
 * Update packages using `nix flake update`
-* Switch to new system `darwin-rebuild switch --flake ~/k`
+* Switch to new system `darwin-rebuild switch --flake ~/saumavel`
 
 ## Folder structure
 

@@ -31,12 +31,22 @@
       programs = {
         alacritty = {
             enable = true;
-            # settings = {
-            #     font = {
-            #         size = 20.0;
-            #         name = "JetBrainsMono Nerd Font";
-            #     };
-            # };
+            settings = {
+                font = {
+                    normal = {
+                        family = "JetBrainsMono Nerd Font"; # Set the font family correctly
+                        style = "Regular"; # Optional: specify style if needed
+                    };
+                    size = 20;
+                };
+                keyboard.bindings = [
+                    {
+                        key = "K";
+                        mods = "Control";
+                        chars = "\\u000c";
+                    }
+                ];
+            };
         }; 
 
         eza = {
@@ -45,6 +55,7 @@
           git = true;
           icons = "auto";
         };
+
         yazi = {
           enable = true;
           enableFishIntegration = true;
@@ -341,6 +352,7 @@
     delta
     thefuck
     # kitty
-    alacritty
+    # alacritty
+    # imagemagick
     ];
 }

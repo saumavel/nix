@@ -45,6 +45,7 @@ rec {
       "luarocks"
       "findent"
       "node"
+      "imagemagick"
     ];
     # NOTE: Here you can install packages from brew
     # https://formulae.brew.sh
@@ -60,6 +61,7 @@ rec {
       "cheatsheet"
       "plex"
       "alt-tab"
+      "alacritty"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {
