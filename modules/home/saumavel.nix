@@ -150,6 +150,8 @@
           # Do not show any greeting
           set fish_greeting
 
+          set -g SHELL ${pkgs.fish}/bin/fish
+
           # Darwin openssh does not support FIDO2. Overwrite PATH with binaries in current system.
           fish_add_path --path --move /run/current-system/sw/bin
 
