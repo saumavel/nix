@@ -26,303 +26,205 @@
   home.file.".config/karabiner/karabiner.json".source = config.lib.file.mkOutOfStoreSymlink ./karabiner.json; # Hyper-key config
   home.file.".hushlogin".text = ""; # Get rid of "last login" stuff
 
-      # NOTE: START HERE: Install packages that are only available in your user environment.
-    # https://home-manager-options.extranix.com/
-      programs = {
-        alacritty = {
-            enable = true;
-            settings = {
-                font = {
-                    normal = {
-                        family = "JetBrainsMono Nerd Font"; # Set the font family correctly
-                        style = "Regular"; # Optional: specify style if needed
-                    };
-                    size = 20;
-                };
-                keyboard.bindings = [
-                    {
-                        key = "K";
-                        mods = "Control";
-                        chars = "\\u000c";
-                    }
-                ];
-            };
-        }; 
-
-        eza = {
-          enable = true;
-          enableFishIntegration = true;
-          git = true;
-          icons = "auto";
-        };
-
-        yazi = {
-          enable = true;
-          enableFishIntegration = true;
-        };
-
-        kitty = {
-          enable = true;
-        #   shellIntegration.enableFishIntegration = true;
-        #   settings = {
-        #     confirm_os_window_close = -0;
-        #     copy_on_select = true;
-        #     clipboard_control = "write-clipboard read-clipboard write-primary read-primary";
-        #   };
-        #   font = {
-        #     size = 20.0;
-        #     name = "JetBrainsMono Nerd Font"; 
-        #   };
-        };
-
-        ripgrep.enable = true;
-        
-        fd.enable = true;
-
-        fzf = {
-          enable = true;
-          enableFishIntegration = true;
-        };
-
-        tmux = {
-          enable = true;
-          prefix = "C-s";
-          mouse = true;
-          baseIndex = 1; # Start at 1
-          # keyMode = "vi";
-          extraConfig = ''
-            set-option -g default-shell /nix/store/lh19r6hngpjap0qaflmx0iz0bqhggps6-fish-3.7.1/bin/fish
-
-            # remappa " og % í þægilegri takka
-            bind i split-window -h
-            bind u split-window -v
-            
-            set -g status-position top
-            set-option -g default-command "exec fish"           
-            '';
-            plugins = with pkgs; [
-                tmuxPlugins.cpu
-                tmuxPlugins.tmux-fzf
-                tmuxPlugins.vim-tmux-navigator
-            ];
-        };
-        atuin = {
-          enable = true;
-          enableFishIntegration = true;
-          settings = {
-            exit_mode = "return-query";
-            keymap_mode = "auto";
-            prefers_reduced_motion = true;
-            enter_accept = true;
-            show_help = false;
+  # NOTE: START HERE: Install packages that are only available in your user environment.
+  # https://home-manager-options.extranix.com/
+  programs = {
+    alacritty = {
+      enable = true;
+      settings = {
+        font = {
+          normal = {
+            family = "JetBrainsMono Nerd Font"; # Set the font family correctly
+            style = "Regular"; # Optional: specify style if needed
           };
+          size = 20;
         };
-
-        lazygit.enable = true;
-        lazygit.settings.gui.skipDiscardChangeWarning = true;
-
-        zoxide.enable = true;
-        zoxide.enableFishIntegration = true;
-
-        direnv = {
-          enable = true;
-          nix-direnv.enable = true; # Adds FishIntegration automatically
-        };
-
-        fish = {
-          enable = true;
-          interactiveShellInit = # bash
-            ''
-              # bind to ctrl-p in normal and insert mode, add any other bindings you want here too
-              bind \cp _atuin_search
-              bind -M insert \cp _atuin_search
-              bind \cr _atuin_search
-              bind -M insert \cr _atuin_search
-
-              set -gx DIRENV_LOG_FORMAT ""
-
-              function fish_user_key_bindings
-                fish_vi_key_bindings
-              end
-
-              set fish_vi_force_cursor
-              set fish_cursor_default     block      blink
-              set fish_cursor_insert      line       blink
-              set fish_cursor_replace_one underscore blink
-              set fish_cursor_visual      block
-
-
-              # Custom aliases
-              alias ll='ls -la'
-              alias get_idf='. $HOME/esp/esp-idf/export.fish'
-              alias xdg-open="~/.local/bin/custom-xdg-open"
-            '';
-
-          shellInit = # bash
-            ''
-              set fish_greeting # Disable greeting
-
-              # done configurations
-              set -g __done_notification_command 'notify send -t "$title" -m "$message"'
-              set -g __done_enabled 1
-              set -g __done_allow_nongraphical 1
-              set -g __done_min_cmd_duration 8000
-
-              # see https://github.com/LnL7/nix-darwin/issues/122
-              set -ga PATH $HOME/.local/bin
-              set -ga PATH /run/wrappers/bin
-              set -ga PATH $HOME/.nix-profile/bin
-              set -ga PATH /run/current-system/sw/bin
-              set -ga PATH /nix/var/nix/profiles/default/bin
-              # PATH for xdg-open
-              set -gx PATH ~/.local/bin $PATH
-              # PATH for findent
-              set -ga PATH /opt/homebrew/bin $PATH
-
-              # PATH for Xcode command line tools
-              set -gx PATH /Library/Developer/CommandLineTools/usr/bin $PATH
-
-              # PATH for composer
-              set -ga PATH $PATH /Users/saumavel/.local/share/nvim/lazy/mason.nvim/lua/mason-core/managers/composer
-              # PATH for IDF
-              set -gx IDF_TOOLS_PATH "$HOME/esp/esp-idf"
-              
-              # PATH for python
-              set -gx PATH /Library/Developer/CommandLineTools/usr/bin $PATH
-              # PATH for composer
-              set -U fish_user_paths /Users/saumavel/bin $fish_user_paths
-
-              # Adapt construct_path from the macOS /usr/libexec/path_helper executable for
-              # fish usage;
-              #
-              # The main difference is that it allows to control how extra entries are
-              # preserved: either at the beginning of the VAR list or at the end via first
-              # argument MODE.
-              #
-              # Usage:
-              #
-              #   __fish_macos_set_env MODE VAR VAR-FILE VAR-DIR
-              #
-              #   MODE: either append or prepend
-              #
-              # Example:
-              #
-              #   __fish_macos_set_env prepend PATH /etc/paths '/etc/paths.d'
-              #
-              #   __fish_macos_set_env append MANPATH /etc/manpaths '/etc/manpaths.d'
-              #
-              # [1]: https://opensource.apple.com/source/shell_cmds/shell_cmds-203/path_helper/path_helper.c.auto.html .
-              #
-              function macos_set_env -d "set an environment variable like path_helper does (macOS only)"
-                # noops on other operating systems
-                if test $KERNEL_NAME darwin
-                  set -l result
-                  set -l entries
-
-                  # echo "1. $argv[2] = $$argv[2]"
-
-                  # Populate path according to config files
-                  for path_file in $argv[3] $argv[4]/*
-                    if [ -f $path_file ]
-                      while read -l entry
-                        if not contains -- $entry $result
-                          test -n "$entry"
-                          and set -a result $entry
-                        end
-                      end <$path_file
-                    end
-                  end
-
-                  # echo "2. $argv[2] = $result"
-
-                  # Merge in any existing path elements
-                  set entries $$argv[2]
-                  if test $argv[1] = "prepend"
-                    set entries[-1..1] $entries
-                  end
-                  for existing_entry in $entries
-                    if not contains -- $existing_entry $result
-                      if test $argv[1] = "prepend"
-                        set -p result $existing_entry
-                      else
-                        set -a result $existing_entry
-                      end
-                    end
-                  end
-
-                  # echo "3. $argv[2] = $result"
-
-                  set -xg $argv[2] $result
-                end
-              end
-              macos_set_env prepend PATH /etc/paths '/etc/paths.d'
-
-              set -ga MANPATH $HOME/.local/share/man
-              set -ga MANPATH $HOME/.nix-profile/share/man
-              if test $KERNEL_NAME darwin
-                set -ga MANPATH /opt/homebrew/share/man
-              end
-              set -ga MANPATH /run/current-system/sw/share/man
-              set -ga MANPATH /nix/var/nix/profiles/default/share/man
-              macos_set_env append MANPATH /etc/manpaths '/etc/manpaths.d'
-
-              if test $KERNEL_NAME darwin
-                set -gx HOMEBREW_PREFIX /opt/homebrew
-                set -gx HOMEBREW_CELLAR /opt/homebrew/Cellar
-                set -gx HOMEBREW_REPOSITORY /opt/homebrew
-                set -gp INFOPATH /opt/homebrew/share/info
-              end
-            '';
-        };
-
-        ssh.enable = true;
-
-        git = {
-          enable = true;
-          ignores = [ "*.swp" ];
-          userName = "saumavel";
-          userEmail = "saumavel@gmail.com";
-          lfs.enable = true;
-          delta.enable = true;
-          aliases = {
-                co = "checkout";
-                cm = "commit";
-                st = "status";
-                br = "branch";
-                df = "diff";
-                lg = "log";
-                pl = "pull";
-                ps = "push";
-            };
-          extraConfig = {
-            init.defaultBranch = "main";
-            core.autocrlf = "input";
-            pull.rebase = true;
-            rebase.autoStash = true;
-          };
-        };
-        
-        bat.enable = true;
-
-        thefuck = {
-            enable = true; 
-            enableFishIntegration = true;
-        };
-
-        starship = {
-          enable = true;
-          enableFishIntegration = true;
-          settings = {
-            add_newline = false;
-            command_timeout = 1000;
-            scan_timeout = 3;
-          };
-        };
+        keyboard.bindings = [
+          {
+            key = "K";
+            mods = "Control";
+            chars = "\\u000c";
+          }
+        ];
       };
+    };
 
-   # NOTE: Use this to add packages available everywhere on your system
-   # $search nixpkgs {forrit}
-   # https://search.nixos.org/packages
+    eza = {
+      enable = true;
+      enableFishIntegration = true;
+      git = true;
+      icons = "auto";
+    };
+
+    yazi = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+
+    kitty = {
+      enable = true;
+      shellIntegration.enableFishIntegration = true;
+      settings = {
+        confirm_os_window_close = -0;
+        copy_on_select = true;
+        clipboard_control = "write-clipboard read-clipboard write-primary read-primary";
+      };
+      font = {
+        size = 20.0;
+        name = "JetBrainsMono Nerd Font";
+      };
+    };
+
+    ripgrep.enable = true;
+
+    fd.enable = true;
+
+    fzf = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+
+    tmux = {
+      enable = true;
+      prefix = "C-s";
+      mouse = true;
+      baseIndex = 1; # Start at 1
+      # keyMode = "vi";
+      extraConfig = ''
+        set-option -g default-shell ${pkgs.fish}/bin/fish
+
+        # remappa " og % í þægilegri takka
+        bind i split-window -h
+        bind u split-window -v
+
+        set -g status-position top
+        set-option -g default-command "exec fish"           
+      '';
+      plugins = with pkgs; [
+        tmuxPlugins.cpu
+        tmuxPlugins.tmux-fzf
+        tmuxPlugins.vim-tmux-navigator
+      ];
+    };
+    atuin = {
+      enable = true;
+      enableFishIntegration = true;
+      settings = {
+        exit_mode = "return-query";
+        keymap_mode = "auto";
+        prefers_reduced_motion = true;
+        enter_accept = true;
+        show_help = false;
+      };
+    };
+
+    lazygit.enable = true;
+    lazygit.settings.gui.skipDiscardChangeWarning = true;
+
+    zoxide.enable = true;
+    zoxide.enableFishIntegration = true;
+
+    direnv = {
+      enable = true;
+      silent = true;
+      nix-direnv.enable = true; # Adds FishIntegration automatically
+      config.warn_timeout = "30m";
+      stdlib = ''
+        # Avoid cluttering project directories which often conflicts with tooling, e.g., `mix`
+        # https://github.com/direnv/direnv/wiki/Customizing-cache-location
+        # Centralize direnv layouts in $HOME/.cache/direnv/layouts
+        : ''${XDG_CACHE_HOME:=$HOME/.cache}
+        declare -A direnv_layout_dirs
+        direnv_layout_dir() {
+          echo "''${direnv_layout_dirs[$PWD]:=$(
+            echo -n "$XDG_CACHE_HOME"/direnv/layouts/
+            echo -n "$PWD" | shasum | cut -d ' ' -f 1
+          )}"
+        }
+      '';
+    };
+
+    fish = {
+      enable = true;
+      interactiveShellInit = # bash
+        ''
+          # Do not show any greeting
+          set fish_greeting
+
+          # Darwin openssh does not support FIDO2. Overwrite PATH with binaries in current system.
+          fish_add_path --path --move /run/current-system/sw/bin
+
+          # Homebrew
+          if test -d /opt/homebrew
+              set -gx HOMEBREW_PREFIX /opt/homebrew
+              set -gx HOMEBREW_CELLAR /opt/homebrew/Cellar
+              set -gx HOMEBREW_REPOSITORY /opt/homebrew
+              set -q PATH; or set PATH ""
+              set -gx PATH /opt/homebrew/bin /opt/homebrew/sbin $PATH
+              set -q MANPATH; or set MANPATH ""
+              set -gx MANPATH /opt/homebrew/share/man $MANPATH
+              set -q INFOPATH; or set INFOPATH ""
+              set -gx INFOPATH /opt/homebrew/share/info $INFOPATH
+          end
+
+          # Add ~/.local/bin
+          set -q PATH; or set PATH ""
+          set -gx PATH "$HOME/.local/bin" $PATH
+
+          # PATH for composer, IDF, python, composer
+          set -gx PATH /Users/saumavel/.local/share/nvim/lazy/mason.nvim/lua/mason-core/managers/composer /Users/saumavel/bin /Library/Developer/CommandLineTools/usr/bin $PATH
+          set -gx IDF_TOOLS_PATH "$HOME/esp/esp-idf"
+        '';
+    };
+
+    ssh.enable = true;
+
+    git = {
+      enable = true;
+      ignores = [ "*.swp" ];
+      userName = "saumavel";
+      userEmail = "saumavel@gmail.com";
+      lfs.enable = true;
+      delta.enable = true;
+      aliases = {
+        co = "checkout";
+        cm = "commit";
+        st = "status";
+        br = "branch";
+        df = "diff";
+        lg = "log";
+        pl = "pull";
+        ps = "push";
+      };
+      extraConfig = {
+        init.defaultBranch = "main";
+        core.autocrlf = "input";
+        pull.rebase = true;
+        rebase.autoStash = true;
+      };
+    };
+
+    bat.enable = true;
+
+    thefuck = {
+      enable = true;
+      enableFishIntegration = true;
+    };
+
+    starship = {
+      enable = true;
+      enableFishIntegration = true;
+      settings = {
+        add_newline = false;
+        command_timeout = 1000;
+        scan_timeout = 3;
+      };
+    };
+  };
+
+  # NOTE: Use this to add packages available everywhere on your system
+  # $search nixpkgs {forrit}
+  # https://search.nixos.org/packages
   home.packages = with pkgs; [
     neofetch
     btop
@@ -337,7 +239,7 @@
     go
     cargo
     vscode
-    obsidian 
+    obsidian
     cmake
     ninja
     dfu-util
@@ -354,5 +256,5 @@
     # kitty
     # alacritty
     # imagemagick
-    ];
+  ];
 }
