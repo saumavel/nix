@@ -13,12 +13,6 @@
   home.enableNixpkgsReleaseCheck = false;
   home.stateVersion = "23.05";
 
-  home.activation.kitty = lib.hm.dag.entryAfter ["writeBoundry"] ''
-    $DRY_RUN_CMD [ -f ~/Applications/kitty.app ] && rm -rf ~/Applications/kitty.app
-    $DRY_RUN_CMD cp -r ${pkgs.kitty}/Applications/kitty.app/ ~/Applications
-    $DRY_RUN_CMD chmod -R 755 ~/Applications/kitty.app
-  '';
-
   # THEME
   catppuccin = {
     enable = true;
