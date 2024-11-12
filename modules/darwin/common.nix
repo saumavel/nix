@@ -1,6 +1,7 @@
 # Note search mynixos.com 
 # $darwin-help
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   security.pam.enableSudoTouchIdAuth = true;
   system = {
     stateVersion = 4;
@@ -48,8 +49,6 @@
     };
 
     activationScripts.postActivation.text = ''
-      sudo chsh -s ${pkgs.fish}/bin/fish saumavel
-
       # normal minimum is 15 (225 ms)\ defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
       defaults write -g InitialKeyRepeat -int 10 
       defaults write -g KeyRepeat -int 1
