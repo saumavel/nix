@@ -62,6 +62,7 @@ rec {
       "plex"
       "alt-tab"
       "firefox@developer-edition"
+      "kitty"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {
