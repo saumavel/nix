@@ -176,7 +176,7 @@
 
 
           # PATH for composer, IDF, python, composer
-          # set -gx PATH /Users/saumavel/.local/share/nvim/lazy/mason.nvim/lua/mason-core/managers/composer /Users/saumavel/bin /Library/Developer/CommandLineTools/usr/bin $PATH
+          set -gx PATH /Users/saumavel/.local/share/nvim/lazy/mason.nvim/lua/mason-core/managers/composer /Users/saumavel/bin /Library/Developer/CommandLineTools/usr/bin $PATH
           set -gx IDF_TOOLS_PATH "$HOME/esp/esp-idf"
           # Add ~/.local/bin
           set -q PATH; or set PATH ""
