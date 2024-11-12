@@ -91,14 +91,13 @@
       baseIndex = 1; # Start at 1
       # keyMode = "vi";
       extraConfig = ''
-        set-option -g default-shell ${pkgs.fish}/bin/fish
+        set -g default-command ${pkgs.fish}/bin/fish
 
         # remappa " og % í þægilegri takka
         bind i split-window -h
         bind u split-window -v
 
         set -g status-position top
-        set-option -g default-command "exec fish"           
       '';
       plugins = with pkgs; [
         tmuxPlugins.cpu
