@@ -74,10 +74,7 @@ rec {
 
   programs.fish.enable = true;
 
-  home-manager.users.${user}.imports = [
-    inputs.catppuccin.homeManagerModules.catppuccin
-    flake.modules.home.saumavel
-  ];
+  home-manager.users.${user}.imports = [ flake.modules.home.saumavel ];
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;

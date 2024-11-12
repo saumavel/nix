@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, inputs, ... }:
 {
   nixpkgs.config = {
     allowUnfree = true;
@@ -42,6 +42,7 @@
 
   fonts.packages = [ (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
 
+  home-manager.extraSpecialArgs.inputs = inputs; # forward the inputs
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
   home-manager.backupFileExtension = "hm-backup";

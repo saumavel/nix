@@ -1,9 +1,14 @@
 {
   pkgs,
   config,
+  inputs,
   ...
 }:
 {
+  imports = [
+    inputs.catppuccin.homeManagerModules.catppuccin
+    inputs.mac-app-util.homeManagerModules.default
+  ];
   home.enableNixpkgsReleaseCheck = false;
   home.stateVersion = "23.05";
 
