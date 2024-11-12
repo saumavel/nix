@@ -42,6 +42,8 @@
 
   fonts.packages = [ (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
 
+  programs.fish.enable = true; # Otherwise our shell won't be installed correctly
+
   home-manager.extraSpecialArgs.inputs = inputs; # forward the inputs
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;

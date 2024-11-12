@@ -72,8 +72,6 @@ rec {
     };
   };
 
-  programs.fish.enable = true;
-
   home-manager.users.${user}.imports = [ flake.modules.home.saumavel ];
 
   # Auto upgrade nix package and the daemon service.
