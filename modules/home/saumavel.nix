@@ -61,8 +61,8 @@
           enableFishIntegration = true;
         };
 
-        # kitty = {
-        #   enable = true;
+        kitty = {
+          enable = true;
         #   shellIntegration.enableFishIntegration = true;
         #   settings = {
         #     confirm_os_window_close = -0;
@@ -73,7 +73,7 @@
         #     size = 20.0;
         #     name = "JetBrainsMono Nerd Font"; 
         #   };
-        # };
+        };
 
         ripgrep.enable = true;
         
