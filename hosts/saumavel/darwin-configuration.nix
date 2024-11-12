@@ -61,7 +61,6 @@ rec {
       "cheatsheet"
       "plex"
       "alt-tab"
-      "alacritty"
       "firefox@developer-edition"
     ];
     # NOTE: Here you can install packages from the Mac App Store
