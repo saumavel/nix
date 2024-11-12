@@ -19,8 +19,6 @@
     homebrew-cask.url = "github:homebrew/homebrew-cask";
     homebrew-cask.flake = false;
     catppuccin.url = "github:catppuccin/nix";
-    mac-app-util.url = "github:hraban/mac-app-util";
-    mac-app-util.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = inputs: inputs.blueprint { inherit inputs; };
