@@ -36,12 +36,12 @@ rec {
       "homebrew/homebrew-bundle" = homebrew-bundle;
     };
   };
-  
+
   homebrew = {
     enable = true;
     taps = builtins.attrNames nix-homebrew.taps;
     brews = [
-      "nvm"  
+      "nvm"
       "luarocks"
       "findent"
       "node"
@@ -54,7 +54,7 @@ rec {
       "arc"
       "bitwig-studio"
       "ferdium"
-      "karabiner-elements" 
+      "karabiner-elements"
       "transnomino"
       "julia"
       "chatgpt"
@@ -71,7 +71,7 @@ rec {
       "Pages" = 409201541;
     };
   };
-    
+
   programs.fish.enable = true;
 
   home-manager.users.${user}.imports = [
