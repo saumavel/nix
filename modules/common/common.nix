@@ -8,14 +8,10 @@
   };
 
   nix = {
-    # TODO: https://github.com/cachix/devenv/issues/1364
-    package = pkgs.nixVersions.nix_2_23;
-
     settings = {
       experimental-features = lib.mkDefault "nix-command flakes";
       trusted-users = [
         "@admin"
-        "einarhrafnsson"
         "saumavel"
       ];
 
