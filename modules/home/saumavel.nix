@@ -254,8 +254,5 @@
     bat
     delta
     thefuck
-    # kitty
-    # alacritty
-    # imagemagick
   ];
 }
