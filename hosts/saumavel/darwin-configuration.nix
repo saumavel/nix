@@ -63,6 +63,7 @@ rec {
       "alt-tab"
       "firefox@developer-edition"
       "kitty"
+      "alacritty"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {

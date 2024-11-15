@@ -178,6 +178,8 @@
           # Add ~/.local/bin
           set -q PATH; or set PATH ""
           set -gx PATH "$HOME/.local/bin" $PATH
+          
+          # aliases
         '';
     };
 
@@ -257,5 +259,7 @@
     bat
     delta
     thefuck
+    postgresql_16
+    pgadmin4
   ];
 }
