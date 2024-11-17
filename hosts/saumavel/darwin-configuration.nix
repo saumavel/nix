@@ -64,6 +64,10 @@ rec {
       "firefox@developer-edition"
       "kitty"
       "alacritty"
+      "postman"
+      "messenger"
+      "discord"
+      "slack"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {

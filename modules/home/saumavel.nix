@@ -260,6 +260,5 @@
     delta
     thefuck
     postgresql_16
-    pgadmin4
   ];
 }
