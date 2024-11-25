@@ -53,7 +53,6 @@ rec {
       "raycast"
       "arc"
       "bitwig-studio"
-      "ferdium"
       "karabiner-elements"
       "transnomino"
       "julia"
@@ -68,6 +67,7 @@ rec {
       "messenger"
       "discord"
       "slack"
+      "logi-options+"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {
