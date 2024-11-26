@@ -68,6 +68,7 @@ rec {
       "discord"
       "slack"
       "logi-options+"
+      "via" 
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {
