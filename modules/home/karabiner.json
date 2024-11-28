@@ -15,103 +15,70 @@
 					"basic.to_if_held_down_threshold_milliseconds": 500,
 					"mouse_motion_to_scroll.speed": 100
 				},
-				"rules": [
-					{
-						"description": "CapsLock to Hyper",
-						"manipulators": [
-							{
-								"description": "capslock = esc(click) | hyper(hold)",
-								"from": {
-									"key_code": "caps_lock",
-									"modifiers": {
-										"optional": ["any"]
-									}
-								},
-								"to": [
-									{
-										"key_code": "right_shift",
-										"modifiers": [
-											"right_command",
-											"right_control",
-											"right_option"
-										]
-									}
-								],
-								"to_if_alone": [
-									{
-										"key_code": "escape"
-									}
-								],
-								"type": "basic"
-							},
-							{
-								"description": "escape = capslock switch",
-								"from": {
-									"key_code": "escape",
-									"modifiers": {
-										"mandatory": [
-											"right_command",
-											"right_control",
-											"right_shift",
-											"right_option"
-										],
-										"optional": ["caps_lock"]
-									}
-								},
-								"to": [
-									{
-										"key_code": "caps_lock",
-										"modifiers": ["left_control"]
-									}
-								],
-								"type": "basic"
-							},
-							{
-								"description": "spacebar = language switch",
-								"from": {
-									"key_code": "spacebar",
-									"modifiers": {
-										"mandatory": [
-											"right_command",
-											"right_control",
-											"right_shift",
-											"right_option"
-										]
-									}
-								},
-								"to": [
-									{
-										"key_code": "spacebar",
-										"modifiers": ["left_control"]
-									}
-								],
-								"type": "basic"
-							},
-							{
-								"description": "command + spacebar = emoji",
-								"from": {
-									"key_code": "spacebar",
-									"modifiers": {
-										"mandatory": [
-											"left_command",
-											"right_command",
-											"right_control",
-											"right_shift",
-											"right_option"
-										]
-									}
-								},
-								"to": [
-									{
-										"key_code": "spacebar",
-										"modifiers": ["left_control", "left_command"]
-									}
-								],
-								"type": "basic"
-							}
-						]
-					}
-				]
+                "rules": [
+		                {
+			                "description": "CapsLock to Control",
+			                "manipulators": [
+				                {
+					                "description": "capslock = esc(click) | control(hold)",
+					                "from": {
+						                "key_code": "caps_lock",
+						                "modifiers": {
+							                "optional": ["any"]
+						                }
+					                },
+					                "to": [
+						                {
+							                "key_code": "right_control"
+						                }
+					                ],
+					                "to_if_alone": [
+						                {
+							                "key_code": "escape"
+						                }
+					                ],
+					                "type": "basic"
+				                },
+				                {
+					                "description": "escape = capslock switch",
+					                "from": {
+						                "key_code": "escape",
+						                "modifiers": {
+							                "mandatory": ["right_control"],
+							                "optional": ["caps_lock"]
+						                }
+					                },
+					                "to": [
+						                {
+							                "key_code": "caps_lock",
+							                "modifiers": ["left_control"]
+						                }
+					                ],
+					                "type": "basic"
+				                },
+				                {
+					                "description": "Hyper key mapped to Right Control",
+					                "from": {
+						                "key_code": "right_control",
+						                "modifiers": {
+							                "optional": ["any"]
+						                }
+					                },
+					                "to": [
+						                {
+							                "key_code": "right_control",
+							                "modifiers": [
+								                "right_command",
+								                "right_option",
+								                "right_shift"
+							                ]
+						                }
+					                ],
+					                "type": "basic"
+				                },
+			                ]
+		                }
+	                ]
 			},
 			"devices": [
 				{

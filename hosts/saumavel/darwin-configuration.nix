@@ -68,7 +68,8 @@ rec {
       "discord"
       "slack"
       "logi-options+"
-      "via" 
+      "the-unarchiver"
+      "google-chrome"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {
