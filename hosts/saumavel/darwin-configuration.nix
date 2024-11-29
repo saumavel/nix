@@ -60,7 +60,6 @@ rec {
       "cheatsheet"
       "plex"
       "alt-tab"
-      "firefox@developer-edition"
       "kitty"
       "alacritty"
       "postman"
@@ -69,7 +68,6 @@ rec {
       "slack"
       "logi-options+"
       "the-unarchiver"
-      "google-chrome"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {
