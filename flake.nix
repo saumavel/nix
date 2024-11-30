@@ -18,7 +18,7 @@
     homebrew-core.flake = false;
     homebrew-cask.url = "github:homebrew/homebrew-cask";
     homebrew-cask.flake = false;
-    catppuccin.url = "github:catppuccin/nix";
+    # catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs = inputs: inputs.blueprint { inherit inputs; };

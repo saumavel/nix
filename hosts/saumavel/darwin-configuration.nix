@@ -69,6 +69,7 @@ rec {
       "logi-options+"
       "the-unarchiver"
       "keyboardcleantool"
+      "qutebrowser"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {

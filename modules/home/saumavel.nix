@@ -6,7 +6,7 @@
   ...
 }:
 {
-  imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
+  # imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
   home.enableNixpkgsReleaseCheck = false;
   home.stateVersion = "23.05";
 
@@ -52,20 +52,6 @@
       };
     };
 
-    qutebrowser = {
-        enable = true;
-        enableDefaultBindings = true;
-        settings = {
-            downloads.location.directory = "/Users/saumavel/Downloads";
-            downloads.location.prompt = false;
-        };
-        searchengines = {
-            default = "https://duckduckgo.com/?q={}";
-            ddg = "https://duckduckgo.com/?q={}";
-            google = "https://www.google.com/search?q={}";
-        };
-    };
-
     eza = {
       enable = true;
       enableFishIntegration = true;
@@ -82,7 +68,7 @@
       enable = true;
       shellIntegration.enableFishIntegration = true;
       settings = {
-        confirm_os_window_close = -0;
+    confirm_os_window_close = -0;
         copy_on_select = true;
         clipboard_control = "write-clipboard read-clipboard write-primary read-primary";
       };
@@ -274,6 +260,5 @@
     delta
     thefuck
     postgresql_16
-    qutebrowser
   ];
 }
