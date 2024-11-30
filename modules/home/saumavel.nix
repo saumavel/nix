@@ -11,10 +11,10 @@
   home.stateVersion = "23.05";
 
   # THEME
-  catppuccin = {
-    enable = true;
-    flavor = "mocha";
-  };
+  # catppuccin = {
+  #   enable = true;
+  #   flavor = "mocha";
+  # };
 
   xdg = {
     enable = true;
@@ -50,6 +50,20 @@
           }
         ];
       };
+    };
+
+    qutebrowser = {
+        enable = true;
+        enableDefaultBindings = true;
+        settings = {
+            downloads.location.directory = "/Users/saumavel/Downloads";
+            downloads.location.prompt = false;
+        };
+        searchengines = {
+            default = "https://duckduckgo.com/?q={}";
+            ddg = "https://duckduckgo.com/?q={}";
+            google = "https://www.google.com/search?q={}";
+        };
     };
 
     eza = {
@@ -260,5 +274,6 @@
     delta
     thefuck
     postgresql_16
+    qutebrowser
   ];
 }

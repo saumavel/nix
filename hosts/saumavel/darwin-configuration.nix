@@ -68,6 +68,7 @@ rec {
       "slack"
       "logi-options+"
       "the-unarchiver"
+      "keyboardcleantool"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {
