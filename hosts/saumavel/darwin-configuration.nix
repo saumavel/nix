@@ -70,6 +70,7 @@ rec {
       "the-unarchiver"
       "keyboardcleantool"
       "qutebrowser"
+      "obsidian"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {

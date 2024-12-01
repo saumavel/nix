@@ -244,8 +244,6 @@
     fzf
     go
     cargo
-    vscode
-    obsidian
     cmake
     ninja
     dfu-util
