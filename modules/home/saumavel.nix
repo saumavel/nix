@@ -6,15 +6,15 @@
   ...
 }:
 {
-  imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
+  # imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
   home.enableNixpkgsReleaseCheck = false;
   home.stateVersion = "23.05";
 
   # THEME
-  catppuccin = {
-    enable = true;
-    flavor = "mocha";
-  };
+  # catppuccin = {
+  #   enable = true;
+  #   flavor = "mocha";
+  # };
 
   xdg = {
     enable = true;
@@ -158,6 +158,9 @@
           # Darwin openssh does not support FIDO2. Overwrite PATH with binaries in current system.
           fish_add_path --path --move /run/current-system/sw/bin
 
+          # try
+          export GITHUB_TOKEN=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
+
           # Homebrew
           if test -d /opt/homebrew
               set -gx HOMEBREW_PREFIX /opt/homebrew
@@ -189,7 +192,8 @@
       enable = true;
       ignores = [ "*.swp" ];
       userName = "saumavel";
-      userEmail = "saumavel@gmail.com";
+      # userEmail = "saumavel@gmail.com";
+      userEmail = "kari@genkiinstruments.com";
       lfs.enable = true;
       delta.enable = true;
       aliases = {

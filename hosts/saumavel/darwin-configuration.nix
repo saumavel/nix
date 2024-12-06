@@ -71,6 +71,7 @@ rec {
       "keyboardcleantool"
       "qutebrowser"
       "obsidian"
+      "linear-linear"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {
