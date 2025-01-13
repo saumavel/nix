@@ -72,6 +72,7 @@ rec {
       "qutebrowser"
       "obsidian"
       "linear-linear"
+      "ghostty"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {

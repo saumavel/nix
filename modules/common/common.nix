@@ -40,7 +40,7 @@
     };
   };
 
-  fonts.packages = [ (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; }) ];
+  fonts.packages = [ pkgs.nerd-fonts.jetbrains-mono ];
 
   programs.fish.enable = true; # Otherwise our shell won't be installed correctly
 

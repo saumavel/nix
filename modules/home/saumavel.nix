@@ -6,15 +6,15 @@
   ...
 }:
 {
-  # imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
+  imports = [ inputs.catppuccin.homeManagerModules.catppuccin ];
   home.enableNixpkgsReleaseCheck = false;
   home.stateVersion = "23.05";
 
-  # THEME
-  # catppuccin = {
-  #   enable = true;
-  #   flavor = "mocha";
-  # };
+  THEME
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+  };
 
   xdg = {
     enable = true;
@@ -259,5 +259,6 @@
     delta
     thefuck
     postgresql_16
+    cachix
   ];
 }
