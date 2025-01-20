@@ -10,7 +10,7 @@
   home.enableNixpkgsReleaseCheck = false;
   home.stateVersion = "23.05";
 
-  THEME
+ # THEME
   catppuccin = {
     enable = true;
     flavor = "mocha";
@@ -189,8 +189,8 @@
       enable = true;
       ignores = [ "*.swp" ];
       userName = "saumavel";
-      # userEmail = "saumavel@gmail.com";
-      userEmail = "kari@genkiinstruments.com";
+      userEmail = "saumavel@gmail.com";
+      # userEmail = "kari@genkiinstruments.com";
       lfs.enable = true;
       delta.enable = true;
       aliases = {
