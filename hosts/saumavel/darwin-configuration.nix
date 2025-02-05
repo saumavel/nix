@@ -46,6 +46,7 @@ rec {
       "findent"
       "node"
       "imagemagick"
+	  "clang-format"
     ];
     # NOTE: Here you can install packages from brew
     # https://formulae.brew.sh
@@ -73,6 +74,7 @@ rec {
       "obsidian"
       "linear-linear"
       "ghostty"
+	  "virtualbox"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {
