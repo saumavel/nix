@@ -75,6 +75,7 @@ rec {
       "linear-linear"
       "ghostty"
 	  "virtualbox"
+	  "yt-music"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {
