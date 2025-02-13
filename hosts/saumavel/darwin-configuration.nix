@@ -47,6 +47,8 @@ rec {
       "node"
       "imagemagick"
 	  "clang-format"
+	  "hashcat"
+	  "openvpn"
     ];
     # NOTE: Here you can install packages from brew
     # https://formulae.brew.sh

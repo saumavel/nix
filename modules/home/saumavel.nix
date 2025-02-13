@@ -155,6 +155,14 @@
 
           set -g SHELL ${pkgs.fish}/bin/fish
 
+		  # Fix SSH Agent for Fish
+		  if test -z "$SSH_AUTH_SOCK"
+		  set -gx SSH_AUTH_SOCK (ssh-agent -c | awk '/SSH_AUTH_SOCK/ {print $3}' | sed 's/;//')
+		  end
+
+		  # Automatically add SSH key
+		  ssh-add -l > /dev/null; or ssh-add ~/.ssh/id_ed25519
+
           # Darwin openssh does not support FIDO2. Overwrite PATH with binaries in current system.
           fish_add_path --path --move /run/current-system/sw/bin
 
@@ -208,6 +216,7 @@
         core.autocrlf = "input";
         pull.rebase = true;
         rebase.autoStash = true;
+		url."ssh://git@github.com/".insteadOf = "https://github.com/";
       };
     };
 
