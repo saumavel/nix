@@ -26,6 +26,9 @@ rec {
     shell = pkgs.fish;
   };
 
+  # Fix nixbld group ID issue
+  ids.gids.nixbld = 350;
+
   nix-homebrew = {
     inherit user;
     enable = true;
@@ -89,8 +92,6 @@ rec {
 
   home-manager.users.${user}.imports = [ flake.modules.home.saumavel ];
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
 
   # Enable tailscale. We manually authenticate when we want with out or delete all of this.
   services.tailscale.enable = true;
