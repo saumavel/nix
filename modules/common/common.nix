@@ -46,5 +46,5 @@
   home-manager.extraSpecialArgs.inputs = inputs; # forward the inputs
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
-  home-manager.backupFileExtension = "hm-backup";
+  # home-manager.backupFileExtension = "hm-backup";
 }

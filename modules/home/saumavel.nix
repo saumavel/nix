@@ -17,7 +17,7 @@
 
   xdg = {
     enable = true;
-	configHome = "${config.home.homeDirectory}/config";
+	configHome = "${config.home.homeDirectory}/.config";
 	configFile."ghostty/config".source = ./config/ghostty;
     mimeApps.defaultApplications = {
       "text/html" = "arc.desktop";
@@ -28,7 +28,6 @@
 
   # Needed for fish interactiveShellInit hack
   home.file.".config/karabiner/karabiner.json".source = config.lib.file.mkOutOfStoreSymlink ./config/karabiner.json; # Hyper-key config
-  # home.file.".config/ghostty/config".source = config.lib.file.mkOutOfStoreSymlink ./config/ghostty; # Ghostty config
   home.file.".hushlogin".text = ""; # Get rid of "last login" stuff
 
   # NOTE: START HERE: Install packages that are only available in your user environment.
@@ -75,14 +74,18 @@
         clipboard_control = "write-clipboard read-clipboard write-primary read-primary";
       };
       font = {
-        size = 20.0;
+        size = 16.0;
         name = "JetBrainsMono Nerd Font";
       };
     };
 
-    ripgrep.enable = true;
+    ripgrep = {
+		enable = true;
+	};
 
-    fd.enable = true;
+    fd = {
+		enable = true;
+	};
 
     fzf = {
       enable = true;
@@ -110,6 +113,7 @@
         tmuxPlugins.vim-tmux-navigator
       ];
     };
+
     atuin = {
       enable = true;
       enableFishIntegration = true;
@@ -122,11 +126,15 @@
       };
     };
 
-    lazygit.enable = true;
-    lazygit.settings.gui.skipDiscardChangeWarning = true;
+    lazygit = {
+		enable = true;
+		settings.gui.skipDiscardChangeWarning = true;
+	};
 
-    zoxide.enable = true;
-    zoxide.enableFishIntegration = true;
+    zoxide = {
+		enable = true;
+		enableFishIntegration = true;
+	};
 
     direnv = {
       enable = true;
@@ -200,7 +208,9 @@ fish = {
 	'';
 };
 
-    ssh.enable = true;
+    ssh = {
+		enable = true;
+	};
 
     git = {
       enable = true;
@@ -229,7 +239,9 @@ fish = {
       };
     };
 
-    bat.enable = true;
+    bat = {
+		enable = true;
+	};
 
     thefuck = {
       enable = true;
