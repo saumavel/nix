@@ -1,5 +1,4 @@
-{
-  pkgs,
+{ pkgs,
   config,
   lib,
   inputs,
@@ -18,6 +17,8 @@
 
   xdg = {
     enable = true;
+	configHome = "${config.home.homeDirectory}/config";
+	configFile."ghostty/config".source = ./config/ghostty;
     mimeApps.defaultApplications = {
       "text/html" = "arc.desktop";
       "text/plain" = "nvim.desktop";
@@ -26,7 +27,8 @@
   };
 
   # Needed for fish interactiveShellInit hack
-  home.file.".config/karabiner/karabiner.json".source = config.lib.file.mkOutOfStoreSymlink ./karabiner.json; # Hyper-key config
+  home.file.".config/karabiner/karabiner.json".source = config.lib.file.mkOutOfStoreSymlink ./config/karabiner.json; # Hyper-key config
+  # home.file.".config/ghostty/config".source = config.lib.file.mkOutOfStoreSymlink ./config/ghostty; # Ghostty config
   home.file.".hushlogin".text = ""; # Get rid of "last login" stuff
 
   # NOTE: START HERE: Install packages that are only available in your user environment.
@@ -146,50 +148,57 @@
       '';
     };
 
-    fish = {
-      enable = true;
-      interactiveShellInit = # bash
-        ''
-          # Do not show any greeting
-          set fish_greeting
+fish = {
+  enable = true;
+  interactiveShellInit = # bash
+	''
+	  # Do not show any greeting
+	  set fish_greeting
 
-          set -g SHELL ${pkgs.fish}/bin/fish
+	  set -g SHELL ${pkgs.fish}/bin/fish
 
-		  # Fix SSH Agent for Fish
-		  if test -z "$SSH_AUTH_SOCK"
+	  # Ensure Nix-installed GCC and binaries come first
+	  set -gx PATH /Users/saumavel/.nix-profile/bin /nix/var/nix/profiles/default/bin /run/current-system/sw/bin $PATH
+
+	  # Prevent macOS CLT from overriding Nix paths
+	  set -gx PATH (string match -v /Library/Developer/CommandLineTools/usr/bin $PATH)
+
+	  # Add ~/.local/bin early
+	  set -gx PATH "$HOME/.local/bin" $PATH
+
+	  # SSH AGENT & AUTO SSH KEY ADD
+	  if test -z "$SSH_AUTH_SOCK"
 		  set -gx SSH_AUTH_SOCK (ssh-agent -c | awk '/SSH_AUTH_SOCK/ {print $3}' | sed 's/;//')
-		  end
+	  end
 
-		  # Automatically add SSH key
-		  ssh-add -l > /dev/null; or ssh-add ~/.ssh/id_ed25519
-
-          # Darwin openssh does not support FIDO2. Overwrite PATH with binaries in current system.
-          fish_add_path --path --move /run/current-system/sw/bin
-
-          # Homebrew
-          if test -d /opt/homebrew
-              set -gx HOMEBREW_PREFIX /opt/homebrew
-              set -gx HOMEBREW_CELLAR /opt/homebrew/Cellar
-              set -gx HOMEBREW_REPOSITORY /opt/homebrew
-              set -q PATH; or set PATH ""
-              set -gx PATH /opt/homebrew/bin /opt/homebrew/sbin $PATH
-              set -q MANPATH; or set MANPATH ""
-              set -gx MANPATH /opt/homebrew/share/man $MANPATH
-              set -q INFOPATH; or set INFOPATH ""
-              set -gx INFOPATH /opt/homebrew/share/info $INFOPATH
-          end
+	  ssh-add -l > /dev/null; or ssh-add ~/.ssh/id_ed25519
 
 
-          # PATH for composer, IDF, python, composer
-          set -gx PATH /Users/saumavel/.local/share/nvim/lazy/mason.nvim/lua/mason-core/managers/composer /Users/saumavel/bin /Library/Developer/CommandLineTools/usr/bin $PATH
-          set -gx IDF_TOOLS_PATH "$HOME/esp/esp-idf"
-          # Add ~/.local/bin
-          set -q PATH; or set PATH ""
-          set -gx PATH "$HOME/.local/bin" $PATH
-          
-          # aliases
-        '';
-    };
+	  # HOME MANAGER & DARWIN SYSTEM PATHS
+	  fish_add_path --prepend /run/current-system/sw/bin
+
+	  # HOMEBREW CONFIGURATION
+	  if test -d /opt/homebrew
+		  set -gx HOMEBREW_PREFIX /opt/homebrew
+		  set -gx HOMEBREW_CELLAR /opt/homebrew/Cellar
+		  set -gx HOMEBREW_REPOSITORY /opt/homebrew
+		  set -gx PATH /opt/homebrew/bin /opt/homebrew/sbin $PATH
+		  set -gx MANPATH /opt/homebrew/share/man $MANPATH
+		  set -gx INFOPATH /opt/homebrew/share/info $INFOPATH
+	  end
+
+	  # ADDITIONAL TOOLS (Composer, ESP-IDF, etc.)
+	  set -gx PATH /Users/saumavel/.local/share/nvim/lazy/mason.nvim/lua/mason-core/managers/composer /Users/saumavel/bin $PATH
+	  set -gx IDF_TOOLS_PATH "$HOME/esp/esp-idf"
+
+	  set -gx PATH /Users/saumavel/.m2/wrapper/dists/apache-maven-3.9.7-bin/3k9n615lchs6mp84v355m633uo/apache-maven-3.9.7/bin $PATH
+
+	  # ALIASES FOR NIX
+	  alias gcc "/Users/saumavel/.nix-profile/bin/gcc"
+	  alias g++ "/Users/saumavel/.nix-profile/bin/g++"
+	  alias cpp "/Users/saumavel/.nix-profile/bin/cpp"
+	'';
+};
 
     ssh.enable = true;
 
@@ -269,5 +278,9 @@
     thefuck
     postgresql_16
     cachix
+	gcc
+	# for hacking
+	inetutils
+	nmap
   ];
 }

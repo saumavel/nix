@@ -81,6 +81,8 @@ rec {
       "ghostty"
 	  "virtualbox"
 	  "yt-music"
+	  "openvpn-connect"
+	  "vnc-viewer"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {
