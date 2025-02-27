@@ -56,31 +56,40 @@ rec {
     # NOTE: Here you can install packages from brew
     # https://formulae.brew.sh
     casks = [
+	  # MEGA UTILITIES
       "raycast"
-      "arc"
-      "bitwig-studio"
+	  "alt-tab"
       "karabiner-elements"
-      "transnomino"
-      "julia"
-      "chatgpt"
-      "cheatsheet"
-      "plex"
-      "alt-tab"
-      "kitty"
-      "alacritty"
-      "postman"
+
+	  # UTILITIES
+	  "keyboardcleantool"
+	  "logi-options+"
+	  "the-unarchiver"
+	  "postman"
+
+	  # TERMINALS
+	  "ghostty"
+	  "kitty"
+	  
+	  # WORK
+	  "obsidian"
+	  "slack"
+	  "linear-linear"
+
+	  # BROWSERS
+	  "arc"
+	  "qutebrowser"
+
+	  # CHAT
       "messenger"
       "discord"
-      "slack"
-      "logi-options+"
-      "the-unarchiver"
-      "keyboardcleantool"
-      "qutebrowser"
-      "obsidian"
-      "linear-linear"
-      "ghostty"
-	  "virtualbox"
+
+	  # FUN
+	  "bitwig-studio"
+	  "plex"
 	  "yt-music"
+
+	  # SCHOOL
 	  "openvpn-connect"
 	  "vnc-viewer"
     ];

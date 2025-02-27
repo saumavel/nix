@@ -33,26 +33,6 @@
   # NOTE: START HERE: Install packages that are only available in your user environment.
   # https://home-manager-options.extranix.com/
   programs = {
-    alacritty = {
-      enable = true;
-      settings = {
-        font = {
-          normal = {
-            family = "JetBrainsMono Nerd Font"; # Set the font family correctly
-            style = "Regular"; # Optional: specify style if needed
-          };
-          size = 20;
-        };
-        keyboard.bindings = [
-          {
-            key = "K";
-            mods = "Control";
-            chars = "\\u000c";
-          }
-        ];
-      };
-    };
-
     eza = {
       enable = true;
       enableFishIntegration = true;
