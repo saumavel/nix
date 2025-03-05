@@ -20,6 +20,7 @@
 	configHome = "${config.home.homeDirectory}/.config";
 	configFile."ghostty/config".source = ./config/ghostty;
 	configFile."zathura/zathurarc".source = ./config/zathurarc;
+	configFile."karabiner/karabiner.json".source = ./config/karabiner.json;
     mimeApps.defaultApplications = {
       "text/html" = "arc.desktop";
       "text/plain" = "nvim.desktop";
@@ -28,7 +29,6 @@
   };
   
   # Needed for fish interactiveShellInit hack
-  home.file.".config/karabiner/karabiner.json".source = config.lib.file.mkOutOfStoreSymlink ./config/karabiner.json; # Hyper-key config
   home.file.".hushlogin".text = ""; # Get rid of "last login" stuff
   home.file.".local/bin/zathura-nix" = {
     executable = true;
@@ -122,6 +122,9 @@
     zoxide = {
 		enable = true;
 		enableFishIntegration = true;
+		options = [
+		"--cmd cd"
+	  ];
 	};
 
     direnv = {
@@ -248,46 +251,89 @@ fish = {
     };
   };
 
+
   # NOTE: Use this to add packages available everywhere on your system
   # $search nixpkgs {forrit}
   # https://search.nixos.org/packages
   home.packages = with pkgs; [
-    neovim
-    tree-sitter
+	# MISC
+	cachix
 
+	#
+	# APPLICATIONS
+	#
+
+	# Browsers
+	qutebrowser
+
+	#
+	# DEV TOOLS
+	#
+
+	# Programming Languages and Build Tools
+	go
+	cargo
+	gcc
+	cmake
+	ninja
+	ccache
+
+	# Version Control and Collaboration
+	gh
+	delta
+
+	# Code Editors & IDE
+	neovim
+	tree-sitter
+
+	# Database
+	postgresql_16
+
+	#
+	# TERMINAL UTILITIES
+	#
+
+	# File management and navigation
 	fzf
 	fd
+	eza
+	bat
+	ripgrep
 
+	# system information and monitoring
     neofetch
     btop
+
+	# File transfer and networking
     wget
     zip
     magic-wormhole-rs
-    gh
-    ripgrep
 
-    go
-    cargo
-    cmake
-    ninja
-    ccache
+	# shell enhancements
+	thefuck
+
+	#
+	# UTILITIES
+	#
+
+	# image processing
+	imagemagick
+
+	# Documentation and help
+	tldr
+
+	# System integration
     desktop-file-utils
-    tldr
-    eza
-    bat
-    delta
-    thefuck
-    postgresql_16
-    cachix
-	gcc
-	# for hacking
-	inetutils
-	nmap
-	# for school check out
-	dfu-util
 	xdg-utils
 
-	# to set up virtual machine
+	# security and network tools
+	nmap
+	inetutils
+
+	# Hardware and Device tools
+	dfu-util
+
+	# Virtualization
 	utm
   ];
 }

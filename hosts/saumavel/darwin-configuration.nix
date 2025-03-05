@@ -45,10 +45,7 @@ rec {
     taps = builtins.attrNames nix-homebrew.taps;
     brews = [
       "nvm"
-      "luarocks"
-      "findent"
       "node"
-      "imagemagick"
 	  "clang-format"
 	  "hashcat"
 	  "openvpn"
@@ -78,7 +75,6 @@ rec {
 
 	  # BROWSERS
 	  "arc"
-	  "qutebrowser"
 
 	  # CHAT
       "messenger"
