@@ -19,20 +19,28 @@
     enable = true;
 	configHome = "${config.home.homeDirectory}/.config";
 	configFile."ghostty/config".source = ./config/ghostty;
+	configFile."zathura/zathurarc".source = ./config/zathurarc;
     mimeApps.defaultApplications = {
       "text/html" = "arc.desktop";
       "text/plain" = "nvim.desktop";
+	  "application/pdf" = "org.pwmt.zathura.desktop";
     };
   };
   
-
   # Needed for fish interactiveShellInit hack
   home.file.".config/karabiner/karabiner.json".source = config.lib.file.mkOutOfStoreSymlink ./config/karabiner.json; # Hyper-key config
   home.file.".hushlogin".text = ""; # Get rid of "last login" stuff
-
+  home.file.".local/bin/zathura-nix" = {
+    executable = true;
+    text = ''
+      #!/bin/sh
+      nix-shell -p zathura --run "zathura $*"
+    '';
+  };
+  
   # NOTE: START HERE: Install packages that are only available in your user environment.
   # https://home-manager-options.extranix.com/
-  programs = {
+  programs = {	
     eza = {
       enable = true;
       enableFishIntegration = true;
@@ -185,6 +193,7 @@ fish = {
 	  alias gcc "/Users/saumavel/.nix-profile/bin/gcc"
 	  alias g++ "/Users/saumavel/.nix-profile/bin/g++"
 	  alias cpp "/Users/saumavel/.nix-profile/bin/cpp"
+	  alias zathura "$HOME/.local/bin/zathura-nix"
 	'';
 	};
 
@@ -277,5 +286,8 @@ fish = {
 	# for school check out
 	dfu-util
 	xdg-utils
+
+	# to set up virtual machine
+	utm
   ];
 }
