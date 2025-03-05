@@ -9,21 +9,33 @@
   home.enableNixpkgsReleaseCheck = false;
   home.stateVersion = "23.05";
 
- # THEME
+  # THEME
   catppuccin = {
     enable = true;
     flavor = "mocha";
-  };
+  }
 
+  # XDG Base Directory specification configuration
+  # Manages application configurations and default applications;
   xdg = {
     enable = true;
 	configHome = "${config.home.homeDirectory}/.config";
-	configFile."ghostty/config".source = ./config/ghostty;
-	configFile."zathura/zathurarc".source = ./config/zathurarc;
-	configFile."karabiner/karabiner.json".source = ./config/karabiner.json;
+	# Application-specific configuration files
+	configFile = {
+	  # Ghostty configuration
+	  "ghostty/config".source = ./config/ghostty;
+	  # Zathura PDF viewer configuration
+	  "zathura/zathurarc".source = ./config/zathurarc;
+	  # Keyboard customization
+	  "karabiner/karabiner.json".source = ./config/karabiner.json;
+	}
+	# Default applications for file types;
     mimeApps.defaultApplications = {
+	  # Web application
       "text/html" = "arc.desktop";
+	  # plain text files
       "text/plain" = "nvim.desktop";
+	  # PDF
 	  "application/pdf" = "org.pwmt.zathura.desktop";
     };
   };
@@ -41,6 +53,116 @@
   # NOTE: START HERE: Install packages that are only available in your user environment.
   # https://home-manager-options.extranix.com/
   programs = {	
+
+	#
+	# Shell and Terminal
+	#
+
+	fish = {
+	  enable = true;
+	  interactiveShellInit = # bash
+		''
+		  # Do not show any greeting
+		  set fish_greeting
+
+		  set -g SHELL ${pkgs.fish}/bin/fish
+
+		  # Ensure Nix-installed GCC and binaries come first
+		  set -gx PATH /Users/saumavel/.nix-profile/bin /nix/var/nix/profiles/default/bin /run/current-system/sw/bin $PATH
+
+		  # Prevent macOS CLT from overriding Nix paths
+		  set -gx PATH (string match -v /Library/Developer/CommandLineTools/usr/bin $PATH)
+
+		  # Add ~/.local/bin early
+		  set -gx PATH "$HOME/.local/bin" $PATH
+
+		  # SSH AGENT & AUTO SSH KEY ADD
+		  if test -z "$SSH_AUTH_SOCK"
+			  set -gx SSH_AUTH_SOCK (ssh-agent -c | awk '/SSH_AUTH_SOCK/ {print $3}' | sed 's/;//')
+		  end
+
+		  ssh-add -l > /dev/null; or ssh-add ~/.ssh/id_ed25519
+
+
+		  # HOME MANAGER & DARWIN SYSTEM PATHS
+		  fish_add_path --prepend /run/current-system/sw/bin
+
+		  # HOMEBREW CONFIGURATION
+		  if test -d /opt/homebrew
+			  set -gx HOMEBREW_PREFIX /opt/homebrew
+			  set -gx HOMEBREW_CELLAR /opt/homebrew/Cellar
+			  set -gx HOMEBREW_REPOSITORY /opt/homebrew
+			  set -gx PATH /opt/homebrew/bin /opt/homebrew/sbin $PATH
+			  set -gx MANPATH /opt/homebrew/share/man $MANPATH
+			  set -gx INFOPATH /opt/homebrew/share/info $INFOPATH
+		  end
+
+		  # ADDITIONAL TOOLS (Composer, ESP-IDF, etc.)
+		  set -gx PATH /Users/saumavel/.local/share/nvim/lazy/mason.nvim/lua/mason-core/managers/composer /Users/saumavel/bin $PATH
+		  set -gx IDF_TOOLS_PATH "$HOME/esp/esp-idf"
+
+		  set -gx PATH /Users/saumavel/.m2/wrapper/dists/apache-maven-3.9.7-bin/3k9n615lchs6mp84v355m633uo/apache-maven-3.9.7/bin $PATH
+
+		  # ALIASES FOR NIX
+		  alias gcc "/Users/saumavel/.nix-profile/bin/gcc"
+		  alias g++ "/Users/saumavel/.nix-profile/bin/g++"
+		  alias cpp "/Users/saumavel/.nix-profile/bin/cpp"
+		  alias zathura "$HOME/.local/bin/zathura-nix"
+		'';
+	};
+
+	kitty = {
+	  enable = true;
+	  shellIntegration.enableFishIntegration = true;
+	  settings = {
+		confirm_os_window_close = -0;
+		copy_on_select = true;
+		clipboard_control = "write-clipboard read-clipboard write-primary read-primary";
+	  };
+	  font = {
+		size = 16.0;
+		name = "JetBrainsMono Nerd Font";
+	  };
+	};
+
+	tmux = {
+	  enable = true;
+	  prefix = "C-s";
+	  mouse = true;
+	  baseIndex = 1; # Start at 1
+	  # keyMode = "vi";
+	  extraConfig = ''
+		set -g default-command ${pkgs.fish}/bin/fish
+
+		# remappa " og % í þægilegri takka
+		bind i split-window -h
+		bind u split-window -v
+
+		set -g status-position top
+	  '';
+	  plugins = with pkgs; [
+		tmuxPlugins.cpu
+		tmuxPlugins.tmux-fzf
+		tmuxPlugins.vim-tmux-navigator
+	  ];
+	};
+
+	starship = {
+	  enable = true;
+	  enableFishIntegration = true;
+	  settings = {
+		add_newline = false;
+		command_timeout = 1000;
+		scan_timeout = 3;
+	  };
+	};
+
+
+
+	#
+	# File Navigation and Management
+	#
+
     eza = {
       enable = true;
       enableFishIntegration = true;
@@ -53,55 +175,36 @@
       enableFishIntegration = true;
     };
 
-    kitty = {
-      enable = true;
-      shellIntegration.enableFishIntegration = true;
-      settings = {
-    confirm_os_window_close = -0;
-        copy_on_select = true;
-        clipboard_control = "write-clipboard read-clipboard write-primary read-primary";
-      };
-      font = {
-        size = 16.0;
-        name = "JetBrainsMono Nerd Font";
-      };
-    };
+	fd = {
+		enable = true;
+	};
+
+	fzf = {
+	  enable = true;
+	  enableFishIntegration = true;
+	};
+
+	zoxide = {
+		enable = true;
+		enableFishIntegration = true;
+		options = [
+		"--cmd cd"
+	  ];
+	};
 
     ripgrep = {
 		enable = true;
 	};
 
-    fd = {
+	bat = {
 		enable = true;
 	};
 
-    fzf = {
-      enable = true;
-      enableFishIntegration = true;
-    };
 
-    tmux = {
-      enable = true;
-      prefix = "C-s";
-      mouse = true;
-      baseIndex = 1; # Start at 1
-      # keyMode = "vi";
-      extraConfig = ''
-        set -g default-command ${pkgs.fish}/bin/fish
 
-        # remappa " og % í þægilegri takka
-        bind i split-window -h
-        bind u split-window -v
-
-        set -g status-position top
-      '';
-      plugins = with pkgs; [
-        tmuxPlugins.cpu
-        tmuxPlugins.tmux-fzf
-        tmuxPlugins.vim-tmux-navigator
-      ];
-    };
-
+	#
+	# Shell Enhancements
+	#
     atuin = {
       enable = true;
       enableFishIntegration = true;
@@ -114,17 +217,47 @@
       };
     };
 
+	thefuck = {
+	  enable = true;
+	  enableFishIntegration = true;
+	};
+
+
+
+	#
+	# Dev Tools
+	#
+
+	git = {
+	  enable = true;
+	  ignores = [ "*.swp" ];
+	  userName = "saumavel";
+	  userEmail = "saumavel@gmail.com";
+	  # userEmail = "kari@genkiinstruments.com";
+	  lfs.enable = true;
+	  delta.enable = true;
+	  aliases = {
+		co = "checkout";
+		cm = "commit";
+		st = "status";
+		br = "branch";
+		df = "diff";
+		lg = "log";
+		pl = "pull";
+		ps = "push";
+	  };
+	  extraConfig = {
+		init.defaultBranch = "main";
+		core.autocrlf = "input";
+		pull.rebase = true;
+		rebase.autoStash = true;
+		url."ssh://git@github.com/".insteadOf = "https://github.com/";
+	  };
+	};
+
     lazygit = {
 		enable = true;
 		settings.gui.skipDiscardChangeWarning = true;
-	};
-
-    zoxide = {
-		enable = true;
-		enableFishIntegration = true;
-		options = [
-		"--cmd cd"
-	  ];
 	};
 
     direnv = {
@@ -147,108 +280,10 @@
       '';
     };
 
-fish = {
-  enable = true;
-  interactiveShellInit = # bash
-	''
-	  # Do not show any greeting
-	  set fish_greeting
-
-	  set -g SHELL ${pkgs.fish}/bin/fish
-
-	  # Ensure Nix-installed GCC and binaries come first
-	  set -gx PATH /Users/saumavel/.nix-profile/bin /nix/var/nix/profiles/default/bin /run/current-system/sw/bin $PATH
-
-	  # Prevent macOS CLT from overriding Nix paths
-	  set -gx PATH (string match -v /Library/Developer/CommandLineTools/usr/bin $PATH)
-
-	  # Add ~/.local/bin early
-	  set -gx PATH "$HOME/.local/bin" $PATH
-
-	  # SSH AGENT & AUTO SSH KEY ADD
-	  if test -z "$SSH_AUTH_SOCK"
-		  set -gx SSH_AUTH_SOCK (ssh-agent -c | awk '/SSH_AUTH_SOCK/ {print $3}' | sed 's/;//')
-	  end
-
-	  ssh-add -l > /dev/null; or ssh-add ~/.ssh/id_ed25519
-
-
-	  # HOME MANAGER & DARWIN SYSTEM PATHS
-	  fish_add_path --prepend /run/current-system/sw/bin
-
-	  # HOMEBREW CONFIGURATION
-	  if test -d /opt/homebrew
-		  set -gx HOMEBREW_PREFIX /opt/homebrew
-		  set -gx HOMEBREW_CELLAR /opt/homebrew/Cellar
-		  set -gx HOMEBREW_REPOSITORY /opt/homebrew
-		  set -gx PATH /opt/homebrew/bin /opt/homebrew/sbin $PATH
-		  set -gx MANPATH /opt/homebrew/share/man $MANPATH
-		  set -gx INFOPATH /opt/homebrew/share/info $INFOPATH
-	  end
-
-	  # ADDITIONAL TOOLS (Composer, ESP-IDF, etc.)
-	  set -gx PATH /Users/saumavel/.local/share/nvim/lazy/mason.nvim/lua/mason-core/managers/composer /Users/saumavel/bin $PATH
-	  set -gx IDF_TOOLS_PATH "$HOME/esp/esp-idf"
-
-	  set -gx PATH /Users/saumavel/.m2/wrapper/dists/apache-maven-3.9.7-bin/3k9n615lchs6mp84v355m633uo/apache-maven-3.9.7/bin $PATH
-
-	  # ALIASES FOR NIX
-	  alias gcc "/Users/saumavel/.nix-profile/bin/gcc"
-	  alias g++ "/Users/saumavel/.nix-profile/bin/g++"
-	  alias cpp "/Users/saumavel/.nix-profile/bin/cpp"
-	  alias zathura "$HOME/.local/bin/zathura-nix"
-	'';
-	};
-
     ssh = {
 		enable = true;
 	};
 
-    git = {
-      enable = true;
-      ignores = [ "*.swp" ];
-      userName = "saumavel";
-      userEmail = "saumavel@gmail.com";
-      # userEmail = "kari@genkiinstruments.com";
-      lfs.enable = true;
-      delta.enable = true;
-      aliases = {
-        co = "checkout";
-        cm = "commit";
-        st = "status";
-        br = "branch";
-        df = "diff";
-        lg = "log";
-        pl = "pull";
-        ps = "push";
-      };
-      extraConfig = {
-        init.defaultBranch = "main";
-        core.autocrlf = "input";
-        pull.rebase = true;
-        rebase.autoStash = true;
-		url."ssh://git@github.com/".insteadOf = "https://github.com/";
-      };
-    };
-
-    bat = {
-		enable = true;
-	};
-
-    thefuck = {
-      enable = true;
-      enableFishIntegration = true;
-    };
-
-    starship = {
-      enable = true;
-      enableFishIntegration = true;
-      settings = {
-        add_newline = false;
-        command_timeout = 1000;
-        scan_timeout = 3;
-      };
-    };
   };
 
 
@@ -256,7 +291,9 @@ fish = {
   # $search nixpkgs {forrit}
   # https://search.nixos.org/packages
   home.packages = with pkgs; [
+	#
 	# MISC
+	#
 	cachix
 
 	#
@@ -265,6 +302,7 @@ fish = {
 
 	# Browsers
 	qutebrowser
+
 
 	#
 	# DEV TOOLS

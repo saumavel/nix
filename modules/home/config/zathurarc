@@ -1,3 +1,22 @@
+set database "sqlite"
+set scroll-step 60
+set guioptions ""
+set recolor
+
+# annars fer það í middle click clipboard
+set selection-clipboard clipboard
+set zoom-step 5
+
+map r recolor 
+map <C-r> rotate
+
+map <C-d> scroll half-down
+map <C-u> scroll half-up
+
+# next/previous page
+map J navigate next
+map K navigate previous
+
 # Catppuccin Mocha theme for Zathura
 set notification-error-bg       "#f38ba8" # Red
 set notification-error-fg       "#1e1e2e" # Base
