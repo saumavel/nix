@@ -13,10 +13,10 @@
   catppuccin = {
     enable = true;
     flavor = "mocha";
-  }
+  };
 
   # XDG Base Directory specification configuration
-  # Manages application configurations and default applications;
+  # Manages application configurations and default applications
   xdg = {
     enable = true;
 	configHome = "${config.home.homeDirectory}/.config";
@@ -28,7 +28,7 @@
 	  "zathura/zathurarc".source = ./config/zathurarc;
 	  # Keyboard customization
 	  "karabiner/karabiner.json".source = ./config/karabiner.json;
-	}
+	};
 	# Default applications for file types;
     mimeApps.defaultApplications = {
 	  # Web application

@@ -57,6 +57,7 @@ rec {
       "raycast"
 	  "alt-tab"
       "karabiner-elements"
+	  "homerow"
 
 	  # UTILITIES
 	  "keyboardcleantool"
