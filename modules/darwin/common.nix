@@ -2,7 +2,7 @@
 # $darwin-help
 { pkgs, ... }:
 {
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth= true;
   system = {
     stateVersion = 4;
 
@@ -34,7 +34,6 @@
 
       finder = {
         FXPreferredViewStyle = "clmv";
-        # Prufaði að breyta úr false í true
         _FXShowPosixPathInTitle = false;
       };
 

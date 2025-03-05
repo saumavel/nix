@@ -22,9 +22,9 @@
     mimeApps.defaultApplications = {
       "text/html" = "arc.desktop";
       "text/plain" = "nvim.desktop";
-      "application/pdf" = "zathura.desktop";
     };
   };
+  
 
   # Needed for fish interactiveShellInit hack
   home.file.".config/karabiner/karabiner.json".source = config.lib.file.mkOutOfStoreSymlink ./config/karabiner.json; # Hyper-key config
@@ -186,7 +186,7 @@ fish = {
 	  alias g++ "/Users/saumavel/.nix-profile/bin/g++"
 	  alias cpp "/Users/saumavel/.nix-profile/bin/cpp"
 	'';
-};
+	};
 
     ssh = {
 		enable = true;
@@ -243,25 +243,25 @@ fish = {
   # $search nixpkgs {forrit}
   # https://search.nixos.org/packages
   home.packages = with pkgs; [
+    neovim
+    tree-sitter
+
+	fzf
+	fd
+
     neofetch
     btop
     wget
     zip
     magic-wormhole-rs
     gh
-    neovim
     ripgrep
-    fd
-    fzf
+
     go
     cargo
     cmake
     ninja
-    dfu-util
     ccache
-    tree-sitter
-    zathura
-    xdg-utils
     desktop-file-utils
     tldr
     eza
@@ -274,5 +274,8 @@ fish = {
 	# for hacking
 	inetutils
 	nmap
+	# for school check out
+	dfu-util
+	xdg-utils
   ];
 }
