@@ -42,6 +42,7 @@
   
   # Needed for fish interactiveShellInit hack
   home.file.".hushlogin".text = ""; # Get rid of "last login" stuff
+
   home.file.".local/bin/zathura-nix" = {
     executable = true;
     text = ''
@@ -185,10 +186,10 @@
 	};
 
 	zoxide = {
-		enable = true;
-		enableFishIntegration = true;
-		options = [
-		"--cmd cd"
+	  enable = true;
+	  enableFishIntegration = true;
+	  options = [
+	  "--cmd" "z"
 	  ];
 	};
 

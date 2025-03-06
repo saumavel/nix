@@ -49,6 +49,8 @@ rec {
 	  "clang-format"
 	  "hashcat"
 	  "openvpn"
+	  "qemu"
+	  "luarocks"
     ];
     # NOTE: Here you can install packages from brew
     # https://formulae.brew.sh
