@@ -3,11 +3,9 @@
   flake,
   pkgs,
   ...
-}:
-let
+}: let
   user = "saumavel";
-in
-rec {
+in rec {
   imports = [
     inputs.home-manager.darwinModules.home-manager
     inputs.nix-homebrew.darwinModules.nix-homebrew
@@ -46,51 +44,51 @@ rec {
     brews = [
       "nvm"
       "node"
-	  "clang-format"
-	  "hashcat"
-	  "openvpn"
-	  "qemu"
-	  "luarocks"
+      "clang-format"
+      "hashcat"
+      # "openvpn"
+      "qemu"
+      "luarocks"
     ];
     # NOTE: Here you can install packages from brew
     # https://formulae.brew.sh
     casks = [
-	  # MEGA UTILITIES
+      # MEGA UTILITIES
       "raycast"
-	  "alt-tab"
+      "alt-tab"
       "karabiner-elements"
-	  "homerow"
+      "homerow"
 
-	  # UTILITIES
-	  "keyboardcleantool"
-	  "logi-options+"
-	  "the-unarchiver"
-	  "postman"
+      # UTILITIES
+      "keyboardcleantool"
+      "logi-options+"
+      "the-unarchiver"
+      "postman"
 
-	  # TERMINALS
-	  "ghostty"
-	  "kitty"
-	  
-	  # WORK
-	  "obsidian"
-	  "slack"
-	  "linear-linear"
+      # TERMINALS
+      "ghostty"
+      "kitty"
 
-	  # BROWSERS
-	  "arc"
+      # WORK
+      "obsidian"
+      "slack"
+      "linear-linear"
 
-	  # CHAT
+      # BROWSERS
+      "arc"
+
+      # CHAT
       "messenger"
       "discord"
 
-	  # FUN
-	  "bitwig-studio"
-	  "plex"
-	  "yt-music"
+      # FUN
+      "bitwig-studio"
+      "plex"
+      "yt-music"
 
-	  # SCHOOL
-	  "openvpn-connect"
-	  "vnc-viewer"
+      # SCHOOL
+      # "openvpn-connect"
+      # "vnc-viewer"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {
@@ -100,8 +98,7 @@ rec {
     };
   };
 
-  home-manager.users.${user}.imports = [ flake.modules.home.saumavel ];
-
+  home-manager.users.${user}.imports = [flake.modules.home.saumavel];
 
   # Enable tailscale. We manually authenticate when we want with out or delete all of this.
   services.tailscale.enable = true;
