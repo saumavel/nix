@@ -47,7 +47,9 @@
     executable = true;
     text = ''
       #!/bin/sh
-      nix-shell -p zathura --run "zathura $*"
+      # Improved zathura-nix script for M1 Mac
+      # Preserve all arguments exactly as passed
+      nix-shell -p zathura --run "zathura \"$@\""
     '';
   };
 

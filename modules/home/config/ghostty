@@ -1,6 +1,11 @@
-theme = catppuccin-mocha
-font-family = JetBrains MonoSpace
+# Ghostty Configuration
+font-family = JetBrainsMono Nerd Font
 font-size = 16
+window-padding-x = 10
+window-padding-y = 10
+macos-option-as-alt = true
+cursor-style = block
+cursor-blink = false
 background-opacity = 0.95
-background-blur-radius = 20
-macos-titlebar-style=transparent
+confirm-close-surface = false
+quit-when-last-window-closed = true
