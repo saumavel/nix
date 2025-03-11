@@ -5,7 +5,4 @@ window-padding-x = 10
 window-padding-y = 10
 macos-option-as-alt = true
 cursor-style = block
-cursor-blink = false
-background-opacity = 0.95
 confirm-close-surface = false
-quit-when-last-window-closed = true

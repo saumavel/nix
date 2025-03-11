@@ -310,6 +310,7 @@
     cmake
     ninja
     ccache
+    zig
     # For Mason/nix
     alejandra
 
@@ -338,6 +339,7 @@
     # system information and monitoring
     neofetch
     btop
+    pstree
 
     # File transfer and networking
     wget

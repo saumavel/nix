@@ -46,9 +46,11 @@ in rec {
       "node"
       "clang-format"
       "hashcat"
-      # "openvpn"
       "qemu"
       "luarocks"
+      "biber"
+      "texlive"
+      "xdotool"
     ];
     # NOTE: Here you can install packages from brew
     # https://formulae.brew.sh
@@ -86,9 +88,8 @@ in rec {
       "plex"
       "yt-music"
 
-      # SCHOOL
-      # "openvpn-connect"
-      # "vnc-viewer"
+      #SCHOOL SHIT
+      "android-studio"
     ];
     # NOTE: Here you can install packages from the Mac App Store
     masApps = {
