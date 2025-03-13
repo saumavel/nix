@@ -123,10 +123,8 @@
                  set -gx INFOPATH /opt/homebrew/share/info $INFOPATH
                 end
 
-                # ADDITIONAL TOOLS (Composer, ESP-IDF, etc.)
+                # ADDITIONAL TOOLS (Composer, Java, etc.)
                 set -gx PATH /Users/saumavel/.local/share/nvim/lazy/mason.nvim/lua/mason-core/managers/composer /Users/saumavel/bin $PATH
-                set -gx IDF_TOOLS_PATH "$HOME/esp/esp-idf"
-
                 set -gx PATH /Users/saumavel/.m2/wrapper/dists/apache-maven-3.9.7-bin/3k9n615lchs6mp84v355m633uo/apache-maven-3.9.7/bin $PATH
 
                 # ALIASES FOR NIX

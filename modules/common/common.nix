@@ -1,5 +1,9 @@
-{ pkgs, lib, inputs, ... }:
 {
+  pkgs,
+  lib,
+  inputs,
+  ...
+}: {
   nixpkgs.config = {
     allowUnfree = true;
     allowBroken = true;
@@ -39,12 +43,12 @@
     };
   };
 
-  fonts.packages = [ pkgs.nerd-fonts.jetbrains-mono ];
+  fonts.packages = [pkgs.nerd-fonts.jetbrains-mono];
 
   programs.fish.enable = true; # Otherwise our shell won't be installed correctly
 
   home-manager.extraSpecialArgs.inputs = inputs; # forward the inputs
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
-  # home-manager.backupFileExtension = "hm-backup";
+  home-manager.backupFileExtension = "backup";
 }
