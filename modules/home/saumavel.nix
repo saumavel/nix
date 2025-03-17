@@ -5,7 +5,11 @@
   inputs,
   ...
 }: {
-  imports = [inputs.catppuccin.homeManagerModules.catppuccin];
+  imports = [
+  	inputs.catppuccin.homeManagerModules.catppuccin
+	# Import nixvim module
+    	inputs.nixvim.homeManagerModules.nixvim
+	];
   home.enableNixpkgsReleaseCheck = false;
   home.stateVersion = "23.05";
 
@@ -131,9 +135,58 @@
           alias g++ '/Users/saumavel/.nix-profile/bin/g++'
           alias cpp '/Users/saumavel/.nix-profile/bin/cpp'
           alias zathura '$HOME/.local/bin/zathura-nix'
-          alias neofzf 'nvim $(fzf -m --preview="bat --color=always {}")'
+          alias neovim 'nvim $(fzf -m --preview="bat --color=always {}")'
         '';
     };
+
+# Add nixvim configuration
+  nixvim = {
+    enable = true;
+    
+    # Basic configuration
+    globals = {
+      mapleader = " ";
+    };
+    
+    # Add your neovim configuration here
+    # This is just a basic example
+    options = {
+      number = true;
+      relativenumber = true;
+      shiftwidth = 2;
+      tabstop = 2;
+      expandtab = true;
+    };
+    
+    # You can add plugins here
+    plugins = {
+      # Example plugins
+      telescope.enable = true;
+      treesitter.enable = true;
+      lsp = {
+        enable = true;
+        servers = {
+          # Example LSP servers
+          tsserver.enable = true;
+          rust-analyzer.enable = true;
+        };
+      };
+    };
+    
+    # Add keymaps
+    keymaps = [
+      {
+        mode = "n";
+        key = "<leader>ff";
+        action = "<cmd>Telescope find_files<CR>";
+        options = {
+          silent = true;
+          desc = "Find files";
+        };
+      }
+    ];
+  };
+
 
     kitty = {
       enable = true;
