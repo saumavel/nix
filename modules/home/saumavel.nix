@@ -4,31 +4,23 @@
   lib,
   inputs,
   ...
-}: {
+}: let
+  nixvim = import (builtins.fetchGit {
+    url = "https://github.com/nix-community/nixvim";
+    ref = "main";
+  });
+in {
   imports = [
-  	inputs.catppuccin.homeManagerModules.catppuccin
-	# Import nixvim module
-    	inputs.nixvim.homeManagerModules.nixvim
-	];
-  home.enableNixpkgsReleaseCheck = false;
-  home.stateVersion = "23.05";
+    nixvim.homeManagerModules.nixvim
+    # .nixvim/autocommands.nix
+    # .nixvim/completion.nix
+    # .nixvim/keymappings.nix
+    ./.nixvim/options.nix
+    # .nixvim/plugins
+    # .nixvim/todo.nix
 
-  # Enable Home Manager itself
-  programs.home-manager = {
-    enable = true;
-  };
-
-  # Add session path to ensure binaries are available
-  home.sessionPath = [
-    "$HOME/.nix-profile/bin"
-    "/nix/var/nix/profiles/default/bin"
-    "/run/current-system/sw/bin"
-    "$HOME/.local/bin"
-    "/opt/homebrew/bin"
-    "/opt/homebrew/sbin"
-    "/Users/saumavel/.local/share/nvim/lazy/mason.nvim/lua/mason-core/managers/composer"
-    "/Users/saumavel/bin"
-    "/Users/saumavel/.m2/wrapper/dists/apache-maven-3.9.7-bin/3k9n615lchs6mp84v355m633uo/apache-maven-3.9.7/bin"
+    # Keep your catppuccin import if needed
+    inputs.catppuccin.homeManagerModules.catppuccin
   ];
 
   # THEME
@@ -36,6 +28,43 @@
     enable = true;
     flavor = "mocha";
   };
+
+  home = {
+    # Define the state version
+    enableNixpkgsReleaseCheck = false;
+    stateVersion = "23.05";
+    username = "saumavel";
+    homeDirectory = "/Users/saumavel";
+
+    sessionPath = [
+      "$HOME/.nix-profile/bin"
+      "/nix/var/nix/profiles/default/bin"
+      "/run/current-system/sw/bin"
+      "$HOME/.local/bin"
+      "/opt/homebrew/bin"
+      "/opt/homebrew/sbin"
+      "/Users/saumavel/.local/share/nvim/lazy/mason.nvim/lua/mason-core/managers/composer"
+      "/Users/saumavel/bin"
+      "/Users/saumavel/.m2/wrapper/dists/apache-maven-3.9.7-bin/3k9n615lchs6mp84v355m633uo/apache-maven-3.9.7/bin"
+    ];
+
+    # Keep your home file configurations
+    file = {
+      ".hushlogin".text = "";
+      ".local/bin/zathura-nix" = {
+        executable = true;
+        text = ''
+          #!/bin/sh
+          # Improved zathura-nix script for M1 Mac
+          # Preserve all arguments exactly as passed
+          nix-shell -p zathura --run "zathura \"$@\""
+        '';
+      };
+    };
+  };
+
+  # Add session path to ensure binaries are available
+
 
   # XDG Base Directory specification configuration
   # Manages application configurations and default applications
@@ -62,22 +91,16 @@
     };
   };
 
-  # Needed for fish interactiveShellInit hack
-  home.file.".hushlogin".text = ""; # Get rid of "last login" stuff
-
-  home.file.".local/bin/zathura-nix" = {
-    executable = true;
-    text = ''
-      #!/bin/sh
-      # Improved zathura-nix script for M1 Mac
-      # Preserve all arguments exactly as passed
-      nix-shell -p zathura --run "zathura \"$@\""
-    '';
-  };
 
   # NOTE: START HERE: Install packages that are only available in your user environment.
   # https://home-manager-options.extranix.com/
   programs = {
+  
+    # Enable Home Manager itself
+    home-manager = {
+      enable = true;
+    };
+
     #
     # Shell and Terminal
     #
@@ -139,54 +162,21 @@
         '';
     };
 
-# Add nixvim configuration
-  nixvim = {
-    enable = true;
-    
-    # Basic configuration
-    globals = {
-      mapleader = " ";
-    };
-    
-    # Add your neovim configuration here
-    # This is just a basic example
-    options = {
-      number = true;
-      relativenumber = true;
-      shiftwidth = 2;
-      tabstop = 2;
-      expandtab = true;
-    };
-    
-    # You can add plugins here
-    plugins = {
-      # Example plugins
-      telescope.enable = true;
-      treesitter.enable = true;
-      lsp = {
-        enable = true;
-        servers = {
-          # Example LSP servers
-          tsserver.enable = true;
-          rust-analyzer.enable = true;
-        };
+    # Neovim configuration - using nixvim with the modular structure
+    nixvim = {
+      enable = true;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+      luaLoader.enable = true;
+      
+      colorschemes.catppuccin.enable = true;
+      
+      plugins = {
+        lualine.enable = true;
+        lazygit.enable = true;
       };
     };
-    
-    # Add keymaps
-    keymaps = [
-      {
-        mode = "n";
-        key = "<leader>ff";
-        action = "<cmd>Telescope find_files<CR>";
-        options = {
-          silent = true;
-          desc = "Find files";
-        };
-      }
-    ];
-  };
-
 
     kitty = {
       enable = true;
@@ -393,7 +383,7 @@
     delta
 
     # Code Editors & IDE
-    neovim
+    # neovim
     tree-sitter
 
     # Database
