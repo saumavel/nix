@@ -19,7 +19,11 @@
     homebrew-cask.url = "github:homebrew/homebrew-cask";
     homebrew-cask.flake = false;
     catppuccin.url = "github:catppuccin/nix";
+    # Add nixvim input
+    nixvim.url = "github:nix-community/nixvim";
+    # Make nixvim use the same nixpkgs as your system
+    nixvim.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs: inputs.blueprint { inherit inputs; };
+  outputs = inputs: inputs.blueprint {inherit inputs;};
 }

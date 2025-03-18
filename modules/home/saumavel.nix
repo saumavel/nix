@@ -4,30 +4,20 @@
   lib,
   inputs,
   ...
-}: let
-  nixvim = import (builtins.fetchGit {
-    url = "https://github.com/nix-community/nixvim";
-    ref = "main";
-  });
-in {
+}: {
   imports = [
     inputs.nixvim.homeManagerModules.nixvim    
-    # .nixvim/autocommands.nix
-    # .nixvim/completion.nix
-    # .nixvim/keymappings.nix
+    ./nixvim/autocommands.nix
+    ./nixvim/completion.nix
+    ./nixvim/keymappings.nix
     ./nixvim/options.nix
-    # .nixvim/plugins
-    # .nixvim/todo.nix
-
-    # Keep your catppuccin import if needed
+	# ./nixvim/plugins-remap.nix
+	# ./nixvim/plugins-remap.nix
+    # ./nixvim/extraconfig.nix
+    ./nixvim/plugins
+    ./nixvim/todo.nix
     inputs.catppuccin.homeManagerModules.catppuccin
   ];
-
-  nixvim = {
-    url = "github:nix-community/nixvim";
-    # Make sure nixvim uses the same nixpkgs as your system
-    inputs.nixpkgs.follows = "nixpkgs";
-  };
 
   # THEME
   catppuccin = {
@@ -54,7 +44,6 @@ in {
       "/Users/saumavel/.m2/wrapper/dists/apache-maven-3.9.7-bin/3k9n615lchs6mp84v355m633uo/apache-maven-3.9.7/bin"
     ];
 
-    # Keep your home file configurations
     file = {
       ".hushlogin".text = "";
       ".local/bin/zathura-nix" = {
@@ -68,9 +57,6 @@ in {
       };
     };
   };
-
-  # Add session path to ensure binaries are available
-
 
   # XDG Base Directory specification configuration
   # Manages application configurations and default applications
@@ -168,16 +154,19 @@ in {
         '';
     };
 
-    # Neovim configuration - using nixvim with the modular structure
     nixvim = {
       enable = true;
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;
-      luaLoader.enable = true;
-      
-      colorschemes.catppuccin.enable = true;
-      
+      luaLoader = {
+        enable = true;
+      };
+      colorschemes = {
+        catppuccin = {
+          enable = true;
+        };
+      };
       plugins = {
         lualine.enable = true;
         lazygit.enable = true;

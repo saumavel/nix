@@ -2,214 +2,102 @@
   programs.nixvim = {
     globals = {
       mapleader = " ";
-      maplocalleader = " ";
     };
 
     # Keymaps
-    keymaps =
-    [
-      # oil mapping for file tree
+    keymaps = [
+      # Close nvim
       {
-        action = ":Oil<CR>";
-        key = "<leader>o";
+        mode = "n";
+        key = "<leader>q";
+        action = "<cmd>q<cr>";
         options = {
           silent = true;
           noremap = true;
-          desc = "Oil Mapping";
+          desc = "Close nvim";
         };
       }
-      # Go to definition
+      # Close nvim with force
       {
-        action = ":lua vim.lsp.buf.definition()<CR>";
-        key = "<leader>gd";
+        mode = "n";
+        key = "<leader>!";
+        action = "<cmd>q!<cr>";
         options = {
           silent = true;
           noremap = true;
-          desc = "Go to definition";
+          desc = "Close nvim with force";
         };
       }
-      # Go to references
+      # Update and close nvim
       {
-        action = ":lua vim.lsp.buf.references()<CR>";
-        key = "<leader>gr";
+        mode = "n";
+        key = "<leader>x";
+        action = "<cmd>x<cr>";
         options = {
           silent = true;
           noremap = true;
-          desc = "Go to references";
+          desc = "Update and close nvim";
         };
       }
-      # git blame open URL
+      # Update file
       {
-        action = ":GitBlameOpenCommitURL<CR>";
-        key = "<leader>gb";
+        mode = "n";
+        key = "<leader>w";
+        action = "<cmd>up<cr>";
         options = {
           silent = true;
           noremap = true;
-          desc = "Open git blame URL";
-        };
-      }
-      # lazy git dashboard
-      {
-        action = ":LazyGit<CR>";
-        key = "<leader>lg";
-        options = {
-          silent = true;
-          noremap = true;
-          desc = "Open lazygit";
-        };
-      }
-      # markdown preview mapping
-      {
-        action = ":MarkdownPreview<CR>";
-        key = "<leader>pm";
-        options = {
-          silent = true;
-          noremap = true;
-          desc = "Open markdown preview in browser";
-        };
-      }
-      # Telescope search (live grep)
-      {
-        action = ":Telescope live_grep<CR>";
-        key = "<leader>sg";
-        options = {
-          silent = true;
-          noremap = true;
-          desc = "Search grep";
-        };
-      }
-      # Telescope search buffers
-      {
-        action = ":Telescope buffers<CR>";
-        key = "<leader>sb";
-        options = {
-          silent = true;
-          noremap = true;
-          desc = "Search buffers";
-        };
-      }
-      # Telescope search commands
-      {
-        action = ":Telescope command_history<CR>";
-        key = "<leader>sc";
-        options = {
-          silent = true;
-          noremap = true;
-          desc = "Search commands";
-        };
-      }
-      # Telescope search files
-      {
-        action = ":Telescope find_files<CR>";
-        key = "<leader>sf";
-        options = {
-          silent = true;
-          noremap = true;
-          desc = "Search files";
-        };
-      }
-      # Telescope search commands
-      {
-        action = ":Telescope commands<CR>";
-        key = "<leader>sc";
-        options = {
-          silent = true;
-          noremap = true;
-          desc = "Search commands";
-        };
-      }
-      # Telescope quickfixlist
-      {
-        action = ":Telescope quickfix<CR>";
-        key = "<leader>ql";
-        options = {
-          silent = true;
-          noremap = true;
-          desc = "Quickfix list";
-        };
-      }
-      # Telescope undo tree
-      {
-        action = ":Telescope undo<CR>";
-        key = "<leader>u";
-        options = {
-          silent = true;
-          noremap = true;
-          desc = "Undo tree";
-        };
-      }
-      # Diffview open comparing in git
-      {
-        action = ":DiffviewOpen<CR>";
-        key = "<leader>do";
-        options = {
-          silent = true;
-          noremap = true;
-          desc = "Diffview open";
-        };
-      }
-      # Diffview close comparing in git
-      {
-        action = ":DiffviewClose<CR>";
-        key = "<leader>dp";
-        options = {
-          silent = true;
-          noremap = true;
-          desc = "Diffview close";
-        };
-      }
-      # Mapping q for recording macros
-      {
-        action = "q";
-        key = "q";
-        options = {
-          silent = true;
-          noremap = true;
+          desc = "Update file";
         };
       }
 
-      # Mapping Ctrl+V for block visual mode
+      # Terminal and insert mode window navigation
       {
-        action = "<C-v>";
-        key = "<C-v>";
-        options = {
-          silent = true;
-          noremap = true;
-        };
-      }
-
-      # Buffers
-      {
-        action = ":BufferNext<CR>";
-        key = "<Tab>";
-        options = {
-          silent = true;
-          noremap = true;
-          desc = "Next buffer";
-        };
-      }
-
-      {
-        action = ":BufferPrevious<CR>";
-        key = "<S-Tab>";
-        options = {
-          silent = true;
-          noremap = true;
-          desc = "Prev buffer";
-        };
-      }
-      {
-        action = ":vsplit<CR>";
-        key = "<leader>s";
-        options = {
-          silent = true;
-          noremap = true;
-          desc = "Vertical Split";
-        };
-      }
-      {
-        action = "<C-w>h";
+        mode = ["t" "i"];
         key = "<C-h>";
+        action = "<C-\\><C-N><C-w>h";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Move to the pane on the left (terminal/insert)";
+        };
+      }
+      {
+        mode = ["t" "i"];
+        key = "<C-j>";
+        action = "<C-\\><C-N><C-w>j";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Move to the pane below (terminal/insert)";
+        };
+      }
+      {
+        mode = ["t" "i"];
+        key = "<C-k>";
+        action = "<C-\\><C-N><C-w>k";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Move to the pane above (terminal/insert)";
+        };
+      }
+      {
+        mode = ["t" "i"];
+        key = "<C-l>";
+        action = "<C-\\><C-N><C-w>l";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Move to the pane on the right (terminal/insert)";
+        };
+      }
+
+      # Normal and visual mode window navigation
+      {
+        mode = ["n" "v"];
+        key = "<C-h>";
+        action = "<C-w>h";
         options = {
           silent = true;
           noremap = true;
@@ -217,8 +105,9 @@
         };
       }
       {
-        action = "<C-w>j";
+        mode = ["n" "v"];
         key = "<C-j>";
+        action = "<C-w>j";
         options = {
           silent = true;
           noremap = true;
@@ -226,8 +115,9 @@
         };
       }
       {
-        action = "<C-w>k";
+        mode = ["n" "v"];
         key = "<C-k>";
+        action = "<C-w>k";
         options = {
           silent = true;
           noremap = true;
@@ -235,111 +125,157 @@
         };
       }
       {
-        action = ":Trouble<CR>";
-        key = "<leader>t";
-        options = {
-          silent = true;
-          noremap = true;
-          desc = "Open trouble window";
-        };
-      }
-      {
-        action = "<C-w>l";
+        mode = ["n" "v"];
         key = "<C-l>";
+        action = "<C-w>l";
         options = {
           silent = true;
           noremap = true;
           desc = "Move to the pane on the right";
         };
       }
+
+      # Better start and end of line
       {
-        key = "<leader>b";
-        action = ":DapToggleBreakpoint<CR>";
+        mode = ["n" "v"];
+        key = "H";
+        action = "^";
         options = {
           silent = true;
           noremap = true;
-          desc = "Toggle breakpoint";
+          desc = "Start of the line";
         };
       }
       {
-        key = "<leader>B";
-        action = ":DapClearBreakpoints<CR>";
+        mode = ["n" "v"];
+        key = "L";
+        action = "$";
         options = {
           silent = true;
           noremap = true;
-          desc = "Clear all breakpoints";
+          desc = "End of the line";
+        };
+      }
+
+      # Open netrw Explore if Oil is not available
+      {
+        mode = "n";
+        key = "<leader>e";
+        action = "<cmd>Ex<cr>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Open netrw Explore";
+        };
+      }
+
+      # Faster movement
+      {
+        mode = "n";
+        key = "J";
+        action = "6j";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "6 lines down";
         };
       }
       {
-        key = "<leadr>dc";
-        action = ":DapContinue<CR>";
+        mode = "n";
+        key = "K";
+        action = "6k";
         options = {
           silent = true;
           noremap = true;
-          desc = "Start/Continue debugging";
+          desc = "6 lines up";
+        };
+      }
+
+      # System clipboard operations
+      {
+        mode = ["n" "v"];
+        key = "<leader>y";
+        action = "\"+y";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "System clipboard yank";
         };
       }
       {
-        key = "<leader>dso";
-        action = ":DapStepOver<CR>";
+        mode = ["n" "v"];
+        key = "<leader>Y";
+        action = "\"+Y";
         options = {
           silent = true;
           noremap = true;
-          desc = "Step over";
+          desc = "System clipboard Yank";
         };
       }
       {
-        key = "<leader>dsi";
-        action = ":DapStepInto<CR>";
+        mode = ["n" "v"];
+        key = "<leader>p";
+        action = "\"+]p";
         options = {
           silent = true;
           noremap = true;
-          desc = "Step into";
+          desc = "System clipboard put & indent";
         };
       }
       {
-        key = "<leader>dsO";
-        action = ":DapStepOut<CR>";
+        mode = ["n" "v"];
+        key = "<leader>P";
+        action = "\"+]P";
         options = {
           silent = true;
           noremap = true;
-          desc = "Step out";
+          desc = "System clipboard Put & indent";
+        };
+      }
+
+      # Normal put with correct indent
+      {
+        mode = ["n" "v"];
+        key = "p";
+        action = "]p";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "put with indent";
         };
       }
       {
-        key = "<leader>dr";
-        action = "<cmd>lua require('dap').run_to_cursor()<CR>";
+        mode = ["n" "v"];
+        key = "P";
+        action = "]P";
         options = {
           silent = true;
           noremap = true;
-          desc = "Run to cursor";
+          desc = "Put with indent";
         };
       }
+
+      # Keep yanked text after put in visual mode
       {
-        key = "<leader>du";
-        action = "<cmd>lua require('dapui').toggle()<CR>";
+        mode = "x";
+        key = "p";
+        action = "\"_dP";
         options = {
           silent = true;
           noremap = true;
-          desc = "Toggle DAP UI";
+          desc = "Put without yanking replaced text";
         };
       }
+
+      # Exit terminal mode with Escape
       {
-        key = "<leader>dR";
-        action = "<cmd>lua require('dap').restart()<CR>";
+        mode = "t";
+        key = "<Esc>";
+        action = "<C-\\><C-n>";
         options = {
           silent = true;
           noremap = true;
-          desc = "Restart debugging session";
-        };
-      }
-      {
-        key = "<leader>dT";
-        action = "<cmd>lua require('nvim-dap-virtual-text').refresh()<CR>";
-        options = {
-          silent = true;
-          noremap = true;
-          desc = "Refresh DAP Virtual Text";
+          desc = "Exit terminal mode";
         };
       }
     ];
