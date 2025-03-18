@@ -11,17 +11,23 @@
   });
 in {
   imports = [
-    nixvim.homeManagerModules.nixvim
+    inputs.nixvim.homeManagerModules.nixvim    
     # .nixvim/autocommands.nix
     # .nixvim/completion.nix
     # .nixvim/keymappings.nix
-    ./.nixvim/options.nix
+    ./nixvim/options.nix
     # .nixvim/plugins
     # .nixvim/todo.nix
 
     # Keep your catppuccin import if needed
     inputs.catppuccin.homeManagerModules.catppuccin
   ];
+
+  nixvim = {
+    url = "github:nix-community/nixvim";
+    # Make sure nixvim uses the same nixpkgs as your system
+    inputs.nixpkgs.follows = "nixpkgs";
+  };
 
   # THEME
   catppuccin = {
