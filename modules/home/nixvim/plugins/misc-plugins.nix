@@ -5,6 +5,7 @@
     web-devicons = {
       enable = true;
     };
+
 	markdown-preview = {
 	  enable = true;
 	  settings = {
@@ -31,9 +32,17 @@
 	
 	indent-o-matic = {
 	  enable = true;
-}
+	};
 
-
+	neoscroll = {
+      enable = true;
+      settings = {
+        mappings = [
+          "<C-u>"
+          "<C-d>"
+        ];
+      };
+    };
 
     harpoon = {
       enable = true;
@@ -49,6 +58,5 @@
     	};
       };
     };
-
   };
 }
