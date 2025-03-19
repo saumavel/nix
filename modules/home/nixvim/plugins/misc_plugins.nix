@@ -57,6 +57,19 @@
       };
     };
     
+    # Seamless navigation between tmux panes and vim splits
+    # Allows using the same keybindings to move between both
+    tmux-navigator = {
+      enable = true;
+      # Default keymaps are:
+      # - <C-h> for left navigation
+      # - <C-j> for down navigation
+      # - <C-k> for up navigation
+      # - <C-l> for right navigation
+      # - <C-\> for previous split
+      disableWhenZoomed = true;  # Disable navigation when a pane is zoomed in tmux
+    };
+
     #---------------------------------------------------------------------------
     # DEVELOPMENT TOOLS
     #---------------------------------------------------------------------------

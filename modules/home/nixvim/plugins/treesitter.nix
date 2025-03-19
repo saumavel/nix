@@ -54,5 +54,22 @@
     hmts = {
       enable = true;  # Enable improved HTML, Markdown, and TSX parsing and highlighting
     };
+    # Explicitly install parsers for common languages
+    ensure_installed = [
+      "bash"
+      "c"
+      "cpp"
+      "go"
+      "javascript"
+      "json"
+      "lua"
+      "markdown"
+      "nix"
+      "python"
+      "rust"
+      "typescript"
+      "vim"
+      "yaml"
+    ];
   };
 }
