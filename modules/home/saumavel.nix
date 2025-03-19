@@ -10,18 +10,16 @@
 
 	# færa annað!
     ./nixvim/autocommands.nix
-    ./nixvim/completion.nix
     ./nixvim/keymappings.nix
     ./nixvim/options.nix
 	./nixvim/todo.nix
-    ./nixvim/plugins/completion.nix
 	./nixvim/plugins/git.nix
 	./nixvim/plugins/lsp.nix
 	./nixvim/plugins/lualine.nix
 	./nixvim/plugins/misc_plugins.nix
+    ./nixvim/plugins/noice.nix
     ./nixvim/plugins/oil.nix
 	./nixvim/plugins/telescope.nix
-	./nixvim/plugins/treesitter.nix
 	# færa annað!
 
     inputs.catppuccin.homeManagerModules.catppuccin
