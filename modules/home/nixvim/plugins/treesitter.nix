@@ -21,10 +21,26 @@
         # Enable syntax highlighting
         # The core feature of Treesitter - provides accurate and colorful syntax highlighting
         highlight.enable = true;
-        
-        # Uncomment to install all available language parsers
-        # This would provide support for all languages Treesitter supports
-        # ensure_installed = "all";
+
+        # Install specific parsers that are needed
+        ensure_installed = [
+          "bash"
+          "c"
+          "cpp"
+          "go"
+          "html"        # Add HTML parser for HMTS
+          "javascript"
+          "json"
+          "lua"
+          "markdown"    # Make sure markdown is included for HMTS
+          "nix"
+          "python"
+          "rust"
+          "tsx"         # Add TSX parser for HMTS
+          "typescript"
+          "vim"
+          "yaml"
+        ];
         
         # Automatically install parsers when opening files of unknown types
         # Convenient for automatically supporting new languages as you encounter them
@@ -51,25 +67,9 @@
 
     # HMTS - HTML, Markdown, and TSX support for Treesitter
     # Enhances Treesitter's capabilities for web development languages
+    # Temporarily disable HMTS to see if it resolves the error
     hmts = {
-      enable = true;  # Enable improved HTML, Markdown, and TSX parsing and highlighting
+      enable = false;  # Disable HMTS temporarily to test if it's causing the issue
     };
-    # Explicitly install parsers for common languages
-    ensure_installed = [
-      "bash"
-      "c"
-      "cpp"
-      "go"
-      "javascript"
-      "json"
-      "lua"
-      "markdown"
-      "nix"
-      "python"
-      "rust"
-      "typescript"
-      "vim"
-      "yaml"
-    ];
   };
 }

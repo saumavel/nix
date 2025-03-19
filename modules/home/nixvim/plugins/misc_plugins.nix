@@ -67,7 +67,6 @@
       # - <C-k> for up navigation
       # - <C-l> for right navigation
       # - <C-\> for previous split
-      disableWhenZoomed = true;  # Disable navigation when a pane is zoomed in tmux
     };
 
     #---------------------------------------------------------------------------
