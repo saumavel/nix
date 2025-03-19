@@ -99,6 +99,45 @@
     };
     
     #---------------------------------------------------------------------------
+    # DEBUGGING TOOLS
+    #---------------------------------------------------------------------------
+    
+    # Debug Adapter Protocol client implementation for Neovim
+    # Core debugging functionality that connects to debug adapters
+    dap = {
+      enable = true;
+    };
+    
+    # Go language support for nvim-dap
+    # Configures DAP specifically for debugging Go applications
+    dap-go = {
+      enable = true;
+    };
+    
+    # UI for nvim-dap
+    # Provides a visual interface for the debugging experience
+    dap-ui = {
+      enable = true;
+    };
+    
+    # Shows variable values as virtual text during debugging
+    # Enhances debugging by displaying values inline with code
+    dap-virtual-text = {
+      enable = true;
+    };
+    
+    # Testing framework integration
+    # Provides a unified interface for running tests
+    neotest = {
+      enable = true;
+      # Go testing adapter for neotest
+      # Allows running Go tests through the neotest interface
+      adapters.go = {
+        enable = true;
+      };
+    };
+    
+    #---------------------------------------------------------------------------
     # LANGUAGE SPECIFIC PLUGINS
     #---------------------------------------------------------------------------
     
