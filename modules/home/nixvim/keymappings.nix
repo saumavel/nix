@@ -278,6 +278,16 @@
           desc = "Exit terminal mode";
         };
       }
+
+	  # Open oil with leader e
+	  {
+	    key = "<leader>e";
+	    action = "<CMD>Oil<CR>";
+	    options = {
+		  desc = "Open Oil";
+		  silent = true;
+	    };
+	  }
     ];
   };
 }

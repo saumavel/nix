@@ -2,9 +2,7 @@
   programs.nixvim = {
     plugins.harpoon = {
       enable = true;
-
       keymapsSilent = true;
-
       keymaps = {
         addFile = "<leader>a";
         toggleQuickMenu = "<C-e>";

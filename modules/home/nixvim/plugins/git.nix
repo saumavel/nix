@@ -1,6 +1,11 @@
 {
   programs.nixvim.plugins = {
-    web-devicons = {
+
+	gitblame = {
+	  enable = true;
+	};
+
+    lazygit = {
       enable = true;
     };
   };

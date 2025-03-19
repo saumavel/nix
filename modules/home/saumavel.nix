@@ -7,15 +7,22 @@
 }: {
   imports = [
     inputs.nixvim.homeManagerModules.nixvim    
+
+	# færa annað!
     ./nixvim/autocommands.nix
     ./nixvim/completion.nix
     ./nixvim/keymappings.nix
     ./nixvim/options.nix
-	# ./nixvim/plugins-remap.nix
-	# ./nixvim/plugins-remap.nix
-    # ./nixvim/extraconfig.nix
-    ./nixvim/plugins
-    ./nixvim/todo.nix
+	./nixvim/todo.nix
+    ./nixvim/plugins/oil.nix
+	./nixvim/plugins/misc-plugins.nix
+	./nixvim/plugins/harpoon.nix
+	./nixvim/plugins/lsp.nix
+	./nixvim/plugins/lint.nix
+	./nixvim/plugins/lualine.nix
+	./nixvim/plugins/telescope.nix
+	# færa annað!
+
     inputs.catppuccin.homeManagerModules.catppuccin
   ];
 
