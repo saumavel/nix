@@ -14,15 +14,14 @@
     ./nixvim/keymappings.nix
     ./nixvim/options.nix
 	./nixvim/todo.nix
+    ./nixvim/plugins/completion.nix
 	./nixvim/plugins/git.nix
-	./nixvim/plugins/lint.nix
 	./nixvim/plugins/lsp.nix
 	./nixvim/plugins/lualine.nix
 	./nixvim/plugins/misc_plugins.nix
     ./nixvim/plugins/oil.nix
 	./nixvim/plugins/telescope.nix
-    ./nixvim/plugins/completion.nix
-	# ./nixvim/plugins/treesitter.nix
+	./nixvim/plugins/treesitter.nix
 	# færa annað!
 
     inputs.catppuccin.homeManagerModules.catppuccin
