@@ -43,7 +43,7 @@
             "<C-c>" = "close";                   # Close telescope
             "<C-u>" = "preview_scrolling_up";    # Scroll preview up
             "<C-d>" = "preview_scrolling_down";  # Scroll preview down
-          },
+          };  # Note the semicolon here, not a comma
           n = {  # Normal mode mappings
             # Navigation in results
             "<C-j>" = "move_selection_next";     # Move to next item with Ctrl+j
@@ -56,7 +56,7 @@
             # Preview scrolling
             "<C-u>" = "preview_scrolling_up";    # Scroll preview up
             "<C-d>" = "preview_scrolling_down";  # Scroll preview down
-          }
+          };
         };
         
         # Extension configurations
