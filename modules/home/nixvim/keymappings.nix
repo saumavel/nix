@@ -58,6 +58,18 @@
         };
       }
 
+      # Vertical Split
+      {
+        mode = "n";
+        key = "<leader>s";
+        action = ":vsplit<CR>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Vertical Split";
+        };
+      }
+
       #---------------------------------------------------------------------------
       # WINDOW NAVIGATION
       #---------------------------------------------------------------------------
@@ -159,6 +171,32 @@
       }
 
       #---------------------------------------------------------------------------
+      # BUFFER NAVIGATION
+      #---------------------------------------------------------------------------
+      
+      # Navigate between buffers
+      {
+        mode = "n";
+        key = "<Tab>";
+        action = ":BufferNext<CR>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Next buffer";
+        };
+      }
+      {
+        mode = "n";
+        key = "<S-Tab>";
+        action = ":BufferPrevious<CR>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Prev buffer";
+        };
+      }
+
+      #---------------------------------------------------------------------------
       # MOVEMENT AND NAVIGATION
       #---------------------------------------------------------------------------
       
@@ -203,6 +241,28 @@
           silent = true;
           noremap = true;
           desc = "6 lines up";
+        };
+      }
+
+      # Preserve default functionality
+      {
+        mode = "n";
+        key = "q";
+        action = "q";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Recording macros";
+        };
+      }
+      {
+        mode = "n";
+        key = "<C-v>";
+        action = "<C-v>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Block visual mode";
         };
       }
 
@@ -313,6 +373,7 @@
           desc = "Open netrw Explore (fallback)";
         };
       }
+
       #---------------------------------------------------------------------------
       # PLUGIN SPECIFIC KEYBINDINGS
       #---------------------------------------------------------------------------
@@ -325,6 +386,18 @@
         options = {
           silent = true;
           desc = "Toggle Tagbar";
+        };
+      }
+
+      # Open trouble window
+      {
+        mode = "n";
+        key = "<leader>t";
+        action = ":Trouble<CR>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Open trouble window";
         };
       }
 
@@ -447,6 +520,128 @@
           silent = true;
           noremap = true;
           desc = "Fuzzy find in current buffer";
+        };
+      }
+
+      # Additional Telescope functionality
+      {
+        mode = "n";
+        key = "<leader>u";
+        action = ":Telescope undo<CR>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Undo tree";
+        };
+      }
+
+      #---------------------------------------------------------------------------
+      # DEBUGGING (DAP) KEYBINDINGS
+      #---------------------------------------------------------------------------
+      
+      # Breakpoint management
+      {
+        mode = "n";
+        key = "<leader>b";
+        action = ":DapToggleBreakpoint<CR>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Toggle breakpoint";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>B";
+        action = ":DapClearBreakpoints<CR>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Clear all breakpoints";
+        };
+      }
+      
+      # Debugging control
+      {
+        mode = "n";
+        key = "<leader>dc";
+        action = ":DapContinue<CR>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Start/Continue debugging";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>dso";
+        action = ":DapStepOver<CR>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Step over";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>dsi";
+        action = ":DapStepInto<CR>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Step into";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>dsO";
+        action = ":DapStepOut<CR>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Step out";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>dr";
+        action = "<cmd>lua require('dap').run_to_cursor()<CR>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Run to cursor";
+        };
+      }
+      
+      # DAP UI and session management
+      {
+        mode = "n";
+        key = "<leader>du";
+        action = "<cmd>lua require('dapui').toggle()<CR>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Toggle DAP UI";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>dR";
+        action = "<cmd>lua require('dap').restart()<CR>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Restart debugging session";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>dT";
+        action = "<cmd>lua require('nvim-dap-virtual-text').refresh()<CR>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Refresh DAP Virtual Text";
         };
       }
     ];
