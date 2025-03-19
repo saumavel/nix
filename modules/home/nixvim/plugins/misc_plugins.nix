@@ -79,11 +79,6 @@
       enable = true;
     };
     
-    # Commenting plugin for easy code commenting
-    # Supports multiple languages and comment styles
-    comment = {
-      enable = true;
-    };
     
     # Automatic indentation detection and setting
     # Adjusts indentation based on file content
@@ -97,18 +92,6 @@
       enable = true;
     };
     
-    # Linting configuration for various file types
-    # Integrates linters for different languages
-    lint = {
-      enable = true;
-      lintersByFt = {
-        text = ["vale"];             # Text linting with Vale
-        markdown = ["vale"];         # Markdown linting with Vale
-        dockerfile = ["hadolint"];   # Dockerfile linting
-        terraform = ["tflint"];      # Terraform linting
-        python = ["pylint"];         # Python linting
-      };
-    };
     
     #---------------------------------------------------------------------------
     # DEBUGGING TOOLS
