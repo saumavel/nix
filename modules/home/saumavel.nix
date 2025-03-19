@@ -21,7 +21,8 @@
 	./nixvim/plugins/misc_plugins.nix
     ./nixvim/plugins/oil.nix
 	./nixvim/plugins/telescope.nix
-	./nixvim/plugins/treesitter.nix
+    ./nixvim/plugins/completion.nix
+	# ./nixvim/plugins/treesitter.nix
 	# færa annað!
 
     inputs.catppuccin.homeManagerModules.catppuccin
@@ -101,12 +102,33 @@
       enable = true;
     };
 
+
     #
     # Shell and Terminal
     #
 
+    bash.enable = true;
+
     fish = {
       enable = true;
+      shellAliases = {
+        n = "nvim";
+        da = "direnv allow";
+        dr = "direnv reload";
+        ga = "git add";
+        gc = "git commit";
+        gco = "git checkout";
+        gcp = "git cherry-pick";
+        gdiff = "git diff";
+        gl = "git pull";
+        gp = "git push";
+        gs = "git status";
+        gt = "git tag";
+        c = "clear";
+        lg = "lazygit";
+        cat = "bat";
+        zathura = "$HOME/.local/bin/zathura-nix";
+      };
       interactiveShellInit =
         # bash
         ''
@@ -157,8 +179,6 @@
           alias gcc '/Users/saumavel/.nix-profile/bin/gcc'
           alias g++ '/Users/saumavel/.nix-profile/bin/g++'
           alias cpp '/Users/saumavel/.nix-profile/bin/cpp'
-          alias zathura '$HOME/.local/bin/zathura-nix'
-          alias neovim 'nvim $(fzf -m --preview="bat --color=always {}")'
         '';
     };
 
@@ -170,11 +190,13 @@
       luaLoader = {
         enable = true;
       };
+
       colorschemes = {
         catppuccin = {
           enable = true;
         };
       };
+
       plugins = {
         lualine.enable = true;
         lazygit.enable = true;
@@ -197,7 +219,7 @@
 
     tmux = {
       enable = true;
-      prefix = "C-s";
+      # prefix = "C-s";
       mouse = true;
       baseIndex = 1; # Start at 1
       # keyMode = "vi";
@@ -210,10 +232,12 @@
 
         set -g status-position top
       '';
-      plugins = with pkgs; [
-        tmuxPlugins.cpu
-        tmuxPlugins.tmux-fzf
-        tmuxPlugins.vim-tmux-navigator
+      plugins = with pkgs.tmuxPlugins; [
+        # cpu
+        tmux-fzf
+        vim-tmux-navigator
+        yank
+        sensible
       ];
     };
 
@@ -263,6 +287,12 @@
 
     ripgrep = {
       enable = true;
+      arguments = [
+        "--follow"
+        "--pretty"
+        "--hidden"
+        "--smart-case"
+      ];
     };
 
     bat = {
@@ -272,15 +302,21 @@
     #
     # Shell Enhancements
     #
+
     atuin = {
       enable = true;
-      enableFishIntegration = true;
       settings = {
         exit_mode = "return-query";
         keymap_mode = "auto";
-        prefers_reduced_motion = true;
         enter_accept = true;
-        show_help = false;
+        update_check = false;
+        filter_mode = "directory";
+        workspaces = true;
+
+        stats.common_prefix = [
+          "sudo"
+          "time"
+        ];
       };
     };
 
@@ -298,7 +334,6 @@
       ignores = ["*.swp"];
       userName = "saumavel";
       userEmail = "saumavel@gmail.com";
-      # userEmail = "kari@genkiinstruments.com";
       lfs.enable = true;
       delta.enable = true;
       aliases = {
@@ -322,7 +357,123 @@
 
     lazygit = {
       enable = true;
-      settings.gui.skipDiscardChangeWarning = true;
+      settings = {
+        git.paging.pager = "${pkgs.diff-so-fancy}/bin/diff-so-fancy";
+        git.truncateCopiedCommitHashesTo = 40;
+        gui = {
+          language = "en";
+          mouseEvents = false;
+          sidePanelWidth = 0.3;
+          mainPanelSplitMode = "flexible";
+          showFileTree = true;
+          nerdFontsVersion = 3;
+          commitHashLength = 6;
+          showDivergenceFromBaseBranch = "arrowAndNumber";
+          skipDiscardChangeWarning = true;
+        };
+        quitOnTopLevelReturn = true;
+        disableStartupPopups = true;
+        promptToReturnFromSubprocess = false;
+        keybinding.files.commitChangesWithEditor = "<disabled>";
+        # Classhing with tmux keybindngs
+        keybinding.commits.moveDownCommit = "<c-J>";
+        keybinding.commits.moveUpCommit = "<c-K>";
+        keybinding.commits.openLogMenu = "<c-L>";
+        customCommands = [
+          {
+            key = "C";
+            command = ''git commit -m "{{ .Form.Type }}{{if .Form.Scopes}}({{ .Form.Scopes }}){{end}}: {{ .Form.Description }}" -m "{{ .Form.LongDescription }}"'';
+            description = "commit with commitizen and long description";
+            context = "global";
+            prompts = [
+              {
+                type = "menu";
+                title = "Select the type of change you are committing.";
+                key = "Type";
+                options = [
+                  {
+                    name = "Feature";
+                    description = "a new feature";
+                    value = "feat";
+                  }
+                  {
+                    name = "Fix";
+                    description = "a bug fix";
+                    value = "fix";
+                  }
+                  {
+                    name = "Chores";
+                    description = "Other changes that don't modify src or test files";
+                    value = "chore";
+                  }
+                  {
+                    name = "Documentation";
+                    description = "Documentation only changes";
+                    value = "docs";
+                  }
+                  {
+                    name = "Styles";
+                    description = "Changes that affect white-space, formatting, missing semi-colons, etc";
+                    value = "style";
+                  }
+                  {
+                    name = "Code Refactoring";
+                    description = "Neither fixes a bug nor adds a feature";
+                    value = "refactor";
+                  }
+                  {
+                    name = "Performance Improvements";
+                    description = "Improves performance";
+                    value = "perf";
+                  }
+                  {
+                    name = "Tests";
+                    description = "Adding missing tests or correting existing tests";
+                    value = "test";
+                  }
+                  {
+                    name = "Builds";
+                    description = "Build system or external dependencies";
+                    value = "build";
+                  }
+                  {
+                    name = "Continuous Integration";
+                    description = "CI configuration files and scripts";
+                    value = "ci";
+                  }
+                  {
+                    name = "Reverts";
+                    description = "Reverts a previous commit";
+                    value = "revert";
+                  }
+                ];
+              }
+              {
+                type = "input";
+                title = "Enter the scope(s) of this change.";
+                key = "Scopes";
+              }
+              {
+                type = "input";
+                title = "Enter the short description of the change.";
+                key = "Description";
+              }
+              {
+                type = "input";
+                title = "Enter a longer description of the change (optional).";
+                key = "LongDescription";
+              }
+            ];
+          }
+          {
+            key = "O";
+            description = "open repo in GitHub";
+            command = "gh repo view --web";
+            context = "global";
+            loadingText = "Opening GitHub repo in browser...";
+          }
+        ];
+      };
     };
 
     direnv = {
