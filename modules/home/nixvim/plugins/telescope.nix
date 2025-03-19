@@ -13,6 +13,9 @@
           "%.ipynb"
         ];
         set_env.COLORTERM = "truecolor";
+        extensions.treesitter = {
+          enable = true;
+      };
       };
     };
   };

@@ -202,6 +202,7 @@
           desc = "System clipboard yank";
         };
       }
+
       {
         mode = ["n" "v"];
         key = "<leader>Y";
@@ -212,6 +213,7 @@
           desc = "System clipboard Yank";
         };
       }
+
       {
         mode = ["n" "v"];
         key = "<leader>p";
@@ -222,6 +224,7 @@
           desc = "System clipboard put & indent";
         };
       }
+
       {
         mode = ["n" "v"];
         key = "<leader>P";
@@ -287,7 +290,16 @@
 		  desc = "Open Oil";
 		  silent = true;
 	    };
-	  }
+      }
+
+      # Toggle tagbar
+      {
+        mode = "n";
+        key = "<C-g>";
+        action = ":TagbarToggle<cr>";
+        options.silent = true;
+      }
+
     ];
   };
 }

@@ -43,6 +43,12 @@
         ];
       };
     };
+    
+    tagbar = {
+      enable = true;
+      settings.width = 50;
+    };
+
 
     harpoon = {
       enable = true;
