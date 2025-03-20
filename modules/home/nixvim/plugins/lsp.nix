@@ -15,24 +15,24 @@
 
       # Keybinding helper that shows available key combinations
       # Helps remember complex keybindings
-      which-key = { enable = true; };
+      which-key = {enable = true;};
 
       # Automatic indentation detection and setting
       # Adjusts indentation based on file content
-      indent-o-matic = { enable = true; };
+      indent-o-matic = {enable = true;};
 
       # Diagnostics, references, telescope results, quickfix and location lists
       # Provides a better interface for viewing various lists
-      trouble = { enable = true; };
+      trouble = {enable = true;};
 
       # Telescope - Fuzzy finder and picker
       # Provides unified interface for navigating lists of various kinds
       telescope = {
         enable = true;
         extensions = {
-          fzf-native = { enable = true; };
-          file-browser = { enable = true; };
-          ui-select = { enable = true; };
+          fzf-native = {enable = true;};
+          file-browser = {enable = true;};
+          ui-select = {enable = true;};
         };
         keymaps = {
           "<leader>ff" = "find_files";
@@ -64,7 +64,7 @@
       # };
 
       # LSP Status Indicator
-    fidget = {
+      fidget = {
         enable = true;
         # settings = {
         #   text = {
@@ -84,7 +84,7 @@
         settings = {
           check_ts = true; # Use treesitter for better pair matching
           # The cmp integration was already correctly under settings
-          cmp = { enable = true; };
+          cmp = {enable = true;};
         };
       };
 
@@ -93,7 +93,7 @@
         enable = true;
         settings = {
           bind = true;
-          handler_opts = { border = "rounded"; };
+          handler_opts = {border = "rounded";};
           hint_enable = true;
           hint_prefix = "🔍 ";
           floating_window = true;
@@ -106,19 +106,19 @@
 
       # Debug Adapter Protocol client implementation for Neovim
       # Core debugging functionality that connects to debug adapters
-      dap = { enable = true; };
+      dap = {enable = true;};
 
       # Go language support for nvim-dap
       # Configures DAP specifically for debugging Go applications
-      dap-go = { enable = true; };
+      dap-go = {enable = true;};
 
       # UI for nvim-dap
       # Provides a visual interface for the debugging experience
-      dap-ui = { enable = true; };
+      dap-ui = {enable = true;};
 
       # Shows variable values as virtual text during debugging
       # Enhances debugging by displaying values inline with code
-      dap-virtual-text = { enable = true; };
+      dap-virtual-text = {enable = true;};
 
       # Testing framework integration
       # Provides a unified interface for running tests
@@ -126,7 +126,7 @@
         enable = true;
         # Go testing adapter for neotest
         # Allows running Go tests through the neotest interface
-        adapters.go = { enable = true; };
+        adapters.go = {enable = true;};
       };
 
       #---------------------------------------------------------------------------
@@ -135,7 +135,7 @@
 
       # Nix language support
       # Provides syntax highlighting and other features for Nix files
-      nix = { enable = true; };
+      nix = {enable = true;};
 
       # Markdown preview functionality
       # Opens a browser window with rendered markdown
@@ -149,18 +149,18 @@
 
       # Commenting plugin for easy code commenting
       # Supports multiple languages and comment styles
-      comment = { enable = true; };
+      comment = {enable = true;};
 
       # Linting configuration for various file types
       # Integrates linters for different languages
       lint = {
         enable = true;
         lintersByFt = {
-          text = [ "vale" ]; # Text linting with Vale
-          markdown = [ "vale" ]; # Markdown linting with Vale
-          dockerfile = [ "hadolint" ]; # Dockerfile linting
-          terraform = [ "tflint" ]; # Terraform linting
-          python = [ "pylint" ]; # Python linting
+          text = ["vale"]; # Text linting with Vale
+          markdown = ["vale"]; # Markdown linting with Vale
+          dockerfile = ["hadolint"]; # Dockerfile linting
+          terraform = ["tflint"]; # Terraform linting
+          python = ["pylint"]; # Python linting
         };
       };
 
@@ -176,20 +176,20 @@
           };
 
           # Move formattersByFt under settings as well
-          formatters_by_ft =
-            { # Note: changed from formattersByFt to formatters_by_ft
-              lua = [ "stylua" ];
-              python = [ "black" ];
-              go = [ "gofmt" ];
-              nix = [ "nixfmt" ];
-              javascript = [ "prettier" ];
-              typescript = [ "prettier" ];
-              html = [ "prettier" ];
-              css = [ "prettier" ];
-              json = [ "prettier" ];
-              yaml = [ "prettier" ];
-              markdown = [ "prettier" ];
-            };
+          formatters_by_ft = {
+            # Note: changed from formattersByFt to formatters_by_ft
+            lua = ["stylua"];
+            python = ["black"];
+            go = ["gofmt"];
+            nix = ["alejandra"];
+            javascript = ["prettier"];
+            typescript = ["prettier"];
+            html = ["prettier"];
+            css = ["prettier"];
+            json = ["prettier"];
+            yaml = ["prettier"];
+            markdown = ["prettier"];
+          };
         };
       };
 
@@ -263,12 +263,13 @@
       };
 
       # Treesitter Context - Shows code context at the top of the screen
-      treesitter-context = { enable = true; };
+      treesitter-context = {enable = true;};
 
       # Treesitter Text Objects - Provides text objects based on treesitter nodes
       treesitter-textobjects = {
         enable = true;
-        extraOptions = { # Use extraOptions instead of settings
+        extraOptions = {
+          # Use extraOptions instead of settings
           select = {
             enable = true;
             lookahead = true;
@@ -296,9 +297,9 @@
 
       # HMTS - HTML, Markdown, and TSX support for Treesitter
       # Enhances Treesitter's capabilities for web development languages
-      hmts = {
-        enable = true; # Enable HMTS for better web development support
-      };
+      # hmts = {
+      #   enable = true; # Enable HMTS for better web development support
+      # };
 
       #---------------------------------------------------------------------------
       # COMPLETION CONFIGURATION
@@ -308,7 +309,7 @@
       # Provides snippet functionality and integration with nvim-cmp
       luasnip = {
         enable = true;
-        fromVscode = [ { } ]; # Load all snippets from friendly-snippets
+        fromVscode = [{}]; # Load all snippets from friendly-snippets
       };
 
       # Snippet collection
@@ -367,39 +368,33 @@
         settings = {
           # Snippet expansion function
           # This tells cmp how to expand snippets using LuaSnip
-          snippet.expand =
-            "function(args) require('luasnip').lsp_expand(args.body) end";
+          snippet.expand = "function(args) require('luasnip').lsp_expand(args.body) end";
 
           # Keybindings for controlling the completion menu
           mapping = {
-            "<C-d>" =
-              "cmp.mapping.scroll_docs(-4)"; # Scroll documentation window up
-            "<C-f>" =
-              "cmp.mapping.scroll_docs(4)"; # Scroll documentation window down
+            "<C-d>" = "cmp.mapping.scroll_docs(-4)"; # Scroll documentation window up
+            "<C-f>" = "cmp.mapping.scroll_docs(4)"; # Scroll documentation window down
             "<C-Space>" = "cmp.mapping.complete()"; # Trigger completion menu
             "<C-e>" = "cmp.mapping.close()"; # Close completion menu
-            "<Tab>" =
-              "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})"; # Next suggestion
-            "<S-Tab>" =
-              "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})"; # Previous suggestion
-            "<CR>" =
-              "cmp.mapping.confirm({ select = true })"; # Confirm selection
+            "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})"; # Next suggestion
+            "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})"; # Previous suggestion
+            "<CR>" = "cmp.mapping.confirm({ select = true })"; # Confirm selection
           };
 
           # Completion sources in priority order
           # Earlier sources in the list have higher priority
           sources = [
-            { name = "nvim_lsp"; } # LSP-provided completions (highest priority)
-            { name = "luasnip"; } # Snippet completions
-            { name = "path"; } # Filesystem path completions
-            { name = "nvim_lua"; } # Neovim Lua API
+            {name = "nvim_lsp";} # LSP-provided completions (highest priority)
+            {name = "luasnip";} # Snippet completions
+            {name = "path";} # Filesystem path completions
+            {name = "nvim_lua";} # Neovim Lua API
             {
               name = "buffer"; # Completions from buffer text
               # This option makes completions available from all open buffers, not just the current one
               option.get_bufnrs.__raw = "vim.api.nvim_list_bufs";
             }
-            { name = "neorg"; } # Neorg-specific completions
-            { name = "git"; } # Git completions
+            {name = "neorg";} # Neorg-specific completions
+            {name = "git";} # Git completions
           ];
         };
       };

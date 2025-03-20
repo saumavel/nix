@@ -6,21 +6,21 @@
   ...
 }: {
   imports = [
-    inputs.nixvim.homeManagerModules.nixvim    
+    inputs.nixvim.homeManagerModules.nixvim
 
-	# færa annað!
+    # færa annað!
     ./nixvim/autocommands.nix
     ./nixvim/keymappings.nix
     ./nixvim/options.nix
-	./nixvim/todo.nix
-	./nixvim/plugins/git.nix
-	./nixvim/plugins/lsp.nix
-	./nixvim/plugins/lualine.nix
-	./nixvim/plugins/misc_plugins.nix
+    ./nixvim/todo.nix
+    ./nixvim/plugins/git.nix
+    ./nixvim/plugins/lsp.nix
+    ./nixvim/plugins/lualine.nix
+    ./nixvim/plugins/misc_plugins.nix
     ./nixvim/plugins/noice.nix
     ./nixvim/plugins/oil.nix
-	./nixvim/plugins/telescope.nix
-	# færa annað!
+    ./nixvim/plugins/telescope.nix
+    # færa annað!
 
     inputs.catppuccin.homeManagerModules.catppuccin
   ];
@@ -89,16 +89,13 @@
     };
   };
 
-
   # NOTE: START HERE: Install packages that are only available in your user environment.
   # https://home-manager-options.extranix.com/
   programs = {
-  
     # Enable Home Manager itself
     home-manager = {
       enable = true;
     };
-
 
     #
     # Shell and Terminal
@@ -317,11 +314,6 @@
       };
     };
 
-    thefuck = {
-      enable = true;
-      enableFishIntegration = true;
-    };
-
     #
     # Dev Tools
     #
@@ -530,12 +522,12 @@
     alejandra
     # Python formatter
     black
-    # Nix formatter
-    nixfmt-classic
     # JavaScript/TypeScript/HTML/CSS/JSON/YAML/Markdown formatter
-    nodePackages.prettier  
+    nodePackages.prettier
     # Lua formatter
     stylua
+    # C/C++ formatter
+    clang-tools
 
     # Version Control and Collaboration
     gh
@@ -552,13 +544,6 @@
     # TERMINAL UTILITIES
     #
 
-    # File management and navigation
-    fzf
-    fd
-    eza
-    bat
-    ripgrep
-
     # system information and monitoring
     neofetch
     btop
@@ -568,9 +553,6 @@
     wget
     zip
     magic-wormhole-rs
-
-    # shell enhancements
-    thefuck
 
     #
     # UTILITIES
