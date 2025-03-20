@@ -59,7 +59,7 @@ in rec {
       "raycast"
       "alt-tab"
       "karabiner-elements"
-      "homerow"
+      "shortcat"
 
       # UTILITIES
       "keyboardcleantool"

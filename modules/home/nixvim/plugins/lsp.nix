@@ -208,7 +208,7 @@
 
         # Enable code folding based on syntax tree
         # Allows folding functions, classes, and other code blocks based on their structure
-        folding = true;
+        folding = false;
 
         settings = {
           # Enable syntax-aware indentation

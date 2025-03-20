@@ -4,9 +4,14 @@
     # Shows commit information for the current line directly in the editor
     gitblame = {
       enable = true;
-      # Default configuration displays author and commit date in virtual text
-      # Helps track when and by whom code was last modified without leaving the editor
-      # Useful for understanding code history and responsibility
+      settings = {
+        highlight_group = "String"; # This will use the String highlight color (often green)
+        # Or try other built-in groups like:
+        # "Identifier" (often blue)
+        # "Special" (often orange/yellow)
+        # "Type" (often yellow)
+        # "Statement" (often purple)
+      };
     };
 
     # LazyGit - Terminal UI for git commands
