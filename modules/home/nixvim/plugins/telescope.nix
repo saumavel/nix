@@ -43,7 +43,7 @@
             "<C-c>" = "close";                   # Close telescope
             "<C-u>" = "preview_scrolling_up";    # Scroll preview up
             "<C-d>" = "preview_scrolling_down";  # Scroll preview down
-          };  # Note the semicolon here, not a comma
+          };
           n = {  # Normal mode mappings
             # Navigation in results
             "<C-j>" = "move_selection_next";     # Move to next item with Ctrl+j
@@ -58,16 +58,142 @@
             "<C-d>" = "preview_scrolling_down";  # Scroll preview down
           };
         };
-        
-        # Extension configurations
-        extensions = {
-          # TreeSitter integration for Telescope
-          # Enables better syntax-aware searching and previewing
-          treesitter = {
-            enable = true;  # Enable TreeSitter integration with Telescope
-          };
-        };
       };
     };
+    keymaps = [
+      #---------------------------------------------------------------------------
+      # TELESCOPE KEYBINDINGS
+      #---------------------------------------------------------------------------
+
+      # File navigation
+      {
+        mode = "n";
+        key = "<leader>ff";
+        action = "<cmd>Telescope find_files<cr>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Find files";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>fg";
+        action = "<cmd>Telescope live_grep<cr>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Find with grep";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>fb";
+        action = "<cmd>Telescope buffers<cr>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Find buffers";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>fr";
+        action = "<cmd>Telescope oldfiles<cr>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Find recent files";
+        };
+      }
+
+      # Navigation helpers
+      {
+        mode = "n";
+        key = "<leader>fh";
+        action = "<cmd>Telescope help_tags<cr>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Find help tags";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>fm";
+        action = "<cmd>Telescope marks<cr>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Find marks";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>fc";
+        action = "<cmd>Telescope commands<cr>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Find commands";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>fk";
+        action = "<cmd>Telescope keymaps<cr>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Find keymaps";
+        };
+      }
+
+      # Git operations
+      {
+        mode = "n";
+        key = "<leader>gs";
+        action = "<cmd>Telescope git_status<cr>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Git status";
+        };
+      }
+      {
+        mode = "n";
+        key = "<leader>gc";
+        action = "<cmd>Telescope git_commits<cr>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Git commits";
+        };
+      }
+
+      # Current buffer operations
+      {
+        mode = "n";
+        key = "<leader>/";
+        action = "<cmd>Telescope current_buffer_fuzzy_find<cr>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Fuzzy find in current buffer";
+        };
+      }
+
+      # Additional Telescope functionality
+      {
+        mode = "n";
+        key = "<leader>u";
+        action = ":Telescope undo<CR>";
+        options = {
+          silent = true;
+          noremap = true;
+          desc = "Undo tree";
+        };
+      }
+    ];
   };
 }

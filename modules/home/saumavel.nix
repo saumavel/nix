@@ -528,6 +528,14 @@
     zig
     # For Mason/nix
     alejandra
+    # Python formatter
+    black
+    # Nix formatter
+    nixfmt-classic
+    # JavaScript/TypeScript/HTML/CSS/JSON/YAML/Markdown formatter
+    nodePackages.prettier  
+    # Lua formatter
+    stylua
 
     # Version Control and Collaboration
     gh
