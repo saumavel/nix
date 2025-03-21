@@ -2,16 +2,22 @@
   inputs,
   flake,
   pkgs,
+  lib,
   ...
 }: let
   user = "saumavel";
-in rec {
+in {
   imports = [
     inputs.home-manager.darwinModules.home-manager
-    inputs.nix-homebrew.darwinModules.nix-homebrew
     flake.modules.darwin.common
     flake.modules.common.common
   ];
+
+  # Add the unfree configuration here
+  nixpkgs.config.allowUnfreePredicate = pkg:
+    builtins.elem (lib.getName pkg) [
+      "copilot.vim"
+    ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
 
@@ -27,20 +33,14 @@ in rec {
   # Fix nixbld group ID issue
   ids.gids.nixbld = 350;
 
-  nix-homebrew = {
-    inherit user;
-    enable = true;
-    mutableTaps = false;
-    taps = with inputs; {
-      "homebrew/homebrew-core" = homebrew-core;
-      "homebrew/homebrew-cask" = homebrew-cask;
-      "homebrew/homebrew-bundle" = homebrew-bundle;
-    };
-  };
-
+  # Modified homebrew configuration to update but not remove packages
   homebrew = {
     enable = true;
-    taps = builtins.attrNames nix-homebrew.taps;
+    onActivation = {
+      autoUpdate = true; # Update Homebrew and formulae
+      upgrade = true; # Upgrade outdated packages
+      cleanup = "none"; # Don't remove any packages not in the list
+    };
     brews = [
       "nvm"
       "node"
@@ -52,8 +52,6 @@ in rec {
       "texlive"
       "xdotool"
     ];
-    # NOTE: Here you can install packages from brew
-    # https://formulae.brew.sh
     casks = [
       # MEGA UTILITIES
       "raycast"
@@ -79,6 +77,9 @@ in rec {
       # BROWSERS
       "arc"
 
+      # PDF
+      "skim"
+
       # CHAT
       "messenger"
       "discord"
@@ -86,12 +87,10 @@ in rec {
       # FUN
       "bitwig-studio"
       "plex"
-      "yt-music"
 
       #SCHOOL SHIT
       "android-studio"
     ];
-    # NOTE: Here you can install packages from the Mac App Store
     masApps = {
       # `nix run nixpkgs #mas -- search <app name>`
       "Keynote" = 409183694;

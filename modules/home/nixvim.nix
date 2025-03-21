@@ -1,5 +1,16 @@
-{...}: {
+{
+  pkgs,
+  config,
+  lib,
+  inputs,
+  ...
+}: {
   programs.nixvim = {
+    colorschemes = {
+      catppuccin = {
+        enable = true;
+      };
+    };
     # ==========================================================================
     # AUTOCOMMANDS (autoCmd)
     # ==========================================================================
@@ -27,6 +38,8 @@
     # GLOBAL PROVIDER DISABLES
     # ==========================================================================
     globals = {
+      mapleader = " ";
+      maplocalleader = " ";
       loaded_ruby_provider = 0;
       loaded_perl_provider = 0;
       loaded_python_provider = 0; # Disables Python 2 provider
