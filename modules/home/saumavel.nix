@@ -8,19 +8,7 @@
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
 
-    # færa annað!
-    ./nixvim/autocommands.nix
-    ./nixvim/keymappings.nix
-    ./nixvim/options.nix
-    ./nixvim/todo.nix
-    ./nixvim/plugins/git.nix
-    ./nixvim/plugins/lsp.nix
-    ./nixvim/plugins/lualine.nix
-    ./nixvim/plugins/misc_plugins.nix
-    ./nixvim/plugins/noice.nix
-    ./nixvim/plugins/oil.nix
-    ./nixvim/plugins/telescope.nix
-    # færa annað!
+    ./plugins
 
     inputs.catppuccin.homeManagerModules.catppuccin
   ];
@@ -52,15 +40,6 @@
 
     file = {
       ".hushlogin".text = "";
-      ".local/bin/zathura-nix" = {
-        executable = true;
-        text = ''
-          #!/bin/sh
-          # Improved zathura-nix script for M1 Mac
-          # Preserve all arguments exactly as passed
-          nix-shell -p zathura --run "zathura \"$@\""
-        '';
-      };
     };
   };
 
@@ -73,8 +52,6 @@
     configFile = {
       # Ghostty configuration
       "ghostty/config".source = ./config/ghostty;
-      # Zathura PDF viewer configuration
-      "zathura/zathurarc".source = ./config/zathurarc;
       # Keyboard customization
       "karabiner/karabiner.json".source = ./config/karabiner.json;
     };
@@ -85,7 +62,7 @@
       # plain text files
       "text/plain" = "nvim.desktop";
       # PDF
-      "application/pdf" = "org.pwmt.zathura.desktop";
+      "application/pdf" = "mupdf.desktop";
     };
   };
 
@@ -121,7 +98,6 @@
         c = "clear";
         lg = "lazygit";
         cat = "bat";
-        zathura = "$HOME/.local/bin/zathura-nix";
       };
       interactiveShellInit =
         # bash
@@ -184,16 +160,10 @@
       luaLoader = {
         enable = true;
       };
-
       colorschemes = {
         catppuccin = {
           enable = true;
         };
-      };
-
-      plugins = {
-        lualine.enable = true;
-        lazygit.enable = true;
       };
     };
 

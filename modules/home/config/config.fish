@@ -46,5 +46,4 @@ set -gx PATH /Users/saumavel/.m2/wrapper/dists/apache-maven-3.9.7-bin/3k9n615lch
 alias gcc '/Users/saumavel/.nix-profile/bin/gcc'
 alias g++ '/Users/saumavel/.nix-profile/bin/g++'
 alias cpp '/Users/saumavel/.nix-profile/bin/cpp'
-alias zathura '$HOME/.local/bin/zathura-nix'
 alias inv 'nvim $(fzf -m --preview="bat --color=always {}")'
