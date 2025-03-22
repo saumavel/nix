@@ -315,11 +315,11 @@
               "g." = "actions.toggle_hidden";
               "g\\" = "actions.toggle_trash";
 
-              # FZF integration
+              # FZF integration (updated to use snacks.picker)
               "<leader>ff" = {
                 __raw = ''
                   function()
-                    require("fzf-lua").files({
+                    require("snacks").picker.files({
                       cwd = require("oil").get_current_dir()
                     })
                   end
@@ -328,10 +328,11 @@
                 nowait = true;
                 desc = "Find files in current directory";
               };
-              "<leader>fj" = {
+
+              "<leader>fg" = {
                 __raw = ''
                   function()
-                    require("fzf-lua").live_grep({
+                    require("snacks").picker.grep({
                       cwd = require("oil").get_current_dir()
                     })
                   end
@@ -348,7 +349,12 @@
                     local oil = require("oil")
                     local name = oil.get_cursor_entry().name
                     if name:match("%.pdf$") then
-                      local path = oil.get_current_dir() .. name
+                      local dir = oil.get_current_dir()
+                      -- Ensure directory ends with a slash
+                      if not dir:match("/$") then
+                        dir = dir .. "/"
+                      end
+                      local path = dir .. name
                       vim.fn.jobstart(string.format("mupdf %s", vim.fn.shellescape(path)))
                     end
                   end
@@ -1380,7 +1386,7 @@
         {
           mode = "n";
           key = "<leader>t";
-          action = "function() lua.Snacks.terminal() end";
+          action = "<cmd>lua require('snacks').terminal()<CR>";
           options = {
             silent = true;
             desc = "Terminal";
@@ -1389,7 +1395,7 @@
         {
           mode = "n";
           key = "<c-_>";
-          action = "function() lua Snacks.terminal() end";
+          action = "function() require('snacks').terminal() end";
           options = {
             silent = true;
             desc = "which_key_ignore";
@@ -1403,7 +1409,7 @@
         {
           mode = "n";
           key = "<leader>ff";
-          action = "function() Snacks.find.files() end";
+          action = "function() require('snacks').find.files() end";
           options = {
             silent = true;
             desc = "Find Files";
@@ -1412,7 +1418,7 @@
         {
           mode = "n";
           key = "<leader>fg";
-          action = "function() Snacks.find.grep() end";
+          action = "function() require('snacks').find.grep() end";
           options = {
             silent = true;
             desc = "Live Grep";
@@ -1421,7 +1427,7 @@
         {
           mode = "n";
           key = "<leader>fb";
-          action = "function() Snacks.find.buffers() end";
+          action = "function() require('snacks').find.buffers() end";
           options = {
             silent = true;
             desc = "Find Buffers";
@@ -1430,7 +1436,7 @@
         {
           mode = "n";
           key = "<leader>fh";
-          action = "function() Snacks.find.help() end";
+          action = "function() require('snacks').find.help() end";
           options = {
             silent = true;
             desc = "Find Help";
