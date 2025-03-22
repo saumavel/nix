@@ -717,7 +717,7 @@
             # Picker module (fuzzy finder)
             picker = {
               enabled = true;
-              icons = true;
+              icons = {};
               theme = "dropdown";
               previewer.enabled = true;
               finder = {
@@ -1380,16 +1380,16 @@
         {
           mode = "n";
           key = "<leader>t";
-          action = "function() Snacks.terminal() end";
+          action = "function() lua.Snacks.terminal() end";
           options = {
             silent = true;
-            desc = "Toggle Terminal";
+            desc = "Terminal";
           };
         }
         {
           mode = "n";
           key = "<c-_>";
-          action = "function() Snacks.terminal() end";
+          action = "function() lua Snacks.terminal() end";
           options = {
             silent = true;
             desc = "which_key_ignore";
