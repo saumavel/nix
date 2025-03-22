@@ -7,8 +7,6 @@
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
 
-    # ./nixvim.nix
-
     inputs.catppuccin.homeManagerModules.catppuccin
   ];
   # THEME
@@ -270,6 +268,39 @@
         # https://github.com/stevearc/oil.nvim
         oil = {
           enable = true;
+          luaConfig.pre = ''
+            -- Buffer validation
+            local orig_win_set_buf = vim.api.nvim_win_set_buf
+            vim.api.nvim_win_set_buf = function(win_id, buf_id)
+              if not vim.api.nvim_buf_is_valid(buf_id) then
+                vim.notify("Attempted to set invalid buffer " .. buf_id, vim.log.levels.WARN)
+                return false
+              end
+              if not vim.api.nvim_win_is_valid(win_id) then
+                vim.notify("Attempted to use invalid window " .. win_id, vim.log.levels.WARN)
+                return false
+              end
+              return orig_win_set_buf(win_id, buf_id)
+            end
+
+            -- Augroup validation
+            local orig_del_augroup = vim.api.nvim_del_augroup_by_id
+            vim.api.nvim_del_augroup_by_id = function(id)
+              if type(id) ~= "number" then
+                return false
+              end
+
+              local success, _ = pcall(function()
+                return vim.api.nvim_get_autocmds({group = id})
+              end)
+
+              if not success then
+                return false
+              end
+
+              return pcall(orig_del_augroup, id)
+            end
+          '';
           settings = {
             # Replace netrw with Oil for a more powerful file explorer
             default_file_explorer = true;
@@ -315,7 +346,6 @@
               "g." = "actions.toggle_hidden";
               "g\\" = "actions.toggle_trash";
 
-              # FZF integration (updated to use snacks.picker)
               "<leader>ff" = {
                 __raw = ''
                   function()
@@ -366,6 +396,36 @@
             # Disable default keymaps to avoid conflicts
             use_default_keymaps = false;
           };
+          luaConfig.post = ''
+            -- Register which-key descriptions for Oil buffer
+            local oil_wk_group = vim.api.nvim_create_augroup("OilWhichKey", { clear = true })
+            vim.api.nvim_create_autocmd("FileType", {
+              pattern = "oil",
+              callback = function()
+                local bufnr = vim.api.nvim_get_current_buf()
+                -- Check if we've already set up which-key for this buffer
+                if vim.b[bufnr] and vim.b[bufnr].oil_wk_setup then
+                  return
+                end
+
+                -- Get the which-key module
+                local status_ok, which_key = pcall(require, "which-key")
+                if not status_ok then
+                  return
+                end
+
+                -- Register mappings directly using the new format
+                which_key.add({ "<leader>f" }, { buffer = bufnr, group = "find" })
+                which_key.add({ "<leader>ff" }, { buffer = bufnr, desc = "Find Files" })
+                which_key.add({ "<leader>fg" }, { buffer = bufnr, desc = "Live Grep" })
+
+                -- Mark this buffer as set up
+                vim.b[bufnr] = vim.b[bufnr] or {}
+                vim.b[bufnr].oil_wk_setup = true
+              end,
+              group = oil_wk_group
+            })
+          '';
         };
 
         # Harpoon - Quick file navigation and marking
@@ -684,38 +744,47 @@
         #=========================================================================
 
         # Snacks - Collection of Neovim enhancements
-        # https://github.com/echasnovski/mini.nvim
+        # https://github.com/echasnovski/snacks.nvim
         snacks = {
           enable = true;
           autoLoad = true;
 
           # Lua configuration that runs before loading
           luaConfig.pre = ''
-            vim.api.nvim_create_autocmd("User", {
-              pattern = "VeryLazy",
-              callback = function()
-                -- Setup debugging globals
-                _G.dd = function(...)
-                  Snacks.debug.inspect(...)
-                end
-                _G.bt = function()
-                  Snacks.debug.backtrace()
-                end
-                vim.print = _G.dd -- Override print for `:=` command
+            -- More comprehensive buffer validation
+            local orig_win_set_buf = vim.api.nvim_win_set_buf
+            vim.api.nvim_win_set_buf = function(win_id, buf_id)
+              if not vim.api.nvim_buf_is_valid(buf_id) then
+                vim.notify("Attempted to set invalid buffer " .. buf_id, vim.log.levels.WARN)
+                return false
+              end
+              if not vim.api.nvim_win_is_valid(win_id) then
+                vim.notify("Attempted to use invalid window " .. win_id, vim.log.levels.WARN)
+                return false
+              end
+              return orig_win_set_buf(win_id, buf_id)
+            end
 
-                -- Toggle mappings
-                Snacks.toggle.option("spell", { name = "Spelling" }):map("<leader>.z")
-                Snacks.toggle.option("wrap", { name = "Wrap" }):map("<leader>.w")
-                Snacks.toggle.diagnostics():map("<leader>.D")
-                Snacks.toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 })
-                  :map("<leader>.c")
-                Snacks.toggle.treesitter():map("<leader>.T")
-                Snacks.toggle.inlay_hints():map("<leader>.h")
-                Snacks.toggle.scroll():map("<leader>.S")
-                Snacks.toggle.zen():map("<leader>.f")
-                Snacks.toggle.dim():map("<leader>.d")
-              end,
-            })
+            -- Ensure augroups are properly handled
+            local orig_del_augroup = vim.api.nvim_del_augroup_by_id
+            vim.api.nvim_del_augroup_by_id = function(id)
+              if type(id) ~= "number" then
+                vim.notify("Invalid augroup ID: " .. tostring(id), vim.log.levels.WARN)
+                return false
+              end
+
+              -- Check if the augroup exists before deleting
+              local status, _ = pcall(function()
+                return vim.api.nvim_get_autocmds({group = id})
+              end)
+
+              if not status then
+                vim.notify("Augroup ID " .. id .. " does not exist", vim.log.levels.WARN)
+                return false
+              end
+
+              return orig_del_augroup(id)
+            end
           '';
 
           # Snacks module settings
@@ -740,6 +809,11 @@
                 width = 0.8;
                 height = 0.8;
               };
+            };
+
+            image = {
+              enabled = true;
+              previewer = "ghostscript";
             };
 
             # Large file handling
@@ -802,112 +876,6 @@
                 col = 0;
                 b = {
                   completion = true;
-                };
-              };
-            };
-
-            #=========================================================================
-            # DASHBOARD
-            #=========================================================================
-            # Dashboard with block-style NEOVIM ASCII art
-            dashboard = {
-              enabled = true;
-              sections = [
-                # ASCII art header
-                {
-                  section = "header";
-                  content = [
-                    "    ████  ███ ████ ████ ████ █   █████  "
-                    "     ██ █  ██  ██   ██  ██   ██  ██     "
-                    "     ██    ██  ██   ██  ███  ██  ████   "
-                    "     ██ █  ██  ██   ██  ██   ██  ██     "
-                    "    ████  ███ ████  ██  ██   ███ █████  "
-                    "                                        "
-                    "                NEOVIM                  "
-                  ];
-                }
-                {
-                  type = "padding";
-                  val = 1;
-                }
-                {
-                  section = "keys";
-                  title = "Shortcuts";
-                  items = [
-                    {
-                      key = "SPC f f";
-                      desc = "Find Files";
-                    }
-                    {
-                      key = "SPC f g";
-                      desc = "Live Grep";
-                    }
-                    {
-                      key = "SPC f b";
-                      desc = "Find Buffers";
-                    }
-                    {
-                      key = "SPC g g";
-                      desc = "Open Lazygit";
-                    }
-                    {
-                      key = "SPC t";
-                      desc = "Terminal";
-                    }
-                    {
-                      key = "SPC .";
-                      desc = "Toggle Options";
-                    }
-                  ];
-                  gap = 1;
-                  padding = 1;
-                }
-                {
-                  pane = 2;
-                  icon = " ";
-                  title = "Recent Files";
-                  section = "recent_files";
-                  indent = 2;
-                  padding = 1;
-                }
-                {
-                  pane = 2;
-                  icon = " ";
-                  title = "Projects";
-                  section = "projects";
-                  indent = 2;
-                  padding = 1;
-                }
-                {
-                  pane = 2;
-                  icon = " ";
-                  title = "Git Status";
-                  section = "terminal";
-                  enabled = "__raw vim.fn.isdirectory('.git') == 1";
-                  cmd = "git status -bs --ignore-submodules";
-                  height = 5;
-                  padding = 1;
-                  ttl = 300;
-                  indent = 3;
-                }
-              ];
-
-              # Dashboard style options
-              style = {
-                header = {
-                  fg = "#89b4fa"; # Catppuccin blue
-                  bold = true;
-                };
-                section_title = {
-                  fg = "#f5c2e7"; # Catppuccin pink
-                  bold = true;
-                };
-                keys_icon = {
-                  fg = "#a6e3a1"; # Catppuccin green
-                };
-                keys_key = {
-                  fg = "#f9e2af"; # Catppuccin yellow
-                  bold = true;
                 };
               };
             };
@@ -987,6 +955,23 @@
 
             # Protocol Buffers
             protols.enable = true;
+            clangd = {
+              enable = true;
+              settings = {
+                arguments = [
+                  "--background-index"
+                  "--compile-commands-dir=build"
+                  "--clang-tidy"
+                  "--header-insertion=iwyu"
+                  "--completion-style=detailed"
+                  "--function-arg-placeholders"
+                  "--fallback-style=llvm"
+                ];
+              };
+            };
+
+            # Optional: Add ccls as an alternative LSP
+            ccls.enable = true;
           };
 
           # Diagnostic configuration
@@ -1019,6 +1004,9 @@
             dockerfile = ["hadolint"];
             terraform = ["tflint"];
             python = ["pylint"];
+            # Optimize clangd for C++ development
+            cpp = ["cpplint" "cppcheck"];
+            c = ["cpplint" "cppcheck"];
           };
         };
 
@@ -1044,6 +1032,8 @@
               json = ["prettier"];
               yaml = ["prettier"];
               markdown = ["prettier"];
+              cpp = ["clang-format"];
+              c = ["clang-format"];
             };
           };
         };
@@ -1080,11 +1070,14 @@
               "bash"
               "c"
               "cpp"
+              "cmake"
               "go"
               "html"
               "javascript"
               "json"
               "lua"
+              "make"
+              "meson"
               "markdown"
               "nix"
               "python"
@@ -1237,7 +1230,9 @@
         # Testing framework
         neotest = {
           enable = true;
-          adapters.go.enable = true;
+          adapters = {
+            go.enable = true;
+          };
         };
       };
 
@@ -1409,7 +1404,7 @@
         {
           mode = "n";
           key = "<leader>ff";
-          action = "function() require('snacks').find.files() end";
+          action = "<cmd>lua require('snacks').picker.files()<CR>";
           options = {
             silent = true;
             desc = "Find Files";
@@ -1418,7 +1413,7 @@
         {
           mode = "n";
           key = "<leader>fg";
-          action = "function() require('snacks').find.grep() end";
+          action = "<cmd>lua require('snacks').picker.grep()<CR>";
           options = {
             silent = true;
             desc = "Live Grep";
@@ -1427,7 +1422,7 @@
         {
           mode = "n";
           key = "<leader>fb";
-          action = "function() require('snacks').find.buffers() end";
+          action = "<cmd>lua require('snacks').picker.buffers()<CR>";
           options = {
             silent = true;
             desc = "Find Buffers";
@@ -1436,7 +1431,7 @@
         {
           mode = "n";
           key = "<leader>fh";
-          action = "function() require('snacks').find.help() end";
+          action = "<cmd>lua require('snacks').picker.help()<CR>";
           options = {
             silent = true;
             desc = "Find Help";
@@ -1450,7 +1445,7 @@
         {
           mode = "n";
           key = "<leader>fs";
-          action = "function() Snacks.find.lsp_document_symbols() end";
+          action = "<cmd>lua require('snacks').picker.lsp_symbols()<CR>";
           options = {
             silent = true;
             desc = "Find Document Symbols";
