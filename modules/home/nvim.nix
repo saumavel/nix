@@ -13,10 +13,10 @@ let
 in
 {
   options.programs.mvim = {
-    configFullPath = lib.mkOption {
+    nvimConfigSource = lib.mkOption {
       type = lib.types.str;
-      description = "Full path to nixos-config repository";
-      default = "/etc/nixos-config";
+      description = "Full path to neovim config";
+      default = "/etc/nixos-config/home/nvim";
     };
   };
 
@@ -33,7 +33,7 @@ in
     home.activation.nvimSetup = config.lib.dag.entryAfter [ "writeBoundary" ] ''
       echo "Setting up Neovim configuration..."
       NVIM_CONFIG_PATH="${config.xdg.configHome}/nvim"
-      NVIM_CONFIG_SOURCE="${cfg.configFullPath}/home/nvim"
+      NVIM_CONFIG_SOURCE="${cfg.nvimConfigSource}"
 
       # Debug information
       echo "NVIM_CONFIG_PATH: $NVIM_CONFIG_PATH"

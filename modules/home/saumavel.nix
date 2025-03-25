@@ -2,20 +2,31 @@
   pkgs,
   config,
   inputs,
-  flake,
   ...
 }:
 {
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
-    flake.homeModules.nvim
+    inputs.self.homeModules.nvim
 
     inputs.catppuccin.homeManagerModules.catppuccin
   ];
+
+  programs.mvim.nvimConfigSource = "/Users/saumavel/nix/home/nvim";
   # THEME
   catppuccin = {
     enable = true;
     flavor = "mocha";
+    # See issues with IFD: https://github.com/catppuccin/nix?tab=readme-ov-file#-faq
+    fzf.enable = false;
+    starship.enable = false;
+    cava.enable = false;
+    gh-dash.enable = false;
+    imv.enable = false;
+    swaylock.enable = false;
+    mako.enable = false;
+    lazygit.enable = false;
+
   };
 
   home = {
@@ -468,7 +479,7 @@
     # Programming Languages and Build Tools
     go
     cargo
-    gcc
+    # gcc
     cmake
     ninja
     ccache
