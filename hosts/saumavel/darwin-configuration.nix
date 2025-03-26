@@ -4,9 +4,11 @@
   pkgs,
   lib,
   ...
-}: let
+}:
+let
   user = "saumavel";
-in {
+in
+{
   imports = [
     inputs.home-manager.darwinModules.home-manager
     flake.modules.darwin.common
@@ -14,7 +16,8 @@ in {
   ];
 
   # Add the unfree configuration here
-  nixpkgs.config.allowUnfreePredicate = pkg:
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
     builtins.elem (lib.getName pkg) [
       "copilot.vim"
     ];
@@ -58,6 +61,7 @@ in {
       "alt-tab"
       "karabiner-elements"
       "shortcat"
+      "screen-studio"
 
       # UTILITIES
       "keyboardcleantool"
@@ -90,6 +94,10 @@ in {
 
       #SCHOOL SHIT
       "android-studio"
+
+      # IDE´s
+      "zed"
+      "visual-studio-code"
     ];
     masApps = {
       # `nix run nixpkgs #mas -- search <app name>`
@@ -98,7 +106,7 @@ in {
     };
   };
 
-  home-manager.users.${user}.imports = [flake.modules.home.saumavel];
+  home-manager.users.${user}.imports = [ flake.modules.home.saumavel ];
 
   # Enable tailscale. We manually authenticate when we want with out or delete all of this.
   services.tailscale.enable = true;

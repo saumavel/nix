@@ -4,7 +4,7 @@ return {
     cmd = "Oil",
     keys = {
         {
-            "<leader>o",
+            "<leader>w",
             "<cmd>Oil<cr>",
             { desc = "Open Oil" },
         },

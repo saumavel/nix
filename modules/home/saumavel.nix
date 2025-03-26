@@ -461,92 +461,63 @@
   # https://search.nixos.org/packages
   home.packages = with pkgs; [
     #
-    # MISC
+    # DEVELOPMENT & VERSION CONTROL
+    # Tools for development workflows and version control
     #
-    cachix
-
-    #
-    # APPLICATIONS
-    #
-
-    # Browsers
-    qutebrowser
+    gh # GitHub CLI for managing GitHub from the terminal
+    delta # Enhanced git diff viewer with syntax highlighting
+    cachix # Binary cache hosting service for Nix
 
     #
-    # DEV TOOLS
+    # DATABASE TOOLS
+    # Database servers and management tools
     #
-
-    # Programming Languages and Build Tools
-    go
-    cargo
-    # gcc
-    cmake
-    ninja
-    ccache
-    zig
-    # For Mason/nix
-    alejandra
-    # Python formatter
-    black
-    # JavaScript/TypeScript/HTML/CSS/JSON/YAML/Markdown formatter
-    nodePackages.prettier
-    # Lua formatter
-    stylua
-    # C/C++ formatter
-    clang-tools
-
-    # Version Control and Collaboration
-    gh
-    delta
-
-    # Code Editors & IDE
-    # neovim
-    tree-sitter
-
-    # Database
-    postgresql_16
+    postgresql_16 # PostgreSQL database server
 
     #
-    # TERMINAL UTILITIES
+    # SYSTEM MONITORING & INFORMATION
+    # Tools for monitoring system performance and displaying system information
     #
-
-    # system information and monitoring
-    neofetch
-    btop
-    pstree
-
-    # File transfer and networking
-    wget
-    zip
-    magic-wormhole-rs
+    neofetch # System information tool with ASCII art display
+    btop # Resource monitor with CPU, memory, disk, and network usage
+    pstree # Display running processes as a tree
 
     #
-    # UTILITIES
+    # FILE MANAGEMENT & NETWORKING
+    # Tools for file operations and network connectivity
     #
+    wget # Tool for retrieving files using HTTP, HTTPS, and FTP
+    zip # File compression and packaging utility
+    magic-wormhole-rs # Securely transfer files between computers
+    nmap # Network discovery and security auditing utility
+    inetutils # Collection of common network utilities (ping, telnet, etc.)
 
-    # image processing
-    imagemagick
+    #
+    # MEDIA & DOCUMENT PROCESSING
+    # Tools for working with images, documents, and media
+    #
+    imagemagick # Comprehensive suite for image manipulation and conversion
 
-    # pdf nvim
-    ghostscript # For image rendering in nvim
-    tectonic # for latex math
-    mermaid-cli # Generation of diagrams from text in a similar manner as markdown
+    #
+    # SYSTEM INTEGRATION & UTILITIES
+    # Tools that enhance system functionality and integration
+    #
+    desktop-file-utils # Command line utilities for working with desktop entries
+    xdg-utils # Tools for desktop integration (xdg-open, xdg-mime, etc.)
+    tldr # Simplified and community-driven man pages with practical examples
+    dfu-util # Device firmware update utility for USB devices
 
-    # Documentation and help
-    tldr
+    #
+    # VIRTUALIZATION & EMULATION
+    # Tools for running virtual machines and emulators
+    #
+    utm # Virtual machine manager for macOS (QEMU frontend)
 
-    # System integration
-    desktop-file-utils
-    xdg-utils
+    #
+    # BROWSERS & WEB TOOLS
+    # Web browsers and tools for web interaction
+    #
+    qutebrowser # Keyboard-focused browser with a minimal GUI
 
-    # security and network tools
-    nmap
-    inetutils
-
-    # Hardware and Device tools
-    dfu-util
-
-    # Virtualization
-    utm
   ];
 }

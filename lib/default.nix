@@ -3,70 +3,116 @@ _: {
     { pkgs, ... }:
     with pkgs;
     [
-      nodejs # copilot
-      terraform-ls
-      pyright
+      #
+      # LANGUAGE SERVERS & LINTERS
+      # These provide code intelligence, diagnostics, and language support for various languages
+      #
 
-      # based on ./suggested-pkgs.json
-      gopls
-      golangci-lint
-      nodePackages.bash-language-server
-      taplo-lsp
-      marksman
-      selene
-      rust-analyzer
-      yaml-language-server
-      nil
-      nixd
-      shellcheck
-      shfmt
-      ruff
-      typos-lsp
-      typos
-      nixfmt-rfc-style
-      terraform-ls
-      clang-tools
-      nodePackages.prettier
-      stylua
+      # JavaScript/TypeScript
+      nodejs # Required for Copilot and JS/TS tools
+      nodePackages.bash-language-server # Bash language server
+      vscode-langservers-extracted # JSON language server
+      nodePackages.prettier # JavaScript/TypeScript/HTML/CSS/JSON/YAML/Markdown formatter
+      vtsls # TypeScript language server
+      emmet-language-server # HTML/CSS snippets and completion
+      svelte-language-server # Svelte support
 
-      # based on https://github.com/ray-x/go.nvim#go-binaries-install-and-update
-      go
-      delve
-      ginkgo
-      gofumpt
-      golines
-      gomodifytags
-      gotests
-      gotestsum
-      gotools
-      govulncheck
-      iferr
-      impl
-      zls
+      # Python
+      pyright # Python language server
+      black # Python formatter
+      ruff # Fast Python linter
+      python3 # Required for sqlfluff and other Python tools
 
-      # mvim custom
-      sqlite # dadbod
-      gopls
-      stdenv.cc # needed to compile and link nl and other packages
-      elixir-ls
-      emmet-language-server
-      vscode-langservers-extracted # json-lsp
-      lua-language-server
-      sqlfluff
-      svelte-language-server
-      tailwindcss-language-server
-      taplo
-      vtsls
-      xsel # for lazygit copy/paste to clipboard
-      ripgrep
-      fd
-      fzf
-      cargo
-      python3 # sqlfluff
-      unzip
-      bash-language-server
-      lazygit
-      coreutils
+      # Go
+      gopls # Go language server
+      golangci-lint # Go linter
+
+      # Rust
+      rust-analyzer # Rust language server
+      cargo # Rust package manager and build tool
+      taplo # TOML language server
+      taplo-lsp # Alternative TOML language server
+
+      # Lua
+      lua-language-server # Lua language server
+      stylua # Lua formatter
+      selene # Lua linter
+
+      # Nix
+      nil # Nix language server
+      nixd # Alternative Nix language server
+      nixfmt-rfc-style # Official Nix formatter (RFC style)
+      alejandra # Alternative Nix formatter
+
+      # Web Development
+      tailwindcss-language-server # Tailwind CSS support
+
+      # Infrastructure & DevOps
+      terraform-ls # Terraform language server
+
+      # Shell
+      shellcheck # Shell script static analysis
+      shfmt # Shell script formatter
+
+      # C/C++
+      clang-tools # C/C++ language server and formatter
+      cmake # Build system generator
+      ninja # Fast build system
+      ccache # Compiler cache
+      stdenv.cc # Needed to compile and link nl and other packages
+
+      # Markup & Data
+      yaml-language-server # YAML language server
+      marksman # Markdown language server
+      sqlfluff # SQL linter and formatter
+
+      # Other Languages
+      elixir-ls # Elixir language server
+      zls # Zig language server
+      zig # Zig compiler
+
+      # Text Tools
+      typos-lsp # Spell checking language server
+      typos # Spell checker
+
+      #
+      # GO DEVELOPMENT TOOLS
+      # Specialized tools for Go development
+      #
+      go # Go compiler and tools
+      delve # Go debugger
+      ginkgo # Go testing framework
+      gofumpt # Go formatter
+      golines # Go formatter for long lines
+      gomodifytags # Go tool for modifying struct tags
+      gotests # Go test generator
+      gotestsum # Go test runner with summary
+      gotools # Additional Go tools
+      govulncheck # Go vulnerability checker
+      iferr # Go error handling generator
+      impl # Go interface implementation generator
+
+      #
+      # EDITOR TOOLS & UTILITIES
+      # Tools that enhance editor functionality
+      #
+      tree-sitter # Incremental parsing library
+      ripgrep # Fast grep replacement
+      fd # Fast find replacement
+      fzf # Fuzzy finder
+      lazygit # Git TUI
+      xsel # For lazygit copy/paste to clipboard
+      unzip # For unpacking extensions
+      coreutils # Basic Unix utilities
+      sqlite # For dadbod (database interface)
+
+      #
+      # DOCUMENT & DIAGRAM TOOLS
+      # Tools for working with documents and diagrams
+      #
+      ghostscript # For image rendering in nvim
+      mermaid-cli # Generation of diagrams from text
+      # tectonic # For LaTeX math (disabled due to build issues)
     ]
     ++ lib.optional (stdenv.hostPlatform.system != "aarch64-linux") ast-grep;
 
