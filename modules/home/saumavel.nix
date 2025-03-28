@@ -179,16 +179,24 @@
 
     tmux = {
       enable = true;
-      # prefix = "C-s";
+      prefix = "C-a";
       mouse = true;
       baseIndex = 1; # Start at 1
-      # keyMode = "vi";
+      keyMode = "vi";
       extraConfig = ''
         set -g default-command ${pkgs.fish}/bin/fish
 
         # remappa " og % í þægilegri takka
         bind i split-window -h
         bind u split-window -v
+
+        # alt H & L til að navigatea milli windows
+        bind -n M-H previous-window
+        bind -n M-L previous-window
+
+        # Open panes in current directory
+        bind '"' split-window -v -c "#{pane_current_path}"
+        bind % split-window -h -c "#{pane_current_path}"
 
         set -g status-position top
       '';
@@ -206,7 +214,8 @@
       enableFishIntegration = true;
       settings = {
         add_newline = false;
-        command_timeout = 1000;
+        # command_timeout = 1000;
+        command_timeout = 5000;
         scan_timeout = 3;
       };
     };
@@ -330,7 +339,7 @@
         disableStartupPopups = true;
         promptToReturnFromSubprocess = false;
         keybinding.files.commitChangesWithEditor = "<disabled>";
-        # Classhing with tmux keybindngs
+        # Clashing with tmux keybindings
         keybinding.commits.moveDownCommit = "<c-J>";
         keybinding.commits.moveUpCommit = "<c-K>";
         keybinding.commits.openLogMenu = "<c-L>";
