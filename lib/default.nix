@@ -56,7 +56,7 @@ _: {
 
       # C/C++
       clang-tools # C/C++ language server and formatter
-      cmake # Build system generator
+      
       ninja # Fast build system
       ccache # Compiler cache
       stdenv.cc # Needed to compile and link nl and other packages

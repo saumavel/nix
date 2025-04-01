@@ -8,7 +8,6 @@
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
     inputs.self.homeModules.nvim
-
     inputs.catppuccin.homeManagerModules.catppuccin
   ];
 

@@ -3,11 +3,11 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
     cmd = "Oil",
     keys = {
-        {
-            "<leader>w",
-            "<cmd>Oil<cr>",
-            { desc = "Open Oil" },
-        },
+        -- {
+        --     "<leader>w",
+        --     "<cmd>Oil<cr>",
+        --     { desc = "Open Oil" },
+        -- },
         {
             "-",
             "<cmd>Oil<cr>",
@@ -22,9 +22,9 @@ return {
     opts = {
         columns = {
             "icon",
-            "permissions",
-            "size",
-            { "mtime", highlight = "Comment", format = "%T %y-%m-%d" },
+            -- "permissions",
+            -- "size",
+            -- { "mtime", highlight = "Comment", format = "%T %y-%m-%d" },
         },
         float = {
             padding = 2,
