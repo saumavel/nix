@@ -98,9 +98,6 @@ in
       # IDE´s
       "zed"
       "visual-studio-code"
-
-      # Ethical Hacking
-      "qflipper"
     ];
     masApps = {
       # `nix run nixpkgs #mas -- search <app name>`
