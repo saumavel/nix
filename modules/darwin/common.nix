@@ -26,6 +26,12 @@
         "com.apple.sound.beep.feedback" = 0; # Mute the feedback sound
       };
 
+      universalaccess = {
+        closeViewScrollWheelToggle = true; # Use Scroll Wheel to Zoom
+        closeViewZoomFollowsFocus = true; # Follow the keyboard focus while zoomed in
+        mouseDriverCursorSize = 1.0; # Default is 1.0
+      };
+
       ".GlobalPreferences" = {
         "com.apple.mouse.scaling" = 1.8; # Configures the mouse tracking speed (0 to 3). The default is “1.5”.
       };
