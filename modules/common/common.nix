@@ -3,7 +3,8 @@
   lib,
   inputs,
   ...
-}: {
+}:
+{
   nixpkgs.config = {
     allowUnfree = true;
     allowBroken = true;
@@ -43,7 +44,7 @@
     };
   };
 
-  fonts.packages = [pkgs.nerd-fonts.jetbrains-mono];
+  fonts.packages = [ pkgs.nerd-fonts.jetbrains-mono ];
 
   programs.fish.enable = true; # Otherwise our shell won't be installed correctly
 

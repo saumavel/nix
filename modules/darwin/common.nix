@@ -26,6 +26,10 @@
         "com.apple.sound.beep.feedback" = 0; # Mute the feedback sound
       };
 
+      ".GlobalPreferences" = {
+        "com.apple.mouse.scaling" = 1.8; # Configures the mouse tracking speed (0 to 3). The default is “1.5”.
+      };
+
       # Configure Fn key to do nothing when pressed
       hitoolbox.AppleFnUsageType = "Do Nothing";
 
@@ -45,14 +49,19 @@
         ShowPathbar = true;
       };
 
+      screencapture = {
+        location = "~/Downloads/";
+        type = "png";
+      };
+
       trackpad = {
         Clicking = true;
         TrackpadThreeFingerDrag = true;
         TrackpadThreeFingerTapGesture = 0; # Disables the three-finger tap for dictionary lookup
       };
-      screencapture = {
-        location = "~/Downloads/";
-        type = "png";
+
+      magicmouse = {
+        MouseButtonMode = "TwoButton";
       };
     };
 
