@@ -36,7 +36,7 @@
       # };
 
       ".GlobalPreferences" = {
-        "com.apple.mouse.scaling" = 1.8; # Configures the mouse tracking speed (0 to 3). The default is “1.5”.
+        "com.apple.mouse.scaling" = 2.0; # Configures the mouse tracking speed (0 to 3). The default is “1.5”.
       };
 
       # Configure Fn key to do nothing when pressed

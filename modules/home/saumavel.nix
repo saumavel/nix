@@ -8,7 +8,7 @@
   imports = [
     inputs.nixvim.homeManagerModules.nixvim
     inputs.self.homeModules.nvim
-    inputs.catppuccin.homeManagerModules.catppuccin
+    inputs.catppuccin.homeModules.catppuccin
   ];
 
   programs.mvim.nvimConfigSource = "/Users/saumavel/nix/home/nvim";

@@ -91,6 +91,7 @@ in
       # FUN
       "bitwig-studio"
       "plex"
+      "netflix"
 
       #SCHOOL SHIT
       "android-studio"
