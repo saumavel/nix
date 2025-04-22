@@ -81,20 +81,12 @@ in
       # BROWSERS
       "arc"
 
-      # PDF
-      "skim"
-
       # CHAT
       "messenger"
-      "discord"
 
       # FUN
       "bitwig-studio"
       "plex"
-      "netflix"
-
-      #SCHOOL SHIT
-      "android-studio"
 
       # IDE´s
       "zed"

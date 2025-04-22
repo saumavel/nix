@@ -525,7 +525,7 @@
     # BROWSERS & WEB TOOLS
     # Web browsers and tools for web interaction
     #
-    qutebrowser # Keyboard-focused browser with a minimal GUI
+    # qutebrowser # Keyboard-focused browser with a minimal GUI
 
   ];
 }
