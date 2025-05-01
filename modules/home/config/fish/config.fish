@@ -43,6 +43,10 @@ set -gx PATH /Users/saumavel/.local/share/nvim/lazy/mason.nvim/lua/mason-core/ma
 set -q PATH; or set PATH ''
 set -gx PATH /Users/saumavel/.m2/wrapper/dists/apache-maven-3.9.7-bin/3k9n615lchs6mp84v355m633uo/apache-maven-3.9.7/bin $PATH
 
+# KATLA DSM Environment Variables
+set -gx KATLA_DSM_LIB_DIR /Users/saumavel/genki/development/katla/katla-dsm/zig-out
+set -gx KATLA_DSM_SRC_DIR /Users/saumavel/genki/development/katla/katla-dsm
+
 # ALIASES FOR NIX (Consider moving these to shellAliases in home.nix)
 alias gcc '/Users/saumavel/.nix-profile/bin/gcc'
 alias g++ '/Users/saumavel/.nix-profile/bin/g++'
