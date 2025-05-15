@@ -26,7 +26,6 @@
     swaylock.enable = false;
     mako.enable = false;
     lazygit.enable = false;
-
   };
 
   home = {
@@ -87,8 +86,9 @@
     #
     # Shell and Terminal
     #
-
-    bash.enable = true;
+    bash = {
+      enable = true;
+    };
 
     fish = {
       enable = true;
@@ -484,6 +484,5 @@
     # Web browsers and tools for web interaction
     #
     # qutebrowser # Keyboard-focused browser with a minimal GUI
-
   ];
 }

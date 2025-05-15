@@ -17,23 +17,22 @@ return {
         notes_subdir = vault_config.notes_subdir,
         daily_notes = vault_config.daily_notes,
 
-        -- Add missing default fields
         completion = {
             nvim_cmp = false,
             min_chars = 2,
-            default = true, -- Add this missing field
+            default = true,
         },
 
         templates = {
-            folder = "templates",
+            subdir = "templates", -- Changed 'folder' to 'subdir'
             date_format = "%Y-%m-%d",
             time_format = "%H:%M",
-            default = true, -- Add this missing field
+            default = true,
         },
 
         picker = {
-            name = "telescope.nvim", -- Use telescope instead of snacks for now
-            note_mappings = {}, -- Add these required fields
+            name = "telescope.nvim",
+            note_mappings = {},
             tag_mappings = {},
             default = true,
         },
@@ -42,7 +41,7 @@ return {
             enable = true,
             update_debounce = 200,
             checkboxes = {
-                [" "] = { char = "󰄱", hl_group = "ObsidianTodo", default = true }, -- Add default field
+                [" "] = { char = "󰄱", hl_group = "ObsidianTodo", default = true },
                 ["x"] = { char = "", hl_group = "ObsidianDone", default = true },
                 [">"] = { char = "", hl_group = "ObsidianRightArrow", default = true },
                 ["~"] = { char = "󰰱", hl_group = "ObsidianTilde", default = true },
